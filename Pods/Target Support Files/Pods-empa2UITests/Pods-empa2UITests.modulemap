@@ -1,0 +1,6 @@
+framework module Pods_empa2UITests {
+  umbrella header "Pods-empa2UITests-umbrella.h"
+
+  export *
+  module * { export * }
+}
