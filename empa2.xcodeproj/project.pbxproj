@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		27D34FB74FE56793092BEF2C /* Pods_empa2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17F0FE57B81B3E06330E9B91 /* Pods_empa2.framework */; };
+		36CA26601E0ECEA30050DBFE /* GameTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36CA265F1E0ECEA30050DBFE /* GameTimer.swift */; };
 		36D1CA681E0DDE7300ADB5A5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D1CA671E0DDE7300ADB5A5 /* AppDelegate.swift */; };
 		36D1CA6F1E0DDE7300ADB5A5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 36D1CA6E1E0DDE7300ADB5A5 /* Assets.xcassets */; };
 		36D1CA721E0DDE7300ADB5A5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 36D1CA701E0DDE7300ADB5A5 /* LaunchScreen.storyboard */; };
@@ -44,6 +45,7 @@
 /* Begin PBXFileReference section */
 		17F0FE57B81B3E06330E9B91 /* Pods_empa2.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_empa2.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2A24DEDD8DC4C153297F4E2B /* Pods_empa2Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_empa2Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		36CA265F1E0ECEA30050DBFE /* GameTimer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameTimer.swift; sourceTree = "<group>"; };
 		36D1CA641E0DDE7300ADB5A5 /* empa2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = empa2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		36D1CA671E0DDE7300ADB5A5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		36D1CA6E1E0DDE7300ADB5A5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -139,6 +141,7 @@
 				36D1CA991E0DDFDA00ADB5A5 /* PlaceholderCell.swift */,
 				36D1CA9A1E0DDFDA00ADB5A5 /* CameraViewCell.swift */,
 				36D1CA9B1E0DDFDA00ADB5A5 /* FrontCameraView.swift */,
+				36CA265F1E0ECEA30050DBFE /* GameTimer.swift */,
 				36D1CA9F1E0DDFE500ADB5A5 /* Main.storyboard */,
 				36D1CA951E0DDFB100ADB5A5 /* CameraViewCell.xib */,
 				36D1CA961E0DDFB100ADB5A5 /* PlaceholderCell.xib */,
@@ -453,6 +456,7 @@
 				36D1CAA21E0DE07300ADB5A5 /* ViewController.swift in Sources */,
 				36D1CA681E0DDE7300ADB5A5 /* AppDelegate.swift in Sources */,
 				36D1CA9C1E0DDFDA00ADB5A5 /* PlaceholderCell.swift in Sources */,
+				36CA26601E0ECEA30050DBFE /* GameTimer.swift in Sources */,
 				36D1CA9D1E0DDFDA00ADB5A5 /* CameraViewCell.swift in Sources */,
 				36D1CA9E1E0DDFDA00ADB5A5 /* FrontCameraView.swift in Sources */,
 			);

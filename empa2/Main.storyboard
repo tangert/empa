@@ -12,7 +12,7 @@
         <!--View Controller-->
         <scene sceneID="Nev-Ph-37H">
             <objects>
-                <viewController id="Ezw-bx-K7V" customClass="ViewController" customModule="TAModularCameraView" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="Ezw-bx-K7V" customClass="ViewController" customModule="empa2" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="RZV-Ko-g3y"/>
                         <viewControllerLayoutGuide type="bottom" id="b88-jp-M0R"/>
@@ -23,20 +23,7 @@
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SAC-BQ-H5w">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wzQ-vW-miP">
-                                        <rect key="frame" x="140" y="38" width="95" height="30"/>
-                                        <state key="normal" title="Begin session"/>
-                                        <connections>
-                                            <action selector="beginSession:" destination="Ezw-bx-K7V" eventType="touchUpInside" id="hlb-JL-dW3"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstItem="wzQ-vW-miP" firstAttribute="centerX" secondItem="SAC-BQ-H5w" secondAttribute="centerX" id="9kh-Yn-8V3"/>
-                                    <constraint firstItem="wzQ-vW-miP" firstAttribute="top" secondItem="SAC-BQ-H5w" secondAttribute="top" constant="38" id="HPS-B8-Lyd"/>
-                                </constraints>
                             </view>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="ody-Ww-s04">
                                 <rect key="frame" x="0.0" y="81" width="375" height="482"/>
@@ -73,7 +60,6 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="beginSessionButton" destination="wzQ-vW-miP" id="CbL-5w-18g"/>
                         <outlet property="collectionView" destination="ody-Ww-s04" id="T9E-7d-TKh"/>
                     </connections>
                 </viewController>
