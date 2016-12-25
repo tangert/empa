@@ -8,7 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		27D34FB74FE56793092BEF2C /* Pods_empa2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17F0FE57B81B3E06330E9B91 /* Pods_empa2.framework */; };
-		36CA26601E0ECEA30050DBFE /* GameTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36CA265F1E0ECEA30050DBFE /* GameTimer.swift */; };
+		3612F2A11E0F833D0060C23C /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3612F2A01E0F833D0060C23C /* Extensions.swift */; };
+		3612F2A31E0F8E350060C23C /* DataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3612F2A21E0F8E350060C23C /* DataViewController.swift */; };
+		365F61C31E0F94B900C0D4B0 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 365F61C21E0F94B900C0D4B0 /* DataManager.swift */; };
 		36D1CA681E0DDE7300ADB5A5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D1CA671E0DDE7300ADB5A5 /* AppDelegate.swift */; };
 		36D1CA6F1E0DDE7300ADB5A5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 36D1CA6E1E0DDE7300ADB5A5 /* Assets.xcassets */; };
 		36D1CA721E0DDE7300ADB5A5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 36D1CA701E0DDE7300ADB5A5 /* LaunchScreen.storyboard */; };
@@ -20,7 +22,7 @@
 		36D1CA9D1E0DDFDA00ADB5A5 /* CameraViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D1CA9A1E0DDFDA00ADB5A5 /* CameraViewCell.swift */; };
 		36D1CA9E1E0DDFDA00ADB5A5 /* FrontCameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D1CA9B1E0DDFDA00ADB5A5 /* FrontCameraView.swift */; };
 		36D1CAA01E0DDFE500ADB5A5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 36D1CA9F1E0DDFE500ADB5A5 /* Main.storyboard */; };
-		36D1CAA21E0DE07300ADB5A5 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D1CAA11E0DE07300ADB5A5 /* ViewController.swift */; };
+		36D1CAA21E0DE07300ADB5A5 /* SessionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D1CAA11E0DE07300ADB5A5 /* SessionViewController.swift */; };
 		5C39576911D881DDF41DAD12 /* Pods_empa2Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A24DEDD8DC4C153297F4E2B /* Pods_empa2Tests.framework */; };
 		B9BEF937960D894BA1510396 /* Pods_empa2UITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EACA32E45050071A182DD9E5 /* Pods_empa2UITests.framework */; };
 /* End PBXBuildFile section */
@@ -45,7 +47,9 @@
 /* Begin PBXFileReference section */
 		17F0FE57B81B3E06330E9B91 /* Pods_empa2.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_empa2.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2A24DEDD8DC4C153297F4E2B /* Pods_empa2Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_empa2Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		36CA265F1E0ECEA30050DBFE /* GameTimer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameTimer.swift; sourceTree = "<group>"; };
+		3612F2A01E0F833D0060C23C /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		3612F2A21E0F8E350060C23C /* DataViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataViewController.swift; sourceTree = "<group>"; };
+		365F61C21E0F94B900C0D4B0 /* DataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		36D1CA641E0DDE7300ADB5A5 /* empa2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = empa2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		36D1CA671E0DDE7300ADB5A5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		36D1CA6E1E0DDE7300ADB5A5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -63,7 +67,7 @@
 		36D1CA9A1E0DDFDA00ADB5A5 /* CameraViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraViewCell.swift; sourceTree = "<group>"; };
 		36D1CA9B1E0DDFDA00ADB5A5 /* FrontCameraView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FrontCameraView.swift; sourceTree = "<group>"; };
 		36D1CA9F1E0DDFE500ADB5A5 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
-		36D1CAA11E0DE07300ADB5A5 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		36D1CAA11E0DE07300ADB5A5 /* SessionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionViewController.swift; sourceTree = "<group>"; };
 		733D5DDB1257C0EDA2C0A692 /* Pods-empa2Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-empa2Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-empa2Tests/Pods-empa2Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		C23F709094F2D2DB8A2B26A8 /* Pods-empa2.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-empa2.debug.xcconfig"; path = "Pods/Target Support Files/Pods-empa2/Pods-empa2.debug.xcconfig"; sourceTree = "<group>"; };
 		C898B9FB7EF8853AD4E71D93 /* Pods-empa2.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-empa2.release.xcconfig"; path = "Pods/Target Support Files/Pods-empa2/Pods-empa2.release.xcconfig"; sourceTree = "<group>"; };
@@ -111,6 +115,18 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		3634DF7D1E0F2B7E00950845 /* Custom Cells + Xibs */ = {
+			isa = PBXGroup;
+			children = (
+				36D1CA991E0DDFDA00ADB5A5 /* PlaceholderCell.swift */,
+				36D1CA9A1E0DDFDA00ADB5A5 /* CameraViewCell.swift */,
+				36D1CA9B1E0DDFDA00ADB5A5 /* FrontCameraView.swift */,
+				36D1CA951E0DDFB100ADB5A5 /* CameraViewCell.xib */,
+				36D1CA961E0DDFB100ADB5A5 /* PlaceholderCell.xib */,
+			);
+			name = "Custom Cells + Xibs";
+			sourceTree = "<group>";
+		};
 		36D1CA5B1E0DDE7300ADB5A5 = {
 			isa = PBXGroup;
 			children = (
@@ -137,14 +153,12 @@
 			isa = PBXGroup;
 			children = (
 				36D1CA671E0DDE7300ADB5A5 /* AppDelegate.swift */,
-				36D1CAA11E0DE07300ADB5A5 /* ViewController.swift */,
-				36D1CA991E0DDFDA00ADB5A5 /* PlaceholderCell.swift */,
-				36D1CA9A1E0DDFDA00ADB5A5 /* CameraViewCell.swift */,
-				36D1CA9B1E0DDFDA00ADB5A5 /* FrontCameraView.swift */,
-				36CA265F1E0ECEA30050DBFE /* GameTimer.swift */,
+				36D1CAA11E0DE07300ADB5A5 /* SessionViewController.swift */,
+				365F61C21E0F94B900C0D4B0 /* DataManager.swift */,
+				3612F2A21E0F8E350060C23C /* DataViewController.swift */,
+				3634DF7D1E0F2B7E00950845 /* Custom Cells + Xibs */,
+				3612F2A01E0F833D0060C23C /* Extensions.swift */,
 				36D1CA9F1E0DDFE500ADB5A5 /* Main.storyboard */,
-				36D1CA951E0DDFB100ADB5A5 /* CameraViewCell.xib */,
-				36D1CA961E0DDFB100ADB5A5 /* PlaceholderCell.xib */,
 				36D1CA6E1E0DDE7300ADB5A5 /* Assets.xcassets */,
 				36D1CA701E0DDE7300ADB5A5 /* LaunchScreen.storyboard */,
 				36D1CA731E0DDE7300ADB5A5 /* Info.plist */,
@@ -453,12 +467,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				36D1CAA21E0DE07300ADB5A5 /* ViewController.swift in Sources */,
+				36D1CAA21E0DE07300ADB5A5 /* SessionViewController.swift in Sources */,
+				365F61C31E0F94B900C0D4B0 /* DataManager.swift in Sources */,
 				36D1CA681E0DDE7300ADB5A5 /* AppDelegate.swift in Sources */,
 				36D1CA9C1E0DDFDA00ADB5A5 /* PlaceholderCell.swift in Sources */,
-				36CA26601E0ECEA30050DBFE /* GameTimer.swift in Sources */,
+				3612F2A31E0F8E350060C23C /* DataViewController.swift in Sources */,
 				36D1CA9D1E0DDFDA00ADB5A5 /* CameraViewCell.swift in Sources */,
 				36D1CA9E1E0DDFDA00ADB5A5 /* FrontCameraView.swift in Sources */,
+				3612F2A11E0F833D0060C23C /* Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -18,7 +18,7 @@ class CameraViewCell: UICollectionViewCell {
     @IBOutlet weak var faceShownLabel: UILabel!
     
     override func awakeFromNib() {
-        ViewController.cameraDelegate = self
+        SessionViewController.cameraDelegate = self
     }
     
 }

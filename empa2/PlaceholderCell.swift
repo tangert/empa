@@ -10,7 +10,5 @@ import Foundation
 import UIKit
 
 class PlaceholderCell : UICollectionViewCell {
-
     @IBOutlet weak var placeholderImage: UIImageView!
-    
 }

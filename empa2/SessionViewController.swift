@@ -16,11 +16,13 @@ protocol UpdateCameraFeedDelegate {
     func willUpdateFaceLabel(input: String)
 }
 
-class ViewController: UIViewController {
+class SessionViewController: UIViewController {
     
     var images = [UIImage]()
     var placeholderCellNib: UINib? = UINib(nibName: "PlaceholderCell", bundle:nil)
     var cameraViewNib: UINib? = UINib(nibName: "CameraViewCell", bundle: nil)
+    
+    var timer: Timer!
     
     var detector: AFDXDetector? = nil
     var processedImage = UIImage()
@@ -32,11 +34,14 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         print("Hi! We're working!")
-        
         for i in 0...24 {
-            //only 6 sample images, so mod 6 to produce 12
             images.append(UIImage(named: "\((i%6)+1)")!)
         }
+        
+        timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { (Timer) in
+            
+            
+        })
         
         detector?.delegate = self
         collectionView.delegate = self
@@ -60,28 +65,43 @@ class ViewController: UIViewController {
     }
 }
 
-extension ViewController: AFDXDetectorDelegate {
+extension SessionViewController: AFDXDetectorDelegate {
     
     //Affdex delegate methods!
     func detector(_ detector: AFDXDetector!, didStartDetecting face: AFDXFace!) {
         print("Face shown!")
-        ViewController.cameraDelegate?.willUpdateFaceLabel(input: "Face shown!")
+        SessionViewController.cameraDelegate?.willUpdateFaceLabel(input: "Face shown!")
     }
     
     func detector(_ detector: AFDXDetector!, didStopDetecting face: AFDXFace!) {
         print("Show your face, idiot.")
-        ViewController.cameraDelegate?.willUpdateFaceLabel(input: "NO FACE!!!")
+        print("All emotion data up to this point: \(DataManager.sharedInstance.emotionData)")
+        SessionViewController.cameraDelegate?.willUpdateFaceLabel(input: "NO FACE!!!")
     }
     
     func detector(_ detector: AFDXDetector!, hasResults: NSMutableDictionary!, for image: UIImage!, atTime time: TimeInterval) {
         
         if hasResults != nil {
             for (_, face) in hasResults! {
-                let currentEmoji : AFDXEmoji = (face as AnyObject).emojis
+                
+                let output = face as AnyObject
+                
+                //Initial emoji data
+                let currentEmoji : AFDXEmoji = output.emojis
                 let mappedEmoji = mapEmoji(emoji: currentEmoji.dominantEmoji)
                 print("Your emoji: \(mappedEmoji)")
+                
+                //Raw emotion data as a dictionary, [String: Dobule]
+                let emotions = output.emotions!.jsonDescription()
+                if let range = emotions!.range(of: "\"emotions\": ") {
+                    let json = emotions!.substring(from: range.upperBound)
+                    let jsonArray = json.convertToDictionary()
+                    print("Emotions: \(jsonArray!)")
+                    DataManager.sharedInstance.emotionData.append(jsonArray!)
+                }
+                
                 unprocessedImageReady(detector, image: image, atTime: time)
-                ViewController.cameraDelegate?.willUpdateEmojiLabel(input: mappedEmoji)
+                SessionViewController.cameraDelegate?.willUpdateEmojiLabel(input: mappedEmoji)
             }
         } else {
             //call to fill in frames when a face isn't detected completely.
@@ -99,7 +119,7 @@ extension ViewController: AFDXDetectorDelegate {
     }
     
     func processedImageReady(image: UIImage) {
-        ViewController.cameraDelegate?.willUpdateCameraFeed(image: image)
+        SessionViewController.cameraDelegate?.willUpdateCameraFeed(image: image)
     }
     
     func destroyDetector() {
@@ -173,7 +193,7 @@ extension ViewController: AFDXDetectorDelegate {
     }
 }
 
-extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+extension SessionViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     
     private func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -203,7 +223,7 @@ extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     }
 }
 
-extension ViewController: UICollectionViewDelegateFlowLayout {
+extension SessionViewController: UICollectionViewDelegateFlowLayout {
     
     //formatting the cells to be centered
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
