@@ -10,12 +10,6 @@ import UIKit
 import Foundation
 import Affdex
 
-protocol UpdateCameraFeedDelegate {
-    func willUpdateCameraFeed(image: UIImage)
-    func willUpdateEmojiLabel(input: String)
-    func willUpdateFaceLabel(input: String)
-}
-
 class SessionViewController: UIViewController {
     
     var images = [UIImage]()
@@ -28,20 +22,20 @@ class SessionViewController: UIViewController {
     var processedImage = UIImage()
     var unprocessedImage = UIImage()
     static var cameraDelegate: UpdateCameraFeedDelegate?
+    static var dataManagerDelegate: DataManagerDelegate?
     
+    var counter = 0.0
+    var roundedCounter = 0.0
+    @IBOutlet weak var timerLabel: UILabel!
     @IBOutlet weak var collectionView: UICollectionView!
-
+    @IBOutlet weak var exportDataButton: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         print("Hi! We're working!")
         for i in 0...24 {
             images.append(UIImage(named: "\((i%6)+1)")!)
         }
-        
-        timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { (Timer) in
-            
-            
-        })
         
         detector?.delegate = self
         collectionView.delegate = self
@@ -63,19 +57,39 @@ class SessionViewController: UIViewController {
         super.viewWillDisappear(animated)
         destroyDetector()
     }
+    
+    func updateCounter() {
+        counter+=0.1
+        roundedCounter = Double(round(10*counter)/10)
+        print("Session time: \(roundedCounter)")
+        timerLabel.text = "Session time: \(roundedCounter)"
+    }
+    
+    @IBAction func exportData(_ sender: Any) {
+        SessionViewController.dataManagerDelegate?.didExportData()
+        timer.invalidate()
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        DataViewController.chartData = DataManager.sharedInstance.chartData
+    }
+    
 }
 
 extension SessionViewController: AFDXDetectorDelegate {
     
     //Affdex delegate methods!
     func detector(_ detector: AFDXDetector!, didStartDetecting face: AFDXFace!) {
+        self.timer = Timer.scheduledTimer(timeInterval: 0.1, target:self, selector: #selector(SessionViewController.updateCounter), userInfo: nil, repeats: true)
         print("Face shown!")
         SessionViewController.cameraDelegate?.willUpdateFaceLabel(input: "Face shown!")
     }
     
     func detector(_ detector: AFDXDetector!, didStopDetecting face: AFDXFace!) {
+        timer.invalidate()
         print("Show your face, idiot.")
-        print("All emotion data up to this point: \(DataManager.sharedInstance.emotionData)")
+//        print("All emotion data up to this point: \(DataManager.sharedInstance.emotionData)")
+//        print("Measured time intervals: \(DataManager.sharedInstance.timeData)")
         SessionViewController.cameraDelegate?.willUpdateFaceLabel(input: "NO FACE!!!")
     }
     
@@ -86,17 +100,20 @@ extension SessionViewController: AFDXDetectorDelegate {
                 
                 let output = face as AnyObject
                 
+                //time data
+                DataManager.sharedInstance.timeData.append(self.roundedCounter)
+                
                 //Initial emoji data
                 let currentEmoji : AFDXEmoji = output.emojis
                 let mappedEmoji = mapEmoji(emoji: currentEmoji.dominantEmoji)
                 print("Your emoji: \(mappedEmoji)")
                 
-                //Raw emotion data as a dictionary, [String: Dobule]
+                //Raw emotion data as a dictionary, [String: Double]
                 let emotions = output.emotions!.jsonDescription()
                 if let range = emotions!.range(of: "\"emotions\": ") {
                     let json = emotions!.substring(from: range.upperBound)
                     let jsonArray = json.convertToDictionary()
-                    print("Emotions: \(jsonArray!)")
+//                    print("Emotions: \(jsonArray!)")
                     DataManager.sharedInstance.emotionData.append(jsonArray!)
                 }
                 
@@ -133,8 +150,9 @@ extension SessionViewController: AFDXDetectorDelegate {
             
             print("No front camera.")
             let alert = UIAlertController(title: "No front camera.", message: "Sorry about that.", preferredStyle: .alert)
-            self.present(alert, animated: true, completion: {() -> Void in
-            })
+            let cancelAction = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
+            alert.addAction(cancelAction)
+            self.present(alert, animated: true, completion: nil)
 
             return
         }

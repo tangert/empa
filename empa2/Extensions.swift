@@ -10,7 +10,6 @@ import Foundation
 
 extension String {
     //converting JSON string to Dictionary.
-    
     func convertToDictionary() -> [String:AnyObject]? {
         if let data = self.data(using: String.Encoding.utf8) {
             do {
@@ -24,3 +23,11 @@ extension String {
     }
     
 }
+
+//extension Double {
+//    func roundToDecimalPlace(place: Int) -> Double {
+//        let decimalPlace = (pow(10,place))
+//        return Double(round(decimalPlace*self)/decimalPlace)
+//    }
+//    
+//}

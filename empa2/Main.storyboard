@@ -6,13 +6,13 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--Navigation Controller-->
         <scene sceneID="CGt-cD-YSG">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="oIw-Gg-d53" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController id="4NZ-JH-22Y" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="5ey-Ku-91z">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -22,6 +22,7 @@
                         <segue destination="Ezw-bx-K7V" kind="relationship" relationship="rootViewController" id="VkC-EP-rRb"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="oIw-Gg-d53" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-878" y="-57"/>
         </scene>
@@ -51,14 +52,23 @@
                                         <rect key="frame" x="147" y="592" width="80" height="30"/>
                                         <state key="normal" title="Export data"/>
                                         <connections>
-                                            <segue destination="7QR-b9-wcc" kind="show" id="tWy-FC-HOz"/>
+                                            <action selector="exportData:" destination="Ezw-bx-K7V" eventType="touchUpInside" id="cwj-7h-Vu5"/>
+                                            <segue destination="7QR-b9-wcc" kind="show" identifier="exportData" id="tWy-FC-HOz"/>
                                         </connections>
                                     </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Session time: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Of5-6f-947">
+                                        <rect key="frame" x="134" y="78" width="107" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
+                                    <constraint firstItem="Of5-6f-947" firstAttribute="centerX" secondItem="6fj-jQ-hV4" secondAttribute="centerX" id="7TT-73-QSi"/>
                                     <constraint firstAttribute="bottom" secondItem="4gT-yQ-OIP" secondAttribute="bottom" constant="45" id="7p7-4w-9vX"/>
                                     <constraint firstItem="6fj-jQ-hV4" firstAttribute="centerX" secondItem="SAC-BQ-H5w" secondAttribute="centerX" id="B0a-z4-Pkf"/>
+                                    <constraint firstItem="Of5-6f-947" firstAttribute="top" secondItem="6fj-jQ-hV4" secondAttribute="bottom" constant="8" symbolic="YES" id="CLp-pU-WoS"/>
                                     <constraint firstItem="4gT-yQ-OIP" firstAttribute="centerX" secondItem="6fj-jQ-hV4" secondAttribute="centerX" id="IWW-Wo-NYJ"/>
                                     <constraint firstItem="6fj-jQ-hV4" firstAttribute="top" secondItem="SAC-BQ-H5w" secondAttribute="top" constant="40" id="cRu-UB-w5X"/>
                                 </constraints>
@@ -100,16 +110,18 @@
                     <navigationItem key="navigationItem" id="a28-jB-C0k"/>
                     <connections>
                         <outlet property="collectionView" destination="ody-Ww-s04" id="lJy-YK-Oiz"/>
+                        <outlet property="exportDataButton" destination="4gT-yQ-OIP" id="ybQ-Au-kDT"/>
+                        <outlet property="timerLabel" destination="Of5-6f-947" id="tKo-yb-3AA"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ugZ-Pv-EIS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-108" y="-57.121439280359823"/>
         </scene>
-        <!--View Controller-->
+        <!--Data View Controller-->
         <scene sceneID="bxd-YV-bdN">
             <objects>
-                <viewController id="7QR-b9-wcc" sceneMemberID="viewController">
+                <viewController id="7QR-b9-wcc" customClass="DataViewController" customModule="empa2" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Bhu-jk-tdg"/>
                         <viewControllerLayoutGuide type="bottom" id="KKT-31-sqv"/>
@@ -117,12 +129,44 @@
                     <view key="view" contentMode="scaleToFill" id="tat-Qu-lZI">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ww2-Vf-h2S" customClass="ORKLineGraphChartView">
+                                <rect key="frame" x="19" y="179" width="336" height="308"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="showsVerticalReferenceLines" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="showsHorizontalReferenceLines" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="axisColor">
+                                        <color key="value" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="verticalAxisTitleColor">
+                                        <color key="value" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="scrubberThumbColor">
+                                        <color key="value" red="1" green="0.64451722860000005" blue="0.43976933239999999" alpha="1" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="scrubberLineColor">
+                                        <color key="value" red="1" green="0.64451722860000005" blue="0.43976933239999999" alpha="1" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="noDataText" value="Emotion data"/>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="ww2-Vf-h2S" firstAttribute="top" secondItem="Bhu-jk-tdg" secondAttribute="bottom" constant="115" id="IdS-y8-LtE"/>
+                            <constraint firstItem="ww2-Vf-h2S" firstAttribute="leading" secondItem="tat-Qu-lZI" secondAttribute="leadingMargin" constant="3" id="aso-yT-SDX"/>
+                            <constraint firstItem="ww2-Vf-h2S" firstAttribute="centerY" secondItem="tat-Qu-lZI" secondAttribute="centerY" id="wnY-dm-tg8"/>
+                            <constraint firstItem="ww2-Vf-h2S" firstAttribute="centerX" secondItem="tat-Qu-lZI" secondAttribute="centerX" id="y2P-8P-D7q"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="graphChart" destination="ww2-Vf-h2S" id="a83-Cl-IxM"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NBS-D8-97z" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="674" y="-57"/>
+            <point key="canvasLocation" x="672.79999999999995" y="-57.121439280359823"/>
         </scene>
     </scenes>
 </document>

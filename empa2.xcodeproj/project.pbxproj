@@ -11,6 +11,9 @@
 		3612F2A11E0F833D0060C23C /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3612F2A01E0F833D0060C23C /* Extensions.swift */; };
 		3612F2A31E0F8E350060C23C /* DataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3612F2A21E0F8E350060C23C /* DataViewController.swift */; };
 		365F61C31E0F94B900C0D4B0 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 365F61C21E0F94B900C0D4B0 /* DataManager.swift */; };
+		365F61D01E0F9A4A00C0D4B0 /* ResearchKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 365F61CD1E0F9A1F00C0D4B0 /* ResearchKit.framework */; };
+		365F61D11E0F9A4A00C0D4B0 /* ResearchKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 365F61CD1E0F9A1F00C0D4B0 /* ResearchKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		365F61D61E0FAC6800C0D4B0 /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 365F61D51E0FAC6800C0D4B0 /* Protocols.swift */; };
 		36D1CA681E0DDE7300ADB5A5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D1CA671E0DDE7300ADB5A5 /* AppDelegate.swift */; };
 		36D1CA6F1E0DDE7300ADB5A5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 36D1CA6E1E0DDE7300ADB5A5 /* Assets.xcassets */; };
 		36D1CA721E0DDE7300ADB5A5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 36D1CA701E0DDE7300ADB5A5 /* LaunchScreen.storyboard */; };
@@ -28,6 +31,27 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		365F61CC1E0F9A1F00C0D4B0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 365F61C61E0F9A1F00C0D4B0 /* ResearchKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = B183A5951A8535D100C76870;
+			remoteInfo = ResearchKit;
+		};
+		365F61CE1E0F9A1F00C0D4B0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 365F61C61E0F9A1F00C0D4B0 /* ResearchKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 86CC8E9A1AC09332001CCD89;
+			remoteInfo = ResearchKitTests;
+		};
+		365F61D21E0F9A4A00C0D4B0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 365F61C61E0F9A1F00C0D4B0 /* ResearchKit.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = B183A4731A8535D100C76870;
+			remoteInfo = ResearchKit;
+		};
 		36D1CA791E0DDE7300ADB5A5 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 36D1CA5C1E0DDE7300ADB5A5 /* Project object */;
@@ -44,12 +68,28 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		365F61D41E0F9A4A00C0D4B0 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				365F61D11E0F9A4A00C0D4B0 /* ResearchKit.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		17F0FE57B81B3E06330E9B91 /* Pods_empa2.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_empa2.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2A24DEDD8DC4C153297F4E2B /* Pods_empa2Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_empa2Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3612F2A01E0F833D0060C23C /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		3612F2A21E0F8E350060C23C /* DataViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataViewController.swift; sourceTree = "<group>"; };
 		365F61C21E0F94B900C0D4B0 /* DataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
+		365F61C61E0F9A1F00C0D4B0 /* ResearchKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ResearchKit.xcodeproj; path = "../../../../Downloads/ResearchKit-master/ResearchKit.xcodeproj"; sourceTree = "<group>"; };
+		365F61D51E0FAC6800C0D4B0 /* Protocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
 		36D1CA641E0DDE7300ADB5A5 /* empa2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = empa2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		36D1CA671E0DDE7300ADB5A5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		36D1CA6E1E0DDE7300ADB5A5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -82,6 +122,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				365F61D01E0F9A4A00C0D4B0 /* ResearchKit.framework in Frameworks */,
 				27D34FB74FE56793092BEF2C /* Pods_empa2.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -127,9 +168,19 @@
 			name = "Custom Cells + Xibs";
 			sourceTree = "<group>";
 		};
+		365F61C71E0F9A1F00C0D4B0 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				365F61CD1E0F9A1F00C0D4B0 /* ResearchKit.framework */,
+				365F61CF1E0F9A1F00C0D4B0 /* ResearchKitTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		36D1CA5B1E0DDE7300ADB5A5 = {
 			isa = PBXGroup;
 			children = (
+				365F61C61E0F9A1F00C0D4B0 /* ResearchKit.xcodeproj */,
 				36D1CA661E0DDE7300ADB5A5 /* empa2 */,
 				36D1CA7B1E0DDE7300ADB5A5 /* empa2Tests */,
 				36D1CA861E0DDE7300ADB5A5 /* empa2UITests */,
@@ -158,6 +209,7 @@
 				3612F2A21E0F8E350060C23C /* DataViewController.swift */,
 				3634DF7D1E0F2B7E00950845 /* Custom Cells + Xibs */,
 				3612F2A01E0F833D0060C23C /* Extensions.swift */,
+				365F61D51E0FAC6800C0D4B0 /* Protocols.swift */,
 				36D1CA9F1E0DDFE500ADB5A5 /* Main.storyboard */,
 				36D1CA6E1E0DDE7300ADB5A5 /* Assets.xcassets */,
 				36D1CA701E0DDE7300ADB5A5 /* LaunchScreen.storyboard */,
@@ -210,10 +262,12 @@
 				36D1CA621E0DDE7300ADB5A5 /* Resources */,
 				E34FFBD37B7A69CDCF48188C /* [CP] Embed Pods Frameworks */,
 				0C1D1AF7E2605AD162EBEC48 /* [CP] Copy Pods Resources */,
+				365F61D41E0F9A4A00C0D4B0 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				365F61D31E0F9A4A00C0D4B0 /* PBXTargetDependency */,
 			);
 			name = empa2;
 			productName = empa2;
@@ -301,6 +355,12 @@
 			mainGroup = 36D1CA5B1E0DDE7300ADB5A5;
 			productRefGroup = 36D1CA651E0DDE7300ADB5A5 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 365F61C71E0F9A1F00C0D4B0 /* Products */;
+					ProjectRef = 365F61C61E0F9A1F00C0D4B0 /* ResearchKit.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				36D1CA631E0DDE7300ADB5A5 /* empa2 */,
@@ -309,6 +369,23 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		365F61CD1E0F9A1F00C0D4B0 /* ResearchKit.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = ResearchKit.framework;
+			remoteRef = 365F61CC1E0F9A1F00C0D4B0 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		365F61CF1E0F9A1F00C0D4B0 /* ResearchKitTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = ResearchKitTests.xctest;
+			remoteRef = 365F61CE1E0F9A1F00C0D4B0 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		36D1CA621E0DDE7300ADB5A5 /* Resources */ = {
@@ -470,6 +547,7 @@
 				36D1CAA21E0DE07300ADB5A5 /* SessionViewController.swift in Sources */,
 				365F61C31E0F94B900C0D4B0 /* DataManager.swift in Sources */,
 				36D1CA681E0DDE7300ADB5A5 /* AppDelegate.swift in Sources */,
+				365F61D61E0FAC6800C0D4B0 /* Protocols.swift in Sources */,
 				36D1CA9C1E0DDFDA00ADB5A5 /* PlaceholderCell.swift in Sources */,
 				3612F2A31E0F8E350060C23C /* DataViewController.swift in Sources */,
 				36D1CA9D1E0DDFDA00ADB5A5 /* CameraViewCell.swift in Sources */,
@@ -497,6 +575,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		365F61D31E0F9A4A00C0D4B0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = ResearchKit;
+			targetProxy = 365F61D21E0F9A4A00C0D4B0 /* PBXContainerItemProxy */;
+		};
 		36D1CA7A1E0DDE7300ADB5A5 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 36D1CA631E0DDE7300ADB5A5 /* empa2 */;
@@ -618,6 +701,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = C23F709094F2D2DB8A2B26A8 /* Pods-empa2.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 8TWVWBQE3T;
 				INFOPLIST_FILE = empa2/Info.plist;
@@ -632,6 +716,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = C898B9FB7EF8853AD4E71D93 /* Pods-empa2.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 8TWVWBQE3T;
 				INFOPLIST_FILE = empa2/Info.plist;
