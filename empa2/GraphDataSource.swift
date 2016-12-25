@@ -12,6 +12,8 @@ import ResearchKit
 
 class GraphDataSource: NSObject, ORKValueRangeGraphChartViewDataSource {
     
+    static let sharedInstance = GraphDataSource()
+    
     // MARK: Properties
     var plotPoints = [[ORKValueRange]]()
     

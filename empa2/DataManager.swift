@@ -12,6 +12,7 @@ import Affdex
 import ResearchKit
 
 //collect all available data here from SessionViewController, then send to DataViewController.
+
 class DataManager {
     
     static var sharedInstance = DataManager()
@@ -31,6 +32,11 @@ class DataManager {
 
 extension DataManager: DataManagerDelegate {
     
+    func didUpdateTimer(counter: Double) {
+        timeData.append(counter)
+        timeSensitiveEmotionData.append(emotionData.last!)
+    }
+    
     func didExportData() {
         print("Exported data from SessionViewController to DataManager.")
         
@@ -43,17 +49,11 @@ extension DataManager: DataManagerDelegate {
             chartDictionary[key] = val
         }
         
-        let chartArray = Array(zip(timeData, timeSensitiveEmotionData))
+        chartArray = Array(zip(timeData, timeSensitiveEmotionData))
         
         print ("Key val count: \(keyValCount)")
         print("Chart array count: \(chartArray.count)")
         print("Chart array: \(chartArray)")
         
     }
-    
-    func didUpdateTimer(counter: Double) {
-        timeData.append(counter)
-        timeSensitiveEmotionData.append(emotionData.last!)
-    }
-
 }

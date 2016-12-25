@@ -9,14 +9,14 @@
 import Foundation
 import UIKit
 
-protocol UpdateCameraFeedDelegate {
-    func willUpdateCameraFeed(image: UIImage)
-    func willUpdateEmojiLabel(input: String)
-    func willUpdateFaceLabel(input: String)
-}
-
 protocol DataManagerDelegate {
     //notifies the datamanager when to consolidate all data
     func didExportData()
     func didUpdateTimer(counter: Double)
+}
+
+protocol UpdateCameraFeedDelegate {
+    func willUpdateCameraFeed(image: UIImage)
+    func willUpdateEmojiLabel(input: String)
+    func willUpdateFaceLabel(input: String)
 }

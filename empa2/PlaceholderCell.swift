@@ -2,7 +2,7 @@
 //  PlaceholderCell.swift
 //  TRModularCameraView
 //
-//  Created by Tyler Angert on 10/6/16.
+//  Created by Tyler Angert on 12/23/16.
 //  Copyright © 2016 Tyler Angert. All rights reserved.
 //
 

@@ -17,7 +17,7 @@ class DataViewController: UIViewController {
     static var chartDictionary = [Double: [String: AnyObject]?]()
     static var chartArray = Array<(Double, [String: AnyObject])>()
 
-    let graphDataSource = GraphDataSource()
+    let graphDataSource = GraphDataSource.sharedInstance
 
     
     override func viewDidLoad() {
