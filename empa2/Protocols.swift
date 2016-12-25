@@ -18,4 +18,5 @@ protocol UpdateCameraFeedDelegate {
 protocol DataManagerDelegate {
     //notifies the datamanager when to consolidate all data
     func didExportData()
+    func didUpdateTimer(counter: Double)
 }

@@ -10,6 +10,7 @@
 		27D34FB74FE56793092BEF2C /* Pods_empa2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17F0FE57B81B3E06330E9B91 /* Pods_empa2.framework */; };
 		3612F2A11E0F833D0060C23C /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3612F2A01E0F833D0060C23C /* Extensions.swift */; };
 		3612F2A31E0F8E350060C23C /* DataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3612F2A21E0F8E350060C23C /* DataViewController.swift */; };
+		363CF4AC1E10347D00B43723 /* GraphDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 363CF4AB1E10347D00B43723 /* GraphDataSource.swift */; };
 		365F61C31E0F94B900C0D4B0 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 365F61C21E0F94B900C0D4B0 /* DataManager.swift */; };
 		365F61D01E0F9A4A00C0D4B0 /* ResearchKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 365F61CD1E0F9A1F00C0D4B0 /* ResearchKit.framework */; };
 		365F61D11E0F9A4A00C0D4B0 /* ResearchKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 365F61CD1E0F9A1F00C0D4B0 /* ResearchKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -87,6 +88,7 @@
 		2A24DEDD8DC4C153297F4E2B /* Pods_empa2Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_empa2Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3612F2A01E0F833D0060C23C /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		3612F2A21E0F8E350060C23C /* DataViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataViewController.swift; sourceTree = "<group>"; };
+		363CF4AB1E10347D00B43723 /* GraphDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphDataSource.swift; sourceTree = "<group>"; };
 		365F61C21E0F94B900C0D4B0 /* DataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		365F61C61E0F9A1F00C0D4B0 /* ResearchKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ResearchKit.xcodeproj; path = "../../../../Downloads/ResearchKit-master/ResearchKit.xcodeproj"; sourceTree = "<group>"; };
 		365F61D51E0FAC6800C0D4B0 /* Protocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
@@ -207,6 +209,7 @@
 				36D1CAA11E0DE07300ADB5A5 /* SessionViewController.swift */,
 				365F61C21E0F94B900C0D4B0 /* DataManager.swift */,
 				3612F2A21E0F8E350060C23C /* DataViewController.swift */,
+				363CF4AB1E10347D00B43723 /* GraphDataSource.swift */,
 				3634DF7D1E0F2B7E00950845 /* Custom Cells + Xibs */,
 				3612F2A01E0F833D0060C23C /* Extensions.swift */,
 				365F61D51E0FAC6800C0D4B0 /* Protocols.swift */,
@@ -547,6 +550,7 @@
 				36D1CAA21E0DE07300ADB5A5 /* SessionViewController.swift in Sources */,
 				365F61C31E0F94B900C0D4B0 /* DataManager.swift in Sources */,
 				36D1CA681E0DDE7300ADB5A5 /* AppDelegate.swift in Sources */,
+				363CF4AC1E10347D00B43723 /* GraphDataSource.swift in Sources */,
 				365F61D61E0FAC6800C0D4B0 /* Protocols.swift in Sources */,
 				36D1CA9C1E0DDFDA00ADB5A5 /* PlaceholderCell.swift in Sources */,
 				3612F2A31E0F8E350060C23C /* DataViewController.swift in Sources */,

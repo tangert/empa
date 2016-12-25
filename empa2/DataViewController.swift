@@ -17,24 +17,22 @@ class DataViewController: UIViewController {
     static var chartDictionary = [Double: [String: AnyObject]?]()
     static var chartArray = Array<(Double, [String: AnyObject])>()
 
+    let graphDataSource = GraphDataSource()
+
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         print("DataViewController chartData count: \(DataViewController.chartDictionary.count)")
         
-        graphChart.dataSource = self as? ORKValueRangeGraphChartViewDataSource
+        graphChart.dataSource = graphDataSource
         graphChart.delegate = self
     }
     
 }
 
-extension DataViewController: ORKGraphChartViewDelegate, ORKGraphChartViewDataSource {
+extension DataViewController: ORKGraphChartViewDelegate {
     
-    public func numberOfPlots(in graphChartView: ORKGraphChartView) -> Int {
-        return 1
-    }
     
-    func graphChartView(_ graphChartView: ORKGraphChartView, numberOfDataPointsForPlotIndex plotIndex: Int) -> Int {
-        return DataViewController.chartArray.count
-    }
     
 }
+

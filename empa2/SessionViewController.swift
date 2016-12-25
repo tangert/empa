@@ -59,12 +59,10 @@ class SessionViewController: UIViewController {
     }
     
     func updateCounter() {
-        counter+=0.1
-        let numberOfPlaces = 1.0
-        let multiplier = pow(10, numberOfPlaces)
-        roundedCounter = round(counter * multiplier)/multiplier
-        print("Session time: \(roundedCounter)")
-        timerLabel.text = "Session time: \(roundedCounter)"
+        counter+=1
+        print("Session time: \(counter)")
+        timerLabel.text = "Session time: \(counter)"
+        SessionViewController.dataManagerDelegate?.didUpdateTimer(counter: self.counter)
     }
     
     @IBAction func exportData(_ sender: Any) {
@@ -87,7 +85,7 @@ extension SessionViewController: AFDXDetectorDelegate {
     
     //Affdex delegate methods!
     func detector(_ detector: AFDXDetector!, didStartDetecting face: AFDXFace!) {
-        self.timer = Timer.scheduledTimer(timeInterval: 0.1, target:self, selector: #selector(SessionViewController.updateCounter), userInfo: nil, repeats: true)
+        self.timer = Timer.scheduledTimer(timeInterval: 1.0, target:self, selector: #selector(SessionViewController.updateCounter), userInfo: nil, repeats: true)
         print("Face shown!")
         SessionViewController.cameraDelegate?.willUpdateFaceLabel(input: "Face shown!")
     }
@@ -95,8 +93,6 @@ extension SessionViewController: AFDXDetectorDelegate {
     func detector(_ detector: AFDXDetector!, didStopDetecting face: AFDXFace!) {
         timer.invalidate()
         print("Show your face, idiot.")
-//        print("All emotion data up to this point: \(DataManager.sharedInstance.emotionData)")
-//        print("Measured time intervals: \(DataManager.sharedInstance.timeData)")
         SessionViewController.cameraDelegate?.willUpdateFaceLabel(input: "NO FACE!!!")
     }
     
@@ -107,8 +103,8 @@ extension SessionViewController: AFDXDetectorDelegate {
                 
                 let output = face as AnyObject
                 
-                //time data
-                DataManager.sharedInstance.timeData.append(self.roundedCounter)
+//                //time data
+//                DataManager.sharedInstance.timeData.append(self.counter)
                 
                 //Initial emoji data
                 let currentEmoji : AFDXEmoji = output.emojis
