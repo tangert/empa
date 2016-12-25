@@ -14,28 +14,27 @@ import ResearchKit
 class DataViewController: UIViewController {
 
     @IBOutlet weak var graphChart: ORKLineGraphChartView!
-    static var chartData = Array<[Double: [String: AnyObject]?]>()
+    static var chartDictionary = [Double: [String: AnyObject]?]()
+    static var chartArray = Array<(Double, [String: AnyObject])>()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-//        print(DataViewController.chartData)
+        print("DataViewController chartData count: \(DataViewController.chartDictionary.count)")
         
         graphChart.dataSource = self as? ORKValueRangeGraphChartViewDataSource
         graphChart.delegate = self
     }
     
-    
-    
 }
 
 extension DataViewController: ORKGraphChartViewDelegate, ORKGraphChartViewDataSource {
-
+    
     public func numberOfPlots(in graphChartView: ORKGraphChartView) -> Int {
-        return 7
+        return 1
     }
     
     func graphChartView(_ graphChartView: ORKGraphChartView, numberOfDataPointsForPlotIndex plotIndex: Int) -> Int {
-        return DataManager.sharedInstance.timeData.count
+        return DataViewController.chartArray.count
     }
     
 }

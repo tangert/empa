@@ -17,8 +17,9 @@ class DataManager: DataManagerDelegate {
     static var sharedInstance = DataManager()
     var dataManagerDelegate: DataManagerDelegate?
     var timeData = Array<Double>()
-    var emotionData = Array<[String: AnyObject]?>()
-    var chartData = Array<[Double: [String: AnyObject]?]>()
+    var emotionData = Array<[String: AnyObject]>()
+    var chartDictionary = [Double: [String: AnyObject]]()
+    var chartArray = Array<(Double, [String: AnyObject])>()
     
     init() {
         //populates the chart data with time and corresponding emotion data.
@@ -35,11 +36,15 @@ class DataManager: DataManagerDelegate {
         var keyValCount = 0
         for (key, val) in zip(timeData, emotionData) {
             keyValCount+=1
-            print((key,val))
-//            chartData[key] = val
+            chartDictionary[key] = val
         }
         
-        print (keyValCount)
+        var chartArray = Array(zip(timeData, emotionData))
+        
+        print ("Key val count: \(keyValCount)")
+        print("Chart array count: \(chartArray.count)")
+        print("Chart array: \(chartArray)")
+        
     }
     
 }

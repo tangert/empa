@@ -60,7 +60,9 @@ class SessionViewController: UIViewController {
     
     func updateCounter() {
         counter+=0.1
-        roundedCounter = Double(round(10*counter)/10)
+        let numberOfPlaces = 1.0
+        let multiplier = pow(10, numberOfPlaces)
+        roundedCounter = round(counter * multiplier)/multiplier
         print("Session time: \(roundedCounter)")
         timerLabel.text = "Session time: \(roundedCounter)"
     }
@@ -71,9 +73,14 @@ class SessionViewController: UIViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        DataViewController.chartData = DataManager.sharedInstance.chartData
+        if segue.identifier == "exportData" {
+            print("Export data segue")
+            DataViewController.chartDictionary = DataManager.sharedInstance.chartDictionary
+            DataViewController.chartArray = DataManager.sharedInstance.chartArray
+        } else {
+            print("No segue")
+        }
     }
-    
 }
 
 extension SessionViewController: AFDXDetectorDelegate {
@@ -113,7 +120,6 @@ extension SessionViewController: AFDXDetectorDelegate {
                 if let range = emotions!.range(of: "\"emotions\": ") {
                     let json = emotions!.substring(from: range.upperBound)
                     let jsonArray = json.convertToDictionary()
-//                    print("Emotions: \(jsonArray!)")
                     DataManager.sharedInstance.emotionData.append(jsonArray!)
                 }
                 
