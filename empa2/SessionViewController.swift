@@ -30,12 +30,18 @@ class SessionViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var exportDataButton: UIButton!
     
+  
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         print("Hi! We're working!")
         for i in 0...24 {
             images.append(UIImage(named: "\((i%6)+1)")!)
         }
+        
+        exportDataButton.layer.cornerRadius = 20
+        exportDataButton.layer.borderWidth = 1
+        exportDataButton.layer.borderColor = UIColor.darkGray.cgColor
         
         detector?.delegate = self
         collectionView.delegate = self
@@ -59,25 +65,44 @@ class SessionViewController: UIViewController {
     }
     
     func updateCounter() {
-        counter+=1
-        print("Session time: \(counter)")
-        timerLabel.text = "Session time: \(counter)"
-        SessionViewController.dataManagerDelegate?.didUpdateTimer(counter: self.counter)
+        counter+=0.1
+        roundedCounter = counter.firstDecimal()
+        print("Session time: \(roundedCounter)")
+        timerLabel.text = "Session time: \(roundedCounter)"
+        SessionViewController.dataManagerDelegate?.didUpdateTimer(counter: roundedCounter)
     }
     
     @IBAction func exportData(_ sender: Any) {
-        SessionViewController.dataManagerDelegate?.didExportData()
+        
+    guard DataManager.sharedInstance.timeData.count != 0 else {
+        
+            let alert = UIAlertController(title: "No data yet.", message: "Please give us something.", preferredStyle: .alert)
+            let cancelAction = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
+            alert.addAction(cancelAction)
+            self.present(alert, animated: true, completion: nil)
+            return
+        }
+            
+    SessionViewController.dataManagerDelegate?.didExportData()
         timer.invalidate()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
         if segue.identifier == "exportData" {
-            print("Export data segue")
-            DataViewController.chartDictionary = DataManager.sharedInstance.chartDictionary
-            DataViewController.chartArray = DataManager.sharedInstance.chartArray
+        
+        print("Export data segue")
+        GraphDataSource.sharedInstance.chartDictionary = DataManager.sharedInstance.chartDictionary
+        GraphDataSource.sharedInstance.chartArray = DataManager.sharedInstance.chartArray
         } else {
-            print("No segue")
+            
+        let alert = UIAlertController(title: "No available segue.", message: "Please give us something.", preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
+                alert.addAction(cancelAction)
+        self.present(alert, animated: true, completion: nil)
+                
         }
+        
     }
 }
 
@@ -85,8 +110,11 @@ extension SessionViewController: AFDXDetectorDelegate {
     
     //Affdex delegate methods!
     func detector(_ detector: AFDXDetector!, didStartDetecting face: AFDXFace!) {
-        self.timer = Timer.scheduledTimer(timeInterval: 1.0, target:self, selector: #selector(SessionViewController.updateCounter), userInfo: nil, repeats: true)
+        self.timer = Timer.scheduledTimer(timeInterval: 0.1, target:self, selector: #selector(SessionViewController.updateCounter), userInfo: nil, repeats: true)
         print("Face shown!")
+        
+        //keeps the timer running even during scrolling.
+        RunLoop.main.add(timer, forMode: RunLoopMode.commonModes)
         SessionViewController.cameraDelegate?.willUpdateFaceLabel(input: "Face shown!")
     }
     

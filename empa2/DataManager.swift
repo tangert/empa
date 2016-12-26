@@ -38,7 +38,16 @@ extension DataManager: DataManagerDelegate {
     }
     
     func didExportData() {
-        print("Exported data from SessionViewController to DataManager.")
+        
+        //resets all data to avoid duplicate measurements.
+        let allData = GraphDataSource.sharedInstance
+        allData.sadnessData.removeAll()
+        allData.joyData.removeAll()
+        allData.angerData.removeAll()
+        
+        allData.plotPoints[0].removeAll()
+        allData.plotPoints[1].removeAll()
+        allData.plotPoints[2].removeAll()
         
         print(emotionData)
         print(timeData)
@@ -51,9 +60,34 @@ extension DataManager: DataManagerDelegate {
         
         chartArray = Array(zip(timeData, timeSensitiveEmotionData))
         
-        print ("Key val count: \(keyValCount)")
-        print("Chart array count: \(chartArray.count)")
-        print("Chart array: \(chartArray)")
+        for tuple in chartArray {
+            let dict = tuple.1
+            for KVPair in dict {
+                switch(KVPair.key) {
+                case "sadness":
+                    //removes all data previously then appends everything else
+                    allData.sadnessData.append(KVPair.value)
+                case "joy":
+                    allData.joyData.append(KVPair.value)
+                case "anger":
+                    allData.angerData.append(KVPair.value)
+                default:
+                    break
+                }
+            }
+        }
+        
+        for score in allData.sadnessData {
+            allData.plotPoints[0].append(ORKValueRange(value: score.doubleValue))
+        }
+        
+        for score in allData.joyData {
+            allData.plotPoints[1].append(ORKValueRange(value: score.doubleValue))
+        }
+        
+        for score in allData.angerData {
+            allData.plotPoints[2].append(ORKValueRange(value: score.doubleValue))
+        }
         
     }
 }

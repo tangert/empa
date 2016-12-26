@@ -20,3 +20,7 @@ protocol UpdateCameraFeedDelegate {
     func willUpdateEmojiLabel(input: String)
     func willUpdateFaceLabel(input: String)
 }
+
+protocol UISliderDelegate {
+    func sliderDidChange(value: Float)
+}

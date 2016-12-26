@@ -207,9 +207,9 @@
 			children = (
 				36D1CA671E0DDE7300ADB5A5 /* AppDelegate.swift */,
 				36D1CAA11E0DE07300ADB5A5 /* SessionViewController.swift */,
-				365F61C21E0F94B900C0D4B0 /* DataManager.swift */,
 				3612F2A21E0F8E350060C23C /* DataViewController.swift */,
 				363CF4AB1E10347D00B43723 /* GraphDataSource.swift */,
+				365F61C21E0F94B900C0D4B0 /* DataManager.swift */,
 				3634DF7D1E0F2B7E00950845 /* Custom Cells + Xibs */,
 				3612F2A01E0F833D0060C23C /* Extensions.swift */,
 				363CF4AF1E103F6300B43723 /* Protocols.swift */,
