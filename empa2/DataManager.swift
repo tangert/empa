@@ -12,7 +12,6 @@ import Affdex
 import ResearchKit
 
 //collect all available data here from SessionViewController, then send to DataViewController.
-
 class DataManager {
     
     static var sharedInstance = DataManager()
@@ -23,6 +22,16 @@ class DataManager {
     
     var chartDictionary = [Double: [String: AnyObject]]()
     var chartArray = Array<(Double, [String: AnyObject])>()
+    var slideValue: Float?
+    
+    var sadnessData = [Double]()
+    var joyData = [Double]()
+    var angerData = [Double]()
+    var surpriseData = [Double]()
+    
+    var plotPoints = Array(repeating: Array<Double>(), count: 4)
+    var slideAdjustedPlotPoints = Array(repeating: Array<Double>(), count: 4)
+    var slideCount = 0
     
     init() {
         SessionViewController.dataManagerDelegate = self
@@ -40,14 +49,15 @@ extension DataManager: DataManagerDelegate {
     func didExportData() {
         
         //resets all data to avoid duplicate measurements.
-        let allData = GraphDataSource.sharedInstance
-        allData.sadnessData.removeAll()
-        allData.joyData.removeAll()
-        allData.angerData.removeAll()
+        sadnessData.removeAll()
+        joyData.removeAll()
+        angerData.removeAll()
+        surpriseData.removeAll()
         
-        allData.plotPoints[0].removeAll()
-        allData.plotPoints[1].removeAll()
-        allData.plotPoints[2].removeAll()
+        plotPoints[0].removeAll()
+        plotPoints[1].removeAll()
+        plotPoints[2].removeAll()
+        plotPoints[3].removeAll()
         
         print(emotionData)
         print(timeData)
@@ -66,27 +76,33 @@ extension DataManager: DataManagerDelegate {
                 switch(KVPair.key) {
                 case "sadness":
                     //removes all data previously then appends everything else
-                    allData.sadnessData.append(KVPair.value)
+                    sadnessData.append(KVPair.value.doubleValue)
                 case "joy":
-                    allData.joyData.append(KVPair.value)
+                    joyData.append(KVPair.value.doubleValue)
                 case "anger":
-                    allData.angerData.append(KVPair.value)
+                    angerData.append(KVPair.value.doubleValue)
+                case "surprise":
+                    surpriseData.append(KVPair.value.doubleValue)
                 default:
                     break
                 }
             }
         }
         
-        for score in allData.sadnessData {
-            allData.plotPoints[0].append(ORKValueRange(value: score.doubleValue))
+        for score in sadnessData {
+            plotPoints[0].append(score)
         }
         
-        for score in allData.joyData {
-            allData.plotPoints[1].append(ORKValueRange(value: score.doubleValue))
+        for score in joyData {
+            plotPoints[1].append(score)
         }
         
-        for score in allData.angerData {
-            allData.plotPoints[2].append(ORKValueRange(value: score.doubleValue))
+        for score in angerData {
+            plotPoints[2].append(score)
+        }
+        
+        for score in surpriseData {
+            plotPoints[3].append(score)
         }
         
     }

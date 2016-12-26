@@ -35,7 +35,7 @@ class SessionViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         print("Hi! We're working!")
-        for i in 0...24 {
+        for i in 0...9 {
             images.append(UIImage(named: "\((i%6)+1)")!)
         }
         
@@ -90,10 +90,9 @@ class SessionViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if segue.identifier == "exportData" {
-        
-        print("Export data segue")
-        GraphDataSource.sharedInstance.chartDictionary = DataManager.sharedInstance.chartDictionary
-        GraphDataSource.sharedInstance.chartArray = DataManager.sharedInstance.chartArray
+            print("Export data segue")
+            let DataVC = segue.destination as! DataViewController
+            DataVC.chartArray = DataManager.sharedInstance.chartArray
         } else {
             
         let alert = UIAlertController(title: "No available segue.", message: "Please give us something.", preferredStyle: .alert)
