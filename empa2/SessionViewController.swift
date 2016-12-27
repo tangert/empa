@@ -93,6 +93,7 @@ class SessionViewController: UIViewController {
             print("Export data segue")
             let DataVC = segue.destination as! DataViewController
             DataVC.chartArray = DataManager.sharedInstance.chartArray
+            timer.invalidate()
         } else {
             
         let alert = UIAlertController(title: "No available segue.", message: "Please give us something.", preferredStyle: .alert)

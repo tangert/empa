@@ -12,14 +12,18 @@ import Affdex
 import Charts
 
 class DataViewController: UIViewController {
-
-    @IBOutlet weak var lineChart: LineChartView!
     
+    //Charts
+    @IBOutlet weak var lineChart: LineChartView!
+    var combinedChart: CombinedChartView?
+
+    //Switches
     @IBOutlet weak var sadnessSwitch: UISwitch!
     @IBOutlet weak var joySwitch: UISwitch!
     @IBOutlet weak var angerSwitch: UISwitch!
     @IBOutlet weak var surpriseSwitch: UISwitch!
     
+    //Labels
     @IBOutlet weak var sadnessLabel: UILabel!
     @IBOutlet weak var joyLabel: UILabel!
     @IBOutlet weak var angerLabel: UILabel!
@@ -28,15 +32,15 @@ class DataViewController: UIViewController {
     var chartArray = Array<(Double, [String: AnyObject])>()
     
     //Chart variables
-    let ys1 = DataManager.sharedInstance.sadnessData
-    let ys2 = DataManager.sharedInstance.joyData
-    let ys3 = DataManager.sharedInstance.angerData
-    let ys4 = DataManager.sharedInstance.surpriseData
+    let sadnessData = DataManager.sharedInstance.sadnessData
+    let joyData = DataManager.sharedInstance.joyData
+    let angerData = DataManager.sharedInstance.angerData
+    let surpriseData = DataManager.sharedInstance.surpriseData
     
-    var yse1: [ChartDataEntry]?
-    var yse2: [ChartDataEntry]?
-    var yse3 : [ChartDataEntry]?
-    var yse4 : [ChartDataEntry]?
+    var sadnessDataEnumerated: [ChartDataEntry]?
+    var joyDataEnumerated: [ChartDataEntry]?
+    var angerDataEnumerated : [ChartDataEntry]?
+    var surpriseDataEnumerated : [ChartDataEntry]?
     
     var ds1: LineChartDataSet?
     var ds2: LineChartDataSet?
@@ -44,6 +48,11 @@ class DataViewController: UIViewController {
     var ds4: LineChartDataSet?
     
     let chartData = LineChartData()
+    
+    let blue = UIColor.init(red: 114/255, green: 226/255, blue: 255/255, alpha: 1.0)
+    let green = UIColor.init(red: 114/255, green: 255/255, blue: 135/255, alpha: 1.0)
+    let red = UIColor.init(red: 255/255, green: 114/255, blue: 114/255, alpha: 1.0)
+    let yellow = UIColor.init(red: 255/255, green: 222/255, blue: 114/255, alpha: 1.0)
     
     override func viewDidLoad() {
         
@@ -55,10 +64,10 @@ class DataViewController: UIViewController {
         
         lineChart.delegate = self
         
-        yse1 = ys1.enumerated().map { x, y in return ChartDataEntry(x: Double(x), y: y) }
-        yse2 = ys2.enumerated().map { x, y in return ChartDataEntry(x: Double(x), y: y) }
-        yse3 = ys3.enumerated().map { x, y in return ChartDataEntry(x: Double(x), y: y) }
-        yse4 = ys4.enumerated().map { x, y in return ChartDataEntry(x: Double(x), y: y) }
+        sadnessDataEnumerated = sadnessData.enumerated().map { x, y in return ChartDataEntry(x: Double(x), y: y) }
+        joyDataEnumerated = joyData.enumerated().map { x, y in return ChartDataEntry(x: Double(x), y: y) }
+        angerDataEnumerated = angerData.enumerated().map { x, y in return ChartDataEntry(x: Double(x), y: y) }
+        surpriseDataEnumerated = surpriseData.enumerated().map { x, y in return ChartDataEntry(x: Double(x), y: y) }
         
         //switch initialization
         sadnessSwitch.tag = 1
@@ -66,44 +75,63 @@ class DataViewController: UIViewController {
         angerSwitch.tag = 3
         surpriseSwitch.tag = 4
         
-        sadnessSwitch.onTintColor = UIColor.blue
-        joySwitch.onTintColor = UIColor.green
-        angerSwitch.onTintColor = UIColor.red
-        surpriseSwitch.onTintColor = UIColor.yellow
+        sadnessSwitch.onTintColor = self.blue
+        joySwitch.onTintColor = self.green
+        angerSwitch.onTintColor = self.red
+        surpriseSwitch.onTintColor = self.yellow
         
         setUpChart()
+        
     }
     
     func setUpChart() {
         //Setting up the chart
-        ds1 = LineChartDataSet(values: yse1, label: nil)
-        ds1?.circleColors = [UIColor.blue]
-        ds1?.circleRadius = 2
-        ds1?.colors = [UIColor.blue]
-        chartData.addDataSet(ds1)
+        ds1 = LineChartDataSet(values: sadnessDataEnumerated, label: nil)
+        setupDataSet(ds: ds1!, color: self.blue, radius: 7.5)
         
-        ds2 = LineChartDataSet(values: yse2, label: nil)
-        ds2?.circleColors = [UIColor.green]
-        ds2?.circleRadius = 2
-        ds2?.colors = [UIColor.green]
-        chartData.addDataSet(ds2)
+        ds2 = LineChartDataSet(values: joyDataEnumerated, label: nil)
+        setupDataSet(ds: ds2!, color: self.green, radius: 7.5)
         
-        ds3 = LineChartDataSet(values: yse3, label: nil)
-        ds3?.circleColors = [UIColor.red]
-        ds3?.circleRadius = 2
-        ds3?.colors = [UIColor.red]
-        chartData.addDataSet(ds3)
+        ds3 = LineChartDataSet(values: angerDataEnumerated, label: nil)
+        setupDataSet(ds: ds3!, color: self.red, radius: 7.5)
         
-        ds4 = LineChartDataSet(values: yse4, label: nil)
-        ds4?.circleColors = [UIColor.yellow]
-        ds4?.circleRadius = 2
-        ds4?.colors = [UIColor.yellow]
-        chartData.addDataSet(ds4)
+        ds4 = LineChartDataSet(values: surpriseDataEnumerated, label: nil)
+        setupDataSet(ds: ds4!, color: self.yellow, radius: 7.5)
         
-        self.lineChart.data = chartData
-        self.lineChart.gridBackgroundColor = NSUIColor.white
-        self.lineChart.chartDescription?.text = "Emotion data"
+        lineChart.data = chartData
+        lineChart.gridBackgroundColor = UIColor.white
+        lineChart.drawGridBackgroundEnabled = false
+        lineChart.scaleYEnabled = false
+        lineChart.borderColor = UIColor.clear
+       
+        //axis setup
+        lineChart.xAxis.labelPosition = .bottom
+        lineChart.leftAxis.gridColor = UIColor.lightGray.withAlphaComponent(0.3)
+        lineChart.rightAxis.gridColor = UIColor.lightGray.withAlphaComponent(0.3)
+        lineChart.xAxis.gridColor = UIColor.lightGray.withAlphaComponent(0.3)
         
+        lineChart.xAxis.granularity = 1.0
+        lineChart.rightAxis.drawAxisLineEnabled = false
+        lineChart.chartDescription?.text = "Emotion data"
+
+    }
+    
+    func setupDataSet(ds: LineChartDataSet, color: UIColor, radius: CGFloat) {
+        ds.circleRadius = radius
+        ds.circleHoleRadius = radius/2
+        ds.cubicIntensity = 0.8
+        ds.circleColors = [color.withAlphaComponent(0.6)]
+        
+        ds.colors = [color]
+        ds.lineWidth = 3
+        ds.mode = .horizontalBezier
+        
+        chartData.addDataSet(ds)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.lineChart.animate(xAxisDuration: 0.5, yAxisDuration: 1.0)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -112,17 +140,6 @@ class DataViewController: UIViewController {
         print("Time data count: \(DataManager.sharedInstance.timeData.count)")
         print("Sadness data count: \(DataManager.sharedInstance.sadnessData.count)")
     }
-
-
-//    func addNewFormattedData(data: LineChartDataSet, color: UIColor, radius: Int) {
-//        
-//        ds3 = LineChartDataSet(values: yse3, label: nil)
-//        ds3?.circleColors = [UIColor.red]
-//        ds3?.circleRadius = 2
-//        ds3?.colors = [UIColor.red]
-//        chartData.addDataSet(ds3)
-//        
-//    }
     
     //Adjusting which data sets are visible
     @IBAction func switchPressed(sender: UISwitch) {
@@ -130,47 +147,51 @@ class DataViewController: UIViewController {
             case 1:
                 if sender.isOn == false {
                     sadnessLabel.animateOpacity(alpha: 0.5)
-                    self.chartData.removeDataSet(ds1)
-                    self.lineChart.notifyDataSetChanged()
+                    updateGraph(action: "remove", dataSet: ds1!)
                 } else {
                     sadnessLabel.animateOpacity(alpha: 1.0)
-                    self.chartData.addDataSet(ds1)
-                    self.lineChart.notifyDataSetChanged()
+                    updateGraph(action: "add", dataSet: ds1!)
                 }
             case 2:
                 if sender.isOn == false {
                     joyLabel.animateOpacity(alpha: 0.5)
-                    self.chartData.removeDataSet(ds2)
-                    self.lineChart.notifyDataSetChanged()
+                    updateGraph(action: "remove", dataSet: ds2!)
                 } else {
                     joyLabel.animateOpacity(alpha: 1.0)
-                    self.chartData.addDataSet(ds2)
-                    self.lineChart.notifyDataSetChanged()
+                    updateGraph(action: "add", dataSet: ds2!)
                 }
             case 3:
                 if sender.isOn == false {
                     angerLabel.animateOpacity(alpha: 0.5)
-                    self.chartData.removeDataSet(ds3)
-                    self.lineChart.notifyDataSetChanged()
+                    updateGraph(action: "remove", dataSet: ds3!)
                 } else {
                     angerLabel.animateOpacity(alpha: 1.0)
-                    self.chartData.addDataSet(ds3)
-                    self.lineChart.notifyDataSetChanged()
+                    updateGraph(action: "add", dataSet: ds3!)
                 }
             case 4:
                 if sender.isOn == false {
                     surpriseLabel.animateOpacity(alpha: 0.5)
-                    self.chartData.removeDataSet(ds4)
-                    self.lineChart.notifyDataSetChanged()
+                    updateGraph(action: "remove", dataSet: ds4!)
                 } else {
                     surpriseLabel.animateOpacity(alpha: 1.0)
-                    self.chartData.addDataSet(ds4)
-                    self.lineChart.notifyDataSetChanged()
+                    updateGraph(action: "add", dataSet: ds4!)
                 }
             default:
                 break
         }
+    }
+    
+    func updateGraph(action: String, dataSet: LineChartDataSet) {
+        if action == "remove" {
+            self.chartData.removeDataSet(dataSet)
+        } else if action == "add" {
+            self.chartData.addDataSet(dataSet)
+        } else {
+            print("Sorry no luck")
+        }
         
+        self.lineChart.notifyDataSetChanged()
+        self.lineChart.animate(yAxisDuration: 0.25)
     }
 }
 

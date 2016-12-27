@@ -20,7 +20,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="gWo-Du-MJc" userLabel="Camera View" customClass="FrontCameraView" customModule="empa2" customModuleProvider="target">
-                        <rect key="frame" x="0.0" y="0.0" width="250" height="301"/>
+                        <rect key="frame" x="0.0" y="0.0" width="250" height="327"/>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                     </imageView>
                     <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jcG-iw-Sdi">
@@ -46,7 +46,7 @@
                         <blurEffect style="light"/>
                     </visualEffectView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No input" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Fx-eR-HXv">
-                        <rect key="frame" x="92.5" y="8" width="65" height="21"/>
+                        <rect key="frame" x="93" y="8" width="65" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
@@ -55,14 +55,14 @@
             </view>
             <constraints>
                 <constraint firstItem="6Fx-eR-HXv" firstAttribute="top" secondItem="Nyq-MM-RBc" secondAttribute="topMargin" id="8A6-wM-rVM"/>
-                <constraint firstItem="gWo-Du-MJc" firstAttribute="trailing" secondItem="jcG-iw-Sdi" secondAttribute="trailing" id="BDu-Ye-Euk"/>
-                <constraint firstItem="gWo-Du-MJc" firstAttribute="top" secondItem="Nyq-MM-RBc" secondAttribute="top" id="Chj-5A-6Ib"/>
-                <constraint firstItem="gWo-Du-MJc" firstAttribute="leading" secondItem="Nyq-MM-RBc" secondAttribute="leading" id="Egj-gh-Uag"/>
-                <constraint firstAttribute="trailing" secondItem="gWo-Du-MJc" secondAttribute="trailing" id="JYi-Jf-10b"/>
+                <constraint firstItem="gWo-Du-MJc" firstAttribute="leading" secondItem="Nyq-MM-RBc" secondAttribute="leading" id="E9b-DV-HFJ"/>
+                <constraint firstItem="gWo-Du-MJc" firstAttribute="top" secondItem="Nyq-MM-RBc" secondAttribute="top" id="SID-6K-uYS"/>
+                <constraint firstItem="gWo-Du-MJc" firstAttribute="trailing" secondItem="jcG-iw-Sdi" secondAttribute="trailing" id="X41-Ws-5LO"/>
                 <constraint firstAttribute="bottom" secondItem="jcG-iw-Sdi" secondAttribute="bottom" id="a5d-j6-X6K"/>
-                <constraint firstAttribute="bottom" secondItem="gWo-Du-MJc" secondAttribute="bottom" constant="79" id="auS-U4-toX"/>
+                <constraint firstItem="gWo-Du-MJc" firstAttribute="leading" secondItem="jcG-iw-Sdi" secondAttribute="leading" id="dzv-gF-Cza"/>
                 <constraint firstItem="6Fx-eR-HXv" firstAttribute="centerX" secondItem="jcG-iw-Sdi" secondAttribute="centerX" id="gz5-dr-M3c"/>
-                <constraint firstItem="gWo-Du-MJc" firstAttribute="leading" secondItem="jcG-iw-Sdi" secondAttribute="leading" id="ysr-Dy-HGo"/>
+                <constraint firstAttribute="bottom" secondItem="gWo-Du-MJc" secondAttribute="bottom" constant="53" id="jZH-zy-2jj"/>
+                <constraint firstAttribute="trailing" secondItem="gWo-Du-MJc" secondAttribute="trailing" id="lv6-Vp-XSg"/>
             </constraints>
             <size key="customSize" width="348" height="442"/>
             <connections>

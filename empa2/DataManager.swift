@@ -75,7 +75,6 @@ extension DataManager: DataManagerDelegate {
             for KVPair in dict {
                 switch(KVPair.key) {
                 case "sadness":
-                    //removes all data previously then appends everything else
                     sadnessData.append(KVPair.value.doubleValue)
                 case "joy":
                     joyData.append(KVPair.value.doubleValue)
