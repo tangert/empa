@@ -80,13 +80,3 @@ extension Double {
         return Double(modString)!
     }
 }
-
-extension Float {
-    func firstDecimal() -> Double {
-        var regex = try! NSRegularExpression(pattern: "^\\d[0-9]*(?:\\.\\d)?$", options: NSRegularExpression.Options.allowCommentsAndWhitespace)
-        var counterString = self.description
-        let range = NSMakeRange(0, counterString.characters.count)
-        let modString = regex.stringByReplacingMatches(in: counterString, options: [], range: range, withTemplate: counterString)
-        return Double(modString)!
-    }
-}

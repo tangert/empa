@@ -74,8 +74,7 @@ class SessionViewController: UIViewController {
     
     @IBAction func exportData(_ sender: Any) {
         
-    guard DataManager.sharedInstance.timeData.count != 0 else {
-        
+        guard DataManager.sharedInstance.timeData.count != 0 else {
             let alert = UIAlertController(title: "No data yet.", message: "Please give us something.", preferredStyle: .alert)
             let cancelAction = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
             alert.addAction(cancelAction)
@@ -83,7 +82,7 @@ class SessionViewController: UIViewController {
             return
         }
             
-    SessionViewController.dataManagerDelegate?.didExportData()
+        SessionViewController.dataManagerDelegate?.didExportData()
         timer.invalidate()
     }
     
@@ -108,11 +107,10 @@ class SessionViewController: UIViewController {
 
 extension SessionViewController: AFDXDetectorDelegate {
     
-    //Affdex delegate methods!
     func detector(_ detector: AFDXDetector!, didStartDetecting face: AFDXFace!) {
         self.timer = Timer.scheduledTimer(timeInterval: 0.1, target:self, selector: #selector(SessionViewController.updateCounter), userInfo: nil, repeats: true)
-        print("Face shown!")
         
+        print("Face shown!")
         //keeps the timer running even during scrolling.
         RunLoop.main.add(timer, forMode: RunLoopMode.commonModes)
         SessionViewController.cameraDelegate?.willUpdateFaceLabel(input: "Face shown!")
@@ -130,9 +128,6 @@ extension SessionViewController: AFDXDetectorDelegate {
             for (_, face) in hasResults! {
                 
                 let output = face as AnyObject
-                
-//                //time data
-//                DataManager.sharedInstance.timeData.append(self.counter)
                 
                 //Initial emoji data
                 let currentEmoji : AFDXEmoji = output.emojis
@@ -188,7 +183,7 @@ extension SessionViewController: AFDXDetectorDelegate {
         }
         
         detector = AFDXDetector(delegate: self, using: frontCamera, maximumFaces: 1)
-        detector?.maxProcessRate = 10
+        detector?.maxProcessRate = 24
         
         // turn on all classifiers (emotions, expressions, and emojis)
         detector?.setDetectAllEmotions(true)

@@ -12,6 +12,10 @@
 		3612F2A31E0F8E350060C23C /* DataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3612F2A21E0F8E350060C23C /* DataViewController.swift */; };
 		361657071E119D2C006798F9 /* Charts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 361657001E119D25006798F9 /* Charts.framework */; };
 		361657081E119D2C006798F9 /* Charts.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 361657001E119D25006798F9 /* Charts.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		36354D601E13862800BBD922 /* BackendClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36354D5F1E13862800BBD922 /* BackendClass.swift */; };
+		36354D681E13888100BBD922 /* Patient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36354D671E13888100BBD922 /* Patient.swift */; };
+		36354D6A1E13888C00BBD922 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36354D691E13888C00BBD922 /* Session.swift */; };
+		36354D721E14302E00BBD922 /* RESTAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36354D711E14302E00BBD922 /* RESTAPIClient.swift */; };
 		363CF4B01E103F6300B43723 /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 363CF4AF1E103F6300B43723 /* Protocols.swift */; };
 		365F61C31E0F94B900C0D4B0 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 365F61C21E0F94B900C0D4B0 /* DataManager.swift */; };
 		365F61D01E0F9A4A00C0D4B0 /* ResearchKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 365F61CD1E0F9A1F00C0D4B0 /* ResearchKit.framework */; };
@@ -119,6 +123,10 @@
 		3612F2A01E0F833D0060C23C /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		3612F2A21E0F8E350060C23C /* DataViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataViewController.swift; sourceTree = "<group>"; };
 		361656F91E119D25006798F9 /* Charts.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Charts.xcodeproj; path = "../../../../Downloads/Charts-master/Charts.xcodeproj"; sourceTree = "<group>"; };
+		36354D5F1E13862800BBD922 /* BackendClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackendClass.swift; sourceTree = "<group>"; };
+		36354D671E13888100BBD922 /* Patient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Patient.swift; sourceTree = "<group>"; };
+		36354D691E13888C00BBD922 /* Session.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
+		36354D711E14302E00BBD922 /* RESTAPIClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RESTAPIClient.swift; sourceTree = "<group>"; };
 		363CF4AF1E103F6300B43723 /* Protocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
 		365F61C21E0F94B900C0D4B0 /* DataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		365F61C61E0F9A1F00C0D4B0 /* ResearchKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ResearchKit.xcodeproj; path = "../../../../Downloads/ResearchKit-master/ResearchKit.xcodeproj"; sourceTree = "<group>"; };
@@ -211,6 +219,30 @@
 			name = "Custom Cells + Xibs";
 			sourceTree = "<group>";
 		};
+		36354D651E1387C100BBD922 /* Frontend */ = {
+			isa = PBXGroup;
+			children = (
+				3634DF7D1E0F2B7E00950845 /* Custom Cells + Xibs */,
+				36D1CAA11E0DE07300ADB5A5 /* SessionViewController.swift */,
+				3612F2A21E0F8E350060C23C /* DataViewController.swift */,
+				3612F2A01E0F833D0060C23C /* Extensions.swift */,
+				363CF4AF1E103F6300B43723 /* Protocols.swift */,
+			);
+			name = Frontend;
+			sourceTree = "<group>";
+		};
+		36354D661E1387E600BBD922 /* Backend */ = {
+			isa = PBXGroup;
+			children = (
+				36354D711E14302E00BBD922 /* RESTAPIClient.swift */,
+				36354D5F1E13862800BBD922 /* BackendClass.swift */,
+				36354D671E13888100BBD922 /* Patient.swift */,
+				36354D691E13888C00BBD922 /* Session.swift */,
+				365F61C21E0F94B900C0D4B0 /* DataManager.swift */,
+			);
+			name = Backend;
+			sourceTree = "<group>";
+		};
 		365F61C71E0F9A1F00C0D4B0 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -248,12 +280,8 @@
 			isa = PBXGroup;
 			children = (
 				36D1CA671E0DDE7300ADB5A5 /* AppDelegate.swift */,
-				36D1CAA11E0DE07300ADB5A5 /* SessionViewController.swift */,
-				3612F2A21E0F8E350060C23C /* DataViewController.swift */,
-				365F61C21E0F94B900C0D4B0 /* DataManager.swift */,
-				3634DF7D1E0F2B7E00950845 /* Custom Cells + Xibs */,
-				3612F2A01E0F833D0060C23C /* Extensions.swift */,
-				363CF4AF1E103F6300B43723 /* Protocols.swift */,
+				36354D651E1387C100BBD922 /* Frontend */,
+				36354D661E1387E600BBD922 /* Backend */,
 				36D1CA9F1E0DDFE500ADB5A5 /* Main.storyboard */,
 				36D1CA6E1E0DDE7300ADB5A5 /* Assets.xcassets */,
 				36D1CA701E0DDE7300ADB5A5 /* LaunchScreen.storyboard */,
@@ -619,10 +647,14 @@
 				36D1CA681E0DDE7300ADB5A5 /* AppDelegate.swift in Sources */,
 				36D1CA9C1E0DDFDA00ADB5A5 /* PlaceholderCell.swift in Sources */,
 				363CF4B01E103F6300B43723 /* Protocols.swift in Sources */,
+				36354D721E14302E00BBD922 /* RESTAPIClient.swift in Sources */,
 				3612F2A31E0F8E350060C23C /* DataViewController.swift in Sources */,
 				36D1CA9D1E0DDFDA00ADB5A5 /* CameraViewCell.swift in Sources */,
 				36D1CA9E1E0DDFDA00ADB5A5 /* FrontCameraView.swift in Sources */,
+				36354D6A1E13888C00BBD922 /* Session.swift in Sources */,
 				3612F2A11E0F833D0060C23C /* Extensions.swift in Sources */,
+				36354D601E13862800BBD922 /* BackendClass.swift in Sources */,
+				36354D681E13888100BBD922 /* Patient.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
