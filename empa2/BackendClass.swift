@@ -22,78 +22,94 @@ class BackendClass: NSObject {
     }
     
     //Patient functions
-    func getPatient(firstName: String?, lastName: String?) {
-        
-        guard let first = firstName else {
+    func createPatient(firstName: String?, lastName: String?) {
+        guard let firstName = firstName else {
             print("No first name")
             return
         }
         
-        guard let last = lastName else {
+        guard let lastName = lastName else {
             print("No last name")
             return
         }
         
-        return api.get(baseURL: baseURL, section: "/patients/\(first)\(last)")
+        return api.post(
+            baseURL: baseURL,
+            section: "/patients/create/\(firstName)_\(lastName)")
+       }
+    
+    func getPatient(firstName: String?, lastName: String?) {
+        guard let firstName = firstName else {
+            print("No first name")
+            return
+        }
+        
+        guard let lastName = lastName else {
+            print("No last name")
+            return
+        }
+        
+        return api.get(
+            baseURL: baseURL,
+            section: "/patients/\(firstName)_\(lastName)")
         
     }
     
     func editPatient(firstName: String?, lastName: String?) {
-        
-        guard let first = firstName else {
+        guard let firstName = firstName else {
             print("No first name")
             return
         }
         
-        guard let last = lastName else {
+        guard let lastName = lastName else {
             print("No last name")
             return
         }
         
-        return api.put(baseURL: baseURL, section: "/patients/\(first)\(last)/edit")
-    }
-    
-    func createPatient(firstName: String?, lastName: String?) {
-        
-        guard let first = firstName else {
-            print("No first name")
-            return
-        }
-        
-        guard let last = lastName else {
-            print("No last name")
-            return
-        }
-        
-        return api.post(baseURL: baseURL, section: "/patients/create/\(first)\(last)")
+        return api.put(
+            baseURL: baseURL,
+            section: "/patients/\(firstName)_\(lastName)/edit")
     }
     
     func deletePatient(firstName: String?, lastName: String?) {
-        
-        guard let first = firstName else {
+        guard let firstName = firstName else {
             print("No first name")
             return
         }
         
-        guard let last = lastName else {
+        guard let lastName = lastName else {
             print("No last name")
             return
         }
         
-        return api.delete(baseURL: baseURL, section: "/patients/\(first)\(last)/delete")
+        return api.delete(
+            baseURL: baseURL,
+            section: "/patients/\(firstName)_\(lastName)/delete")
     }
     
     //Session functions
-    func getSession() {
+    func getSession(firstName: String, lastName: String, sessionNumber: Int) {
+        return api.get(
+            baseURL: baseURL,
+            section: "/patients/\(firstName)_\(lastName)/sessions/\(sessionNumber)")
     }
     
-    func editSession() {
+    func editSession(firstName: String, lastName: String, sessionNumber: Int) {
+        return api.put(
+            baseURL: baseURL,
+            section: "/patients/\(firstName)_\(lastName)/sessions/\(sessionNumber)/edit")
     }
     
-    func createSession() {
+    func createSession(firstName: String, lastName: String, sessionNumber: Int) {
+        return api.post(
+            baseURL: baseURL,
+            section: "/patients/\(firstName)_\(lastName)/sessions/create/\(sessionNumber)")
     }
     
-    func deleteSession() {
+    func deleteSession(firstName: String, lastName: String, sessionNumber: Int) {
+         return api.delete(
+            baseURL: baseURL,
+            section: "/patients/\(firstName)_\(lastName)/sessions/\(sessionNumber)/delete")
     }
     
 }

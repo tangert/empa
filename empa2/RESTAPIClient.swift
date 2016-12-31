@@ -14,8 +14,8 @@ class RESTAPIClient: NSObject {
     
     static var sharedInstance = RESTAPIClient()
     
-    func get(baseURL: String?, section: String?) {
-        let url = URL(fileURLWithPath: "\(baseURL!)\(section!)")
+    func get(baseURL: String, section: String) {
+        let url = URL(fileURLWithPath: "\(baseURL)\(section)")
         Alamofire.request(
                 url,
                 method: HTTPMethod.get,
@@ -28,8 +28,8 @@ class RESTAPIClient: NSObject {
         }
     }
     
-    func put(baseURL: String?, section: String?) {
-        let url = URL(fileURLWithPath: "\(baseURL!)\(section!)")
+    func put(baseURL: String, section: String) {
+        let url = URL(fileURLWithPath: "\(baseURL)\(section)")
         Alamofire.request(
             url,
             method: HTTPMethod.put,
@@ -42,8 +42,8 @@ class RESTAPIClient: NSObject {
         }
     }
     
-    func post(baseURL: String?, section: String?) {
-        let url = URL(fileURLWithPath: "\(baseURL!)\(section!)")
+    func post(baseURL: String, section: String) {
+        let url = URL(fileURLWithPath: "\(baseURL)\(section)")
         Alamofire.request(
             url,
             method: HTTPMethod.post,
@@ -56,8 +56,8 @@ class RESTAPIClient: NSObject {
         }
     }
     
-    func delete(baseURL: String?, section: String?) {
-        let url = URL(fileURLWithPath: "\(baseURL!)\(section!)")
+    func delete(baseURL: String, section: String) {
+        let url = URL(fileURLWithPath: "\(baseURL)\(section)")
         Alamofire.request(
             url,
             method: HTTPMethod.delete,
