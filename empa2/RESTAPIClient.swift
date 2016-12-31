@@ -10,11 +10,11 @@ import Foundation
 import UIKit
 import Alamofire
 
-class RESTAPIClient {
+class RESTAPIClient: NSObject {
     
     static var sharedInstance = RESTAPIClient()
     
-    init() {
+    override init() {
     }
     
     func get() {

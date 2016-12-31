@@ -9,7 +9,6 @@
 import Foundation
 import UIKit
 import Affdex
-import ResearchKit
 
 //collect all available data here from SessionViewController, then send to DataViewController.
 class DataManager {
@@ -74,16 +73,16 @@ extension DataManager: DataManagerDelegate {
             let dict = tuple.1
             for KVPair in dict {
                 switch(KVPair.key) {
-                case "sadness":
-                    sadnessData.append(KVPair.value.doubleValue)
-                case "joy":
-                    joyData.append(KVPair.value.doubleValue)
-                case "anger":
-                    angerData.append(KVPair.value.doubleValue)
-                case "surprise":
-                    surpriseData.append(KVPair.value.doubleValue)
-                default:
-                    break
+                    case "sadness":
+                        sadnessData.append(KVPair.value.doubleValue)
+                    case "joy":
+                        joyData.append(KVPair.value.doubleValue)
+                    case "anger":
+                        angerData.append(KVPair.value.doubleValue)
+                    case "surprise":
+                        surpriseData.append(KVPair.value.doubleValue)
+                    default:
+                        break
                 }
             }
         }

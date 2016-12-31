@@ -7,3 +7,14 @@
 //
 
 import Foundation
+
+class Session {
+
+	var sessionLength: Double?
+	var emotionData = Array<[String: AnyObject]>()
+	var sadnessData = [Double]()
+    var joyData = [Double]()
+    var angerData = [Double]()
+    var surpriseData = [Double]()
+
+}

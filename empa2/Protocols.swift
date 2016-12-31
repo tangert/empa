@@ -10,7 +10,6 @@ import Foundation
 import UIKit
 
 protocol DataManagerDelegate {
-    //notifies the datamanager when to consolidate all data
     func didExportData()
     func didUpdateTimer(counter: Double)
 }

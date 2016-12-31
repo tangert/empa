@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="15G1212" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="4NZ-JH-22Y">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="4NZ-JH-22Y">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -19,12 +19,91 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="Ezw-bx-K7V" kind="relationship" relationship="rootViewController" id="VkC-EP-rRb"/>
+                        <segue destination="IEN-Ug-tiU" kind="relationship" relationship="rootViewController" id="dgo-Je-e0p"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oIw-Gg-d53" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-878" y="-57"/>
+            <point key="canvasLocation" x="-2242" y="-57"/>
+        </scene>
+        <!--All patients-->
+        <scene sceneID="Vi7-eu-IZi">
+            <objects>
+                <collectionViewController id="IEN-Ug-tiU" customClass="AllPatientsViewController" customModule="empa2" customModuleProvider="target" sceneMemberID="viewController">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" dataMode="prototypes" id="RVc-7w-ccq">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="23I-kZ-gtO">
+                            <size key="itemSize" width="50" height="50"/>
+                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        </collectionViewFlowLayout>
+                        <cells>
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="E1m-5F-FXu">
+                                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </view>
+                            </collectionViewCell>
+                        </cells>
+                        <connections>
+                            <outlet property="dataSource" destination="IEN-Ug-tiU" id="G56-VB-aVu"/>
+                            <outlet property="delegate" destination="IEN-Ug-tiU" id="TvN-Qx-AQ6"/>
+                        </connections>
+                    </collectionView>
+                    <navigationItem key="navigationItem" title="All patients" id="pKr-fR-AAQ">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="BAF-3C-RBm">
+                            <connections>
+                                <segue destination="baD-aT-Fab" kind="show" id="Gvt-pa-j2a"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </collectionViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="zow-y5-dkf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1516" y="-57"/>
+        </scene>
+        <!--Patient sessions-->
+        <scene sceneID="AqI-z7-avw">
+            <objects>
+                <tableViewController title="Patient sessions" id="baD-aT-Fab" customClass="AllSessionsViewController" customModule="empa2" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="S2U-aN-A3w">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="TL4-M4-3uE">
+                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="TL4-M4-3uE" id="7ML-qq-ubI">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="baD-aT-Fab" id="gSj-Ok-Yby"/>
+                            <outlet property="delegate" destination="baD-aT-Fab" id="dBR-iS-p0f"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Patient sessions" id="VbB-qi-JzV">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="l4l-rP-kbe">
+                            <connections>
+                                <segue destination="Ezw-bx-K7V" kind="show" id="SlD-sq-mRy"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="SOe-Gc-fp7">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </refreshControl>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="k24-Fa-42l" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-802" y="-57"/>
         </scene>
         <!--SessionViewController-->
         <scene sceneID="Nev-Ph-37H">
@@ -113,7 +192,7 @@
                             <constraint firstItem="b88-jp-M0R" firstAttribute="top" secondItem="ody-Ww-s04" secondAttribute="bottom" constant="104" id="u3d-VC-8yU"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="a28-jB-C0k"/>
+                    <navigationItem key="navigationItem" title="Session" id="a28-jB-C0k"/>
                     <connections>
                         <outlet property="collectionView" destination="ody-Ww-s04" id="lJy-YK-Oiz"/>
                         <outlet property="exportDataButton" destination="4gT-yQ-OIP" id="ybQ-Au-kDT"/>
@@ -122,7 +201,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ugZ-Pv-EIS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-108" y="-57.121439280359823"/>
+            <point key="canvasLocation" x="-87" y="-57"/>
         </scene>
         <!--Data View Controller-->
         <scene sceneID="bxd-YV-bdN">
@@ -269,7 +348,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NBS-D8-97z" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="672.79999999999995" y="-57.121439280359823"/>
+            <point key="canvasLocation" x="694" y="-57"/>
         </scene>
     </scenes>
     <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
