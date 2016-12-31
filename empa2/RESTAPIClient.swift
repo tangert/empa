@@ -13,61 +13,115 @@ import Alamofire
 class RESTAPIClient: NSObject {
     
     static var sharedInstance = RESTAPIClient()
+    let headers = ["Content-Type": "application/json"]
     
-    func get(baseURL: String, section: String) {
+    func get(baseURL: String, section: String, parameters: [String: String], completion: @escaping ([String]) -> Void) {
         let url = URL(fileURLWithPath: "\(baseURL)\(section)")
         Alamofire.request(
                 url,
                 method: HTTPMethod.get,
-                parameters: nil,
+                parameters: parameters,
                 encoding: URLEncoding.default,
-                headers: nil)
+                headers: headers)
                 .validate()
-                .responseData { (response) in
-                print("Retrieved!")
+                .responseJSON { (response) in
+                    
+                    guard response.result.isSuccess else {
+                        print("Error while fetching tags: \(response.result.error)")
+                        completion([String]())
+                        return
+                    }
+                    
+                    guard let responseJSON = response.result.value as? [String: AnyObject] else {
+                        print("Invalid tag information received from service")
+                        completion([String]())
+                        return
+                    }
+                    print(responseJSON)
+                    completion([String]())
+        }
         }
     }
     
-    func put(baseURL: String, section: String) {
+    func put(baseURL: String, section: String, parameters: [String: String], completion: @escaping ([String]) -> Void) {
         let url = URL(fileURLWithPath: "\(baseURL)\(section)")
         Alamofire.request(
             url,
             method: HTTPMethod.put,
-            parameters: nil,
+            parameters: parameters,
             encoding: URLEncoding.default,
-            headers: nil)
+            headers: headers)
             .validate()
-            .responseData { (response) in
-                print("Retrieved!")
+            .responseJSON { (response) in
+                
+                guard response.result.isSuccess else {
+                    print("Error while fetching tags: \(response.result.error)")
+                    completion([String]())
+                    return
+                }
+                
+                guard let responseJSON = response.result.value as? [String: AnyObject] else {
+                    print("Invalid tag information received from service")
+                    completion([String]())
+                    return
+                }
+                print(responseJSON)
+                completion([String]())
         }
     }
-    
-    func post(baseURL: String, section: String) {
+
+    func post(baseURL: String, section: String, parameters: [String: String], completion: @escaping ([String]) -> Void) {
         let url = URL(fileURLWithPath: "\(baseURL)\(section)")
         Alamofire.request(
             url,
             method: HTTPMethod.post,
-            parameters: nil,
+            parameters: parameters,
             encoding: URLEncoding.default,
-            headers: nil)
+            headers: headers)
             .validate()
-            .responseData { (response) in
-                print("Retrieved!")
+            .responseJSON { (response) in
+                
+                guard response.result.isSuccess else {
+                    print("Error while fetching tags: \(response.result.error)")
+                    completion([String]())
+                    return
+                }
+                
+                guard let responseJSON = response.result.value as? [String: AnyObject] else {
+                    print("Invalid tag information received from service")
+                    completion([String]())
+                    return
+                }
+                print(responseJSON)
+                completion([String]())
         }
     }
-    
-    func delete(baseURL: String, section: String) {
+
+    func delete(baseURL: String, section: String, parameters: [String: String], completion: ([String]) -> Void) {
         let url = URL(fileURLWithPath: "\(baseURL)\(section)")
         Alamofire.request(
             url,
             method: HTTPMethod.delete,
-            parameters: nil,
+            parameters: parameters,
             encoding: URLEncoding.default,
-            headers: nil)
+            headers: headers)
             .validate()
-            .responseData { (response) in
-                print("Retrieved!")
+            .responseJSON { (response) in
+                
+                guard response.result.isSuccess else {
+                    print("Error while fetching tags: \(response.result.error)")
+                    completion([String]())
+                    return
+                }
+                
+                guard let responseJSON = response.result.value as? [String: AnyObject] else {
+                    print("Invalid tag information received from service")
+                    completion([String]())
+                    return
+                }
+                print(responseJSON)
+                completion([String]())
         }
     }
-    
+
 }

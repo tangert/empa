@@ -21,73 +21,53 @@ class BackendClass: NSObject {
     func logout() {
     }
     
-    //Patient functions
-    func createPatient(firstName: String?, lastName: String?) {
+    
+/* place this right before each function is called
+ 
         guard let firstName = firstName else {
             print("No first name")
             return
         }
-        
+ 
         guard let lastName = lastName else {
             print("No last name")
             return
         }
-        
+ 
+ */
+    
+    //Patient functions
+    func createPatient(firstName: String, lastName: String) {
         return api.post(
             baseURL: baseURL,
             section: "/patients/create/\(firstName)_\(lastName)")
        }
     
-    func getPatient(firstName: String?, lastName: String?) {
-        guard let firstName = firstName else {
-            print("No first name")
-            return
-        }
-        
-        guard let lastName = lastName else {
-            print("No last name")
-            return
-        }
-        
+    func getPatient(firstName: String, lastName: String) {
         return api.get(
             baseURL: baseURL,
             section: "/patients/\(firstName)_\(lastName)")
-        
     }
     
-    func editPatient(firstName: String?, lastName: String?) {
-        guard let firstName = firstName else {
-            print("No first name")
-            return
-        }
-        
-        guard let lastName = lastName else {
-            print("No last name")
-            return
-        }
-        
+    func editPatient(firstName: String, lastName: String) {
         return api.put(
             baseURL: baseURL,
             section: "/patients/\(firstName)_\(lastName)/edit")
     }
     
-    func deletePatient(firstName: String?, lastName: String?) {
-        guard let firstName = firstName else {
-            print("No first name")
-            return
-        }
-        
-        guard let lastName = lastName else {
-            print("No last name")
-            return
-        }
-        
+    func deletePatient(firstName: String, lastName: String) {
         return api.delete(
             baseURL: baseURL,
             section: "/patients/\(firstName)_\(lastName)/delete")
     }
     
     //Session functions
+    func createSession(firstName: String, lastName: String, sessionNumber: Int) {
+        return api.post(
+            baseURL: baseURL,
+            section: "/patients/\(firstName)_\(lastName)/sessions/create/\(sessionNumber)")
+    }
+    
     func getSession(firstName: String, lastName: String, sessionNumber: Int) {
         return api.get(
             baseURL: baseURL,
@@ -98,12 +78,6 @@ class BackendClass: NSObject {
         return api.put(
             baseURL: baseURL,
             section: "/patients/\(firstName)_\(lastName)/sessions/\(sessionNumber)/edit")
-    }
-    
-    func createSession(firstName: String, lastName: String, sessionNumber: Int) {
-        return api.post(
-            baseURL: baseURL,
-            section: "/patients/\(firstName)_\(lastName)/sessions/create/\(sessionNumber)")
     }
     
     func deleteSession(firstName: String, lastName: String, sessionNumber: Int) {
