@@ -8,7 +8,6 @@
 
 import Foundation
 import UIKit
-import Affdex
 
 //collect all available data here from SessionViewController, then send to DataViewController.
 class DataManager {

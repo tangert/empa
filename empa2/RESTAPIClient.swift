@@ -14,19 +14,60 @@ class RESTAPIClient: NSObject {
     
     static var sharedInstance = RESTAPIClient()
     
-    override init() {
+    func get(baseURL: String?, section: String?) {
+        let url = URL(fileURLWithPath: "\(baseURL!)\(section!)")
+        Alamofire.request(
+                url,
+                method: HTTPMethod.get,
+                parameters: nil,
+                encoding: URLEncoding.default,
+                headers: nil)
+                .validate()
+                .responseData { (response) in
+                print("Retrieved!")
+        }
     }
     
-    func get() {
+    func put(baseURL: String?, section: String?) {
+        let url = URL(fileURLWithPath: "\(baseURL!)\(section!)")
+        Alamofire.request(
+            url,
+            method: HTTPMethod.put,
+            parameters: nil,
+            encoding: URLEncoding.default,
+            headers: nil)
+            .validate()
+            .responseData { (response) in
+                print("Retrieved!")
+        }
     }
     
-    func put() {
+    func post(baseURL: String?, section: String?) {
+        let url = URL(fileURLWithPath: "\(baseURL!)\(section!)")
+        Alamofire.request(
+            url,
+            method: HTTPMethod.post,
+            parameters: nil,
+            encoding: URLEncoding.default,
+            headers: nil)
+            .validate()
+            .responseData { (response) in
+                print("Retrieved!")
+        }
     }
     
-    func post() {
-    }
-    
-    func delete() {
+    func delete(baseURL: String?, section: String?) {
+        let url = URL(fileURLWithPath: "\(baseURL!)\(section!)")
+        Alamofire.request(
+            url,
+            method: HTTPMethod.delete,
+            parameters: nil,
+            encoding: URLEncoding.default,
+            headers: nil)
+            .validate()
+            .responseData { (response) in
+                print("Retrieved!")
+        }
     }
     
 }

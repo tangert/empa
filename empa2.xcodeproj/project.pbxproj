@@ -36,6 +36,7 @@
 		36E680D91E1765A60059B0D6 /* SessionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36E680D81E1765A60059B0D6 /* SessionCell.swift */; };
 		36E680DB1E1765B50059B0D6 /* SessionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 36E680DA1E1765B50059B0D6 /* SessionCell.xib */; };
 		36E680DE1E1765C70059B0D6 /* PatientCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 36E680DD1E1765C70059B0D6 /* PatientCell.xib */; };
+		36E680E11E176E440059B0D6 /* AddPatientViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36E680E01E176E440059B0D6 /* AddPatientViewController.swift */; };
 		5C39576911D881DDF41DAD12 /* Pods_empa2Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A24DEDD8DC4C153297F4E2B /* Pods_empa2Tests.framework */; };
 		B9BEF937960D894BA1510396 /* Pods_empa2UITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EACA32E45050071A182DD9E5 /* Pods_empa2UITests.framework */; };
 /* End PBXBuildFile section */
@@ -135,6 +136,7 @@
 		36E680D81E1765A60059B0D6 /* SessionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionCell.swift; sourceTree = "<group>"; };
 		36E680DA1E1765B50059B0D6 /* SessionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SessionCell.xib; sourceTree = "<group>"; };
 		36E680DD1E1765C70059B0D6 /* PatientCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PatientCell.xib; sourceTree = "<group>"; };
+		36E680E01E176E440059B0D6 /* AddPatientViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddPatientViewController.swift; sourceTree = "<group>"; };
 		733D5DDB1257C0EDA2C0A692 /* Pods-empa2Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-empa2Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-empa2Tests/Pods-empa2Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		C23F709094F2D2DB8A2B26A8 /* Pods-empa2.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-empa2.debug.xcconfig"; path = "Pods/Target Support Files/Pods-empa2/Pods-empa2.debug.xcconfig"; sourceTree = "<group>"; };
 		C898B9FB7EF8853AD4E71D93 /* Pods-empa2.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-empa2.release.xcconfig"; path = "Pods/Target Support Files/Pods-empa2/Pods-empa2.release.xcconfig"; sourceTree = "<group>"; };
@@ -207,11 +209,9 @@
 		36354D651E1387C100BBD922 /* Frontend */ = {
 			isa = PBXGroup;
 			children = (
-				36E680CD1E1764960059B0D6 /* AllPatientsViewController.swift */,
-				36E680D11E1764A00059B0D6 /* AllSessionsViewController.swift */,
-				36D1CAA11E0DE07300ADB5A5 /* SessionViewController.swift */,
-				3612F2A21E0F8E350060C23C /* DataViewController.swift */,
-				3634DF7D1E0F2B7E00950845 /* Custom Cells + Xibs */,
+				36E680E41E1772B50059B0D6 /* Models */,
+				36E680E51E1772C10059B0D6 /* Controllers */,
+				36E680E61E1772DB0059B0D6 /* Views */,
 			);
 			name = Frontend;
 			sourceTree = "<group>";
@@ -221,9 +221,6 @@
 			children = (
 				36354D711E14302E00BBD922 /* RESTAPIClient.swift */,
 				36354D5F1E13862800BBD922 /* BackendClass.swift */,
-				365F61C21E0F94B900C0D4B0 /* DataManager.swift */,
-				36354D671E13888100BBD922 /* Patient.swift */,
-				36354D691E13888C00BBD922 /* Session.swift */,
 			);
 			name = Backend;
 			sourceTree = "<group>";
@@ -257,7 +254,6 @@
 				36D1CA671E0DDE7300ADB5A5 /* AppDelegate.swift */,
 				3612F2A01E0F833D0060C23C /* Extensions.swift */,
 				363CF4AF1E103F6300B43723 /* Protocols.swift */,
-				36D1CA9F1E0DDFE500ADB5A5 /* Main.storyboard */,
 				36354D651E1387C100BBD922 /* Frontend */,
 				36354D661E1387E600BBD922 /* Backend */,
 				36D1CA6E1E0DDE7300ADB5A5 /* Assets.xcassets */,
@@ -320,6 +316,37 @@
 				36E680DD1E1765C70059B0D6 /* PatientCell.xib */,
 			);
 			name = "Patient Cell";
+			sourceTree = "<group>";
+		};
+		36E680E41E1772B50059B0D6 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				36354D671E13888100BBD922 /* Patient.swift */,
+				36354D691E13888C00BBD922 /* Session.swift */,
+				365F61C21E0F94B900C0D4B0 /* DataManager.swift */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		36E680E51E1772C10059B0D6 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				36E680CD1E1764960059B0D6 /* AllPatientsViewController.swift */,
+				36E680D11E1764A00059B0D6 /* AllSessionsViewController.swift */,
+				36E680E01E176E440059B0D6 /* AddPatientViewController.swift */,
+				36D1CAA11E0DE07300ADB5A5 /* SessionViewController.swift */,
+				3612F2A21E0F8E350060C23C /* DataViewController.swift */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		36E680E61E1772DB0059B0D6 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				36D1CA9F1E0DDFE500ADB5A5 /* Main.storyboard */,
+				3634DF7D1E0F2B7E00950845 /* Custom Cells + Xibs */,
+			);
+			name = Views;
 			sourceTree = "<group>";
 		};
 		CB093AEBFEF7C4304207874D /* Pods */ = {
@@ -645,6 +672,7 @@
 				36E680CE1E1764960059B0D6 /* AllPatientsViewController.swift in Sources */,
 				36E680D91E1765A60059B0D6 /* SessionCell.swift in Sources */,
 				36D1CA681E0DDE7300ADB5A5 /* AppDelegate.swift in Sources */,
+				36E680E11E176E440059B0D6 /* AddPatientViewController.swift in Sources */,
 				36D1CA9C1E0DDFDA00ADB5A5 /* PlaceholderCell.swift in Sources */,
 				363CF4B01E103F6300B43723 /* Protocols.swift in Sources */,
 				36354D721E14302E00BBD922 /* RESTAPIClient.swift in Sources */,

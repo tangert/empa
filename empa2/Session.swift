@@ -7,14 +7,24 @@
 //
 
 import Foundation
+import UIKit
 
-class Session {
+struct Session {
 
 	var sessionLength: Double?
-	var emotionData = Array<[String: AnyObject]>()
-	var sadnessData = [Double]()
-    var joyData = [Double]()
-    var angerData = [Double]()
-    var surpriseData = [Double]()
+    var emotionData: Array<[String: AnyObject]>?
+    var sadnessData: [Double]?
+    var joyData: [Double]?
+    var angerData: [Double]?
+    var surpriseData: [Double]?
+    
+    init(sessionLength: Double?, emotionData: Array<[String: AnyObject]>?, sadnessData: [Double]?, joyData: [Double]?, angerData: [Double]?, surpriseData: [Double]?) {
+        self.sessionLength = sessionLength
+        self.emotionData = emotionData
+        self.sadnessData = sadnessData
+        self.joyData = joyData
+        self.angerData = angerData
+        self.surpriseData = surpriseData
+    }
 
 }

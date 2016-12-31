@@ -7,8 +7,17 @@
 //
 
 import Foundation
+import UIKit
 
-class Patient {
+struct Patient {
 	
+    var image: UIImage?
+    var firstName: String?
+    var lastName: String?
+    
+    init(firstName: String, lastName: String) {
+        self.firstName = firstName
+        self.lastName = lastName
+    }
 
 }

@@ -24,30 +24,33 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oIw-Gg-d53" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2242" y="-57"/>
+            <point key="canvasLocation" x="-2943" y="-57"/>
         </scene>
         <!--All patients-->
         <scene sceneID="Vi7-eu-IZi">
             <objects>
                 <collectionViewController id="IEN-Ug-tiU" customClass="AllPatientsViewController" customModule="empa2" customModuleProvider="target" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" dataMode="prototypes" id="RVc-7w-ccq">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="RVc-7w-ccq">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="23I-kZ-gtO">
-                            <size key="itemSize" width="50" height="50"/>
+                            <size key="itemSize" width="135" height="160"/>
                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         </collectionViewFlowLayout>
                         <cells>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="E1m-5F-FXu">
-                                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                <rect key="frame" x="0.0" y="0.0" width="135" height="160"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="135" height="160"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </view>
+                                <connections>
+                                    <segue destination="oRR-IL-aee" kind="show" identifier="PatientProfileSegue" id="Hei-cc-GiL"/>
+                                </connections>
                             </collectionViewCell>
                         </cells>
                         <connections>
@@ -58,14 +61,108 @@
                     <navigationItem key="navigationItem" title="All patients" id="pKr-fR-AAQ">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="BAF-3C-RBm">
                             <connections>
-                                <segue destination="baD-aT-Fab" kind="show" id="Gvt-pa-j2a"/>
+                                <segue destination="eyt-VV-Yb4" kind="show" identifier="CreatePatientSegue" id="NPH-i3-LOu"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="collectionView" destination="RVc-7w-ccq" id="Rlk-6e-vLw"/>
+                    </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zow-y5-dkf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1516" y="-57"/>
+            <point key="canvasLocation" x="-2242" y="-57"/>
+        </scene>
+        <!--Create patient-->
+        <scene sceneID="U9H-zC-zWA">
+            <objects>
+                <viewController title="Create patient" id="eyt-VV-Yb4" customClass="AddPatientViewController" customModule="empa2" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Iwg-d0-KOr"/>
+                        <viewControllerLayoutGuide type="bottom" id="iqp-KM-Zxy"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="G8h-2M-5c1">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="gkC-Cg-YKF">
+                                <rect key="frame" x="104" y="93" width="166" height="166"/>
+                            </imageView>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="First name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dT5-0n-pAa">
+                                <rect key="frame" x="102" y="305" width="170" height="30"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Last name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Uer-mu-71A">
+                                <rect key="frame" x="102" y="343" width="170" height="30"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="dT5-0n-pAa" firstAttribute="leading" secondItem="Uer-mu-71A" secondAttribute="leading" id="29n-E7-aMU"/>
+                            <constraint firstItem="gkC-Cg-YKF" firstAttribute="leading" secondItem="G8h-2M-5c1" secondAttribute="leadingMargin" constant="88" id="5Ya-FW-Emx"/>
+                            <constraint firstItem="gkC-Cg-YKF" firstAttribute="top" secondItem="Iwg-d0-KOr" secondAttribute="bottom" constant="29" id="FaJ-lg-Rqq"/>
+                            <constraint firstItem="dT5-0n-pAa" firstAttribute="top" secondItem="gkC-Cg-YKF" secondAttribute="bottom" constant="46" id="MqU-jc-2jK"/>
+                            <constraint firstItem="gkC-Cg-YKF" firstAttribute="centerX" secondItem="G8h-2M-5c1" secondAttribute="centerX" id="PdV-Vs-zy9"/>
+                            <constraint firstItem="gkC-Cg-YKF" firstAttribute="centerX" secondItem="dT5-0n-pAa" secondAttribute="centerX" id="RKz-57-9dH"/>
+                            <constraint firstItem="Uer-mu-71A" firstAttribute="top" secondItem="dT5-0n-pAa" secondAttribute="bottom" constant="8" symbolic="YES" id="sJb-bv-kNx"/>
+                            <constraint firstItem="iqp-KM-Zxy" firstAttribute="top" secondItem="Uer-mu-71A" secondAttribute="bottom" constant="294" id="wgE-y2-pPY"/>
+                            <constraint firstItem="dT5-0n-pAa" firstAttribute="trailing" secondItem="Uer-mu-71A" secondAttribute="trailing" id="x9c-dZ-8vf"/>
+                            <constraint firstItem="dT5-0n-pAa" firstAttribute="leading" secondItem="G8h-2M-5c1" secondAttribute="leadingMargin" constant="86" id="xdc-Wm-wZ1"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Create patient" id="bfv-RY-5kE">
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="1Bg-r8-FAS">
+                            <connections>
+                                <action selector="savePatient:" destination="eyt-VV-Yb4" id="Moz-54-gXq"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="firstNameText" destination="dT5-0n-pAa" id="jF0-W4-NyC"/>
+                        <outlet property="image" destination="gkC-Cg-YKF" id="HNH-tf-lnM"/>
+                        <outlet property="lastNameText" destination="Uer-mu-71A" id="WZ7-2i-kaH"/>
+                        <outlet property="saveButton" destination="1Bg-r8-FAS" id="O8p-zx-dSS"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="syZ-Oa-qt8" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1476" y="-436.73163418290858"/>
+        </scene>
+        <!--Patient profile-->
+        <scene sceneID="yBj-3S-1C3">
+            <objects>
+                <viewController title="Patient profile" id="oRR-IL-aee" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="dGX-RL-nSK"/>
+                        <viewControllerLayoutGuide type="bottom" id="RMd-ri-pej"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="rxp-Fm-bSn">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZCo-Tk-Riy">
+                                <rect key="frame" x="137" y="290" width="101" height="30"/>
+                                <state key="normal" title="Show sessions"/>
+                                <connections>
+                                    <segue destination="baD-aT-Fab" kind="show" id="Lup-OO-iU7"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="ZCo-Tk-Riy" firstAttribute="top" secondItem="dGX-RL-nSK" secondAttribute="bottom" constant="226" id="Qg4-xf-xKF"/>
+                            <constraint firstItem="ZCo-Tk-Riy" firstAttribute="centerX" secondItem="rxp-Fm-bSn" secondAttribute="centerX" id="a3w-1w-Qf4"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Y49-49-oca" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1476" y="255"/>
         </scene>
         <!--Patient sessions-->
         <scene sceneID="AqI-z7-avw">
@@ -83,6 +180,9 @@
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="7QR-b9-wcc" kind="show" identifier="ShowDataSegue" id="W8F-Sh-F0a"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -103,7 +203,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="k24-Fa-42l" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-802" y="-57"/>
+            <point key="canvasLocation" x="-690" y="-57"/>
         </scene>
         <!--SessionViewController-->
         <scene sceneID="Nev-Ph-37H">
@@ -201,7 +301,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ugZ-Pv-EIS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-87" y="-57"/>
+            <point key="canvasLocation" x="25" y="-57"/>
         </scene>
         <!--Data View Controller-->
         <scene sceneID="bxd-YV-bdN">
@@ -348,8 +448,11 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NBS-D8-97z" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="694" y="-57"/>
+            <point key="canvasLocation" x="806" y="-57"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="W8F-Sh-F0a"/>
+    </inferredMetricsTieBreakers>
     <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
 </document>

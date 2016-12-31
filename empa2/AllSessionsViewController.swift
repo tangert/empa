@@ -11,7 +11,11 @@ import UIKit
 
 class AllSessionsViewController: UITableViewController {
     
+    var sessionCellNib: UINib? = UINib(nibName: "SessionCell", bundle: nil)
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.tableView.register(sessionCellNib, forCellReuseIdentifier: "sessionCell")
     }
 }
