@@ -15,12 +15,8 @@ class AllPatientsViewController: UICollectionViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         self.collectionView?.register(patientCellNib, forCellWithReuseIdentifier: "patientCell")
-        
-        
     }
-    
     
     //MARK: UICollectionView DataSource + Delegate
     

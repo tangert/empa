@@ -32,16 +32,19 @@ class DataViewController: UIViewController {
     var chartArray = Array<(Double, [String: AnyObject])>()
     
     //Chart variables
+    //original data
     let sadnessData = DataManager.sharedInstance.sadnessData
     let joyData = DataManager.sharedInstance.joyData
     let angerData = DataManager.sharedInstance.angerData
     let surpriseData = DataManager.sharedInstance.surpriseData
     
+    //processed data for data sets
     var sadnessDataEnumerated: [ChartDataEntry]?
     var joyDataEnumerated: [ChartDataEntry]?
     var angerDataEnumerated : [ChartDataEntry]?
     var surpriseDataEnumerated : [ChartDataEntry]?
     
+    //datasets for charts
     var ds1: LineChartDataSet?
     var ds2: LineChartDataSet?
     var ds3: LineChartDataSet?
@@ -49,10 +52,12 @@ class DataViewController: UIViewController {
     
     let chartData = LineChartData()
     
+    //colors
     let blue = UIColor.init(red: 114/255, green: 226/255, blue: 255/255, alpha: 1.0)
     let green = UIColor.init(red: 114/255, green: 255/255, blue: 135/255, alpha: 1.0)
     let red = UIColor.init(red: 255/255, green: 114/255, blue: 114/255, alpha: 1.0)
     let yellow = UIColor.init(red: 255/255, green: 222/255, blue: 114/255, alpha: 1.0)
+    let colors = (blue, green, red, yellow)
     
     override func viewDidLoad() {
         
@@ -75,17 +80,18 @@ class DataViewController: UIViewController {
         angerSwitch.tag = 3
         surpriseSwitch.tag = 4
         
-        sadnessSwitch.onTintColor = self.blue
-        joySwitch.onTintColor = self.green
-        angerSwitch.onTintColor = self.red
-        surpriseSwitch.onTintColor = self.yellow
+        sadnessSwitch.onTintColor = blue
+        joySwitch.onTintColor = green
+        angerSwitch.onTintColor = red
+        surpriseSwitch.onTintColor = yellow
         
         setUpChart()
         
     }
     
     func setUpChart() {
-        //Setting up the chart
+        
+        //chart data setup
         ds1 = LineChartDataSet(values: sadnessDataEnumerated, label: nil)
         setupDataSet(ds: ds1!, color: self.blue, radius: 7.5)
         
@@ -98,6 +104,7 @@ class DataViewController: UIViewController {
         ds4 = LineChartDataSet(values: surpriseDataEnumerated, label: nil)
         setupDataSet(ds: ds4!, color: self.yellow, radius: 7.5)
         
+        //line chart visual setup
         lineChart.data = chartData
         lineChart.gridBackgroundColor = UIColor.white
         lineChart.drawGridBackgroundEnabled = false
@@ -116,6 +123,7 @@ class DataViewController: UIViewController {
 
     }
     
+    //set up visuals for the dataset
     func setupDataSet(ds: LineChartDataSet, color: UIColor, radius: CGFloat) {
         ds.circleRadius = radius
         ds.circleHoleRadius = radius/2

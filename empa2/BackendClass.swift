@@ -11,7 +11,7 @@ import UIKit
 
 class BackendClass: NSObject {
     
-    let api = RESTAPIClient.sharedInstance
+    let api = RESTAPIClient()
     let baseURL = "http://empa-research.herokuapp.com"
     
     //Login and logout
@@ -20,7 +20,6 @@ class BackendClass: NSObject {
     
     func logout() {
     }
-    
     
 /* place this right before each function is called
  

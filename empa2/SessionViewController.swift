@@ -35,8 +35,8 @@ class SessionViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         print("Hi! We're working!")
-        for i in 0...9 {
-            images.append(UIImage(named: "\((i%6)+1)")!)
+        for i in 1...13 {
+            images.append(UIImage(named: "\(i%6)")!)
         }
         
         exportDataButton.layer.cornerRadius = 20

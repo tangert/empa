@@ -15,32 +15,16 @@ class RESTAPIClient: NSObject {
     static var sharedInstance = RESTAPIClient()
     let headers = ["Content-Type": "application/json"]
     
-    func get(baseURL: String, section: String, parameters: [String: String], completion: @escaping ([String]) -> Void) {
+    func get(baseURL: String, section: String) {
         let url = URL(fileURLWithPath: "\(baseURL)\(section)")
+        
         Alamofire.request(
                 url,
                 method: HTTPMethod.get,
-                parameters: parameters,
+                parameters: nil,
                 encoding: URLEncoding.default,
                 headers: headers)
                 .validate()
-                .responseJSON { (response) in
-                    
-                    guard response.result.isSuccess else {
-                        print("Error while fetching tags: \(response.result.error)")
-                        completion([String]())
-                        return
-                    }
-                    
-                    guard let responseJSON = response.result.value as? [String: AnyObject] else {
-                        print("Invalid tag information received from service")
-                        completion([String]())
-                        return
-                    }
-                    print(responseJSON)
-                    completion([String]())
-        }
-        }
     }
     
     func put(baseURL: String, section: String, parameters: [String: String], completion: @escaping ([String]) -> Void) {
@@ -123,5 +107,5 @@ class RESTAPIClient: NSObject {
                 completion([String]())
         }
     }
-
 }
+
