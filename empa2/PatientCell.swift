@@ -20,7 +20,6 @@ class PatientCell: UICollectionViewCell {
         super.awakeFromNib()
         
         image.layer.cornerRadius = image.frame.width/2
-        
         background.layer.cornerRadius = 5
         background.clipsToBounds = true
     }

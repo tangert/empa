@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="15G1212" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -27,16 +27,43 @@
                             <rect key="frame" x="0.0" y="0.0" width="250" height="80"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Placeholder" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GQG-ye-m0s">
-                                    <rect key="frame" x="80" y="30" width="91" height="21"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
+                                <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="pJU-2B-3NI">
+                                    <rect key="frame" x="23" y="25" width="204" height="30"/>
+                                    <subviews>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PTk-b5-OMR">
+                                            <rect key="frame" x="0.0" y="0.0" width="30" height="30"/>
+                                            <color key="backgroundColor" red="1" green="0.64313725489999995" blue="0.43921568630000002" alpha="1" colorSpace="calibratedRGB"/>
+                                            <state key="normal" title="Sad">
+                                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                        </button>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mnh-oI-xPY">
+                                            <rect key="frame" x="40" y="0.0" width="45" height="30"/>
+                                            <color key="backgroundColor" red="1" green="0.64313725489999995" blue="0.43921568630000002" alpha="1" colorSpace="calibratedRGB"/>
+                                            <state key="normal" title="Happy">
+                                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                        </button>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0aI-Fd-X8A">
+                                            <rect key="frame" x="95" y="0.0" width="41" height="30"/>
+                                            <color key="backgroundColor" red="1" green="0.64313725489999995" blue="0.43921568630000002" alpha="1" colorSpace="calibratedRGB"/>
+                                            <state key="normal" title="Angry">
+                                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                        </button>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mnq-5g-bad">
+                                            <rect key="frame" x="146" y="0.0" width="58" height="30"/>
+                                            <color key="backgroundColor" red="1" green="0.64313725489999995" blue="0.43921568630000002" alpha="1" colorSpace="calibratedRGB"/>
+                                            <state key="normal" title="Surprise">
+                                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                        </button>
+                                    </subviews>
+                                </stackView>
                             </subviews>
                             <constraints>
-                                <constraint firstItem="GQG-ye-m0s" firstAttribute="centerX" secondItem="Ejd-37-jX2" secondAttribute="centerX" id="huT-ki-1vy"/>
-                                <constraint firstItem="GQG-ye-m0s" firstAttribute="centerY" secondItem="Ejd-37-jX2" secondAttribute="centerY" id="vg5-ku-dc3"/>
+                                <constraint firstItem="pJU-2B-3NI" firstAttribute="centerY" secondItem="Ejd-37-jX2" secondAttribute="centerY" id="4Pp-3D-cfl"/>
+                                <constraint firstItem="pJU-2B-3NI" firstAttribute="centerX" secondItem="Ejd-37-jX2" secondAttribute="centerX" id="f2e-f6-fKd"/>
                             </constraints>
                         </view>
                         <color key="backgroundColor" red="1" green="0.98039215686274506" blue="0.99215686274509807" alpha="0.5" colorSpace="calibratedRGB"/>

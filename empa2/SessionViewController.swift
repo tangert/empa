@@ -21,23 +21,29 @@ class SessionViewController: UIViewController {
     var detector: AFDXDetector? = nil
     var processedImage = UIImage()
     var unprocessedImage = UIImage()
+    
+    //Delegates
     static var cameraDelegate: UpdateCameraFeedDelegate?
     static var dataManagerDelegate: DataManagerDelegate?
+    static var nibInstanceDelegate: LoadNibInstanceDelegate?
     
+    var score = 0
     var counter = 0.0
     var roundedCounter = 0.0
     @IBOutlet weak var timerLabel: UILabel!
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var exportDataButton: UIButton!
-    
+    @IBOutlet weak var scoreLabel: UILabel!
   
     
     override func viewDidLoad() {
         super.viewDidLoad()
         print("Hi! We're working!")
-        for i in 1...13 {
-            images.append(UIImage(named: "\(i%6)")!)
+        for i in 0...12 {
+            images.append(UIImage(named: "\(i%6+1)")!)
         }
+        
+        FrontCameraView.scoreDelegate = self
         
         exportDataButton.layer.cornerRadius = 20
         exportDataButton.layer.borderWidth = 1
@@ -248,13 +254,23 @@ extension SessionViewController: UICollectionViewDelegate, UICollectionViewDataS
     func collectionView(_ collectionView: UICollectionView,
                                  cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
+        //disables scroll at checkpoints since each cell is loaded 1 ahead.
+//        if (indexPath.row%4 == 1 && indexPath.row != 1) {
+//            collectionView.isScrollEnabled = false
+//        }
+        // use indexPath.row as a way to show progress along game.
         //every 4th cell except the first one, it shows a camera view as an emotional "checkpoint"
         if (indexPath.row % 4 == 0 && indexPath.row != 0) {
+            
+            //resets the nib each time it's preloaded.
+            SessionViewController.nibInstanceDelegate?.nibInstanceDidLoad()
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cameraViewCell", for: indexPath) as! CameraViewCell
             cell.layer.cornerRadius = 10
             return cell
             
-        } else {
+        }
+                
+        else {
             //placeholder cells
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "placeholderCell", for: indexPath) as! PlaceholderCell
             cell.placeholderImage.image = images[indexPath.row]
@@ -280,4 +296,15 @@ extension SessionViewController: UICollectionViewDelegateFlowLayout {
         return UIEdgeInsetsMake(0, 20, 0, 20)
     }
     
+}
+
+extension SessionViewController: UpdateScoreDelegate {
+    func scoreDidChange(direction: String) {
+        if direction == "up" {
+            score+=1
+        } else if direction == "down" {
+            score-=1
+        }
+        scoreLabel.text! = "\(score)"
+    }
 }

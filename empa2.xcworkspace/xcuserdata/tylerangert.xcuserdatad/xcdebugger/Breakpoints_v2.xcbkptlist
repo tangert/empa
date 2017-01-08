@@ -15,7 +15,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "22"
             endingLineNumber = "22"
-            landmarkName = "get(baseURL:section:parameters:)"
+            landmarkName = "get(baseURL:section:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

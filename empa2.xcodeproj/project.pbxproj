@@ -17,6 +17,8 @@
 		36354D721E14302E00BBD922 /* RESTAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36354D711E14302E00BBD922 /* RESTAPIClient.swift */; };
 		363CF4B01E103F6300B43723 /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 363CF4AF1E103F6300B43723 /* Protocols.swift */; };
 		365F61C31E0F94B900C0D4B0 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 365F61C21E0F94B900C0D4B0 /* DataManager.swift */; };
+		3669B90E1E219E7300DCB3D4 /* Charts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3669B9091E219E1F00DCB3D4 /* Charts.framework */; };
+		3669B90F1E219E7300DCB3D4 /* Charts.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3669B9091E219E1F00DCB3D4 /* Charts.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		36D1CA681E0DDE7300ADB5A5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D1CA671E0DDE7300ADB5A5 /* AppDelegate.swift */; };
 		36D1CA6F1E0DDE7300ADB5A5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 36D1CA6E1E0DDE7300ADB5A5 /* Assets.xcassets */; };
 		36D1CA721E0DDE7300ADB5A5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 36D1CA701E0DDE7300ADB5A5 /* LaunchScreen.storyboard */; };
@@ -41,26 +43,33 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		368617561E1804E9008ACFCB /* PBXContainerItemProxy */ = {
+		3669B9081E219E1F00DCB3D4 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 368617501E1804E9008ACFCB /* Charts.xcodeproj */;
+			containerPortal = 3669B9021E219E1E00DCB3D4 /* Charts.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 06165F241D8110E600722320;
 			remoteInfo = Charts;
 		};
-		368617581E1804E9008ACFCB /* PBXContainerItemProxy */ = {
+		3669B90A1E219E1F00DCB3D4 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 368617501E1804E9008ACFCB /* Charts.xcodeproj */;
+			containerPortal = 3669B9021E219E1E00DCB3D4 /* Charts.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 06B120D51D811E6200D14B02;
 			remoteInfo = ChartsRealm;
 		};
-		3686175A1E1804E9008ACFCB /* PBXContainerItemProxy */ = {
+		3669B90C1E219E1F00DCB3D4 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 368617501E1804E9008ACFCB /* Charts.xcodeproj */;
+			containerPortal = 3669B9021E219E1E00DCB3D4 /* Charts.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 06165F2E1D8110E600722320;
 			remoteInfo = ChartsTests;
+		};
+		3669B9101E219E7300DCB3D4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3669B9021E219E1E00DCB3D4 /* Charts.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 06165F231D8110E600722320;
+			remoteInfo = Charts;
 		};
 		36D1CA791E0DDE7300ADB5A5 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -85,6 +94,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				3669B90F1E219E7300DCB3D4 /* Charts.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -103,7 +113,7 @@
 		36354D711E14302E00BBD922 /* RESTAPIClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RESTAPIClient.swift; sourceTree = "<group>"; };
 		363CF4AF1E103F6300B43723 /* Protocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
 		365F61C21E0F94B900C0D4B0 /* DataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
-		368617501E1804E9008ACFCB /* Charts.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Charts.xcodeproj; path = "../Charts-master/Charts.xcodeproj"; sourceTree = "<group>"; };
+		3669B9021E219E1E00DCB3D4 /* Charts.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Charts.xcodeproj; path = "../Charts-master/Charts.xcodeproj"; sourceTree = "<group>"; };
 		36D1CA641E0DDE7300ADB5A5 /* empa2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = empa2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		36D1CA671E0DDE7300ADB5A5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		36D1CA6E1E0DDE7300ADB5A5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -144,6 +154,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				27D34FB74FE56793092BEF2C /* Pods_empa2.framework in Frameworks */,
+				3669B90E1E219E7300DCB3D4 /* Charts.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -206,12 +217,12 @@
 			name = Backend;
 			sourceTree = "<group>";
 		};
-		368617511E1804E9008ACFCB /* Products */ = {
+		3669B9031E219E1E00DCB3D4 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				368617571E1804E9008ACFCB /* Charts.framework */,
-				368617591E1804E9008ACFCB /* ChartsRealm.framework */,
-				3686175B1E1804E9008ACFCB /* ChartsTests.xctest */,
+				3669B9091E219E1F00DCB3D4 /* Charts.framework */,
+				3669B90B1E219E1F00DCB3D4 /* ChartsRealm.framework */,
+				3669B90D1E219E1F00DCB3D4 /* ChartsTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -219,7 +230,7 @@
 		36D1CA5B1E0DDE7300ADB5A5 = {
 			isa = PBXGroup;
 			children = (
-				368617501E1804E9008ACFCB /* Charts.xcodeproj */,
+				3669B9021E219E1E00DCB3D4 /* Charts.xcodeproj */,
 				36D1CA661E0DDE7300ADB5A5 /* empa2 */,
 				36D1CA7B1E0DDE7300ADB5A5 /* empa2Tests */,
 				36D1CA861E0DDE7300ADB5A5 /* empa2UITests */,
@@ -372,6 +383,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				3669B9111E219E7300DCB3D4 /* PBXTargetDependency */,
 			);
 			name = empa2;
 			productName = empa2;
@@ -461,8 +473,8 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = 368617511E1804E9008ACFCB /* Products */;
-					ProjectRef = 368617501E1804E9008ACFCB /* Charts.xcodeproj */;
+					ProductGroup = 3669B9031E219E1E00DCB3D4 /* Products */;
+					ProjectRef = 3669B9021E219E1E00DCB3D4 /* Charts.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -475,25 +487,25 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		368617571E1804E9008ACFCB /* Charts.framework */ = {
+		3669B9091E219E1F00DCB3D4 /* Charts.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
 			path = Charts.framework;
-			remoteRef = 368617561E1804E9008ACFCB /* PBXContainerItemProxy */;
+			remoteRef = 3669B9081E219E1F00DCB3D4 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		368617591E1804E9008ACFCB /* ChartsRealm.framework */ = {
+		3669B90B1E219E1F00DCB3D4 /* ChartsRealm.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
 			path = ChartsRealm.framework;
-			remoteRef = 368617581E1804E9008ACFCB /* PBXContainerItemProxy */;
+			remoteRef = 3669B90A1E219E1F00DCB3D4 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		3686175B1E1804E9008ACFCB /* ChartsTests.xctest */ = {
+		3669B90D1E219E1F00DCB3D4 /* ChartsTests.xctest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
 			path = ChartsTests.xctest;
-			remoteRef = 3686175A1E1804E9008ACFCB /* PBXContainerItemProxy */;
+			remoteRef = 3669B90C1E219E1F00DCB3D4 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -698,6 +710,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		3669B9111E219E7300DCB3D4 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Charts;
+			targetProxy = 3669B9101E219E7300DCB3D4 /* PBXContainerItemProxy */;
+		};
 		36D1CA7A1E0DDE7300ADB5A5 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 36D1CA631E0DDE7300ADB5A5 /* empa2 */;

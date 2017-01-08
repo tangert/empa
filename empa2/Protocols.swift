@@ -20,6 +20,15 @@ protocol UpdateCameraFeedDelegate {
     func willUpdateFaceLabel(input: String)
 }
 
+protocol UpdateScoreDelegate {
+    func scoreDidChange(direction: String)
+}
+
+//this is to signify when a specific instance has loaded.
+protocol LoadNibInstanceDelegate {
+    func nibInstanceDidLoad()
+}
+
 protocol UISliderDelegate {
     func sliderDidChange(value: Float)
 }

@@ -57,7 +57,6 @@ class DataViewController: UIViewController {
     let green = UIColor.init(red: 114/255, green: 255/255, blue: 135/255, alpha: 1.0)
     let red = UIColor.init(red: 255/255, green: 114/255, blue: 114/255, alpha: 1.0)
     let yellow = UIColor.init(red: 255/255, green: 222/255, blue: 114/255, alpha: 1.0)
-    let colors = (blue, green, red, yellow)
     
     override func viewDidLoad() {
         
@@ -68,7 +67,6 @@ class DataViewController: UIViewController {
         print("Anger data: \(DataManager.sharedInstance.angerData)")
         
         lineChart.delegate = self
-        
         sadnessDataEnumerated = sadnessData.enumerated().map { x, y in return ChartDataEntry(x: Double(x), y: y) }
         joyDataEnumerated = joyData.enumerated().map { x, y in return ChartDataEntry(x: Double(x), y: y) }
         angerDataEnumerated = angerData.enumerated().map { x, y in return ChartDataEntry(x: Double(x), y: y) }
@@ -206,6 +204,7 @@ class DataViewController: UIViewController {
 extension DataViewController: ChartViewDelegate {
     
     func chartValueSelected(chartView: ChartViewBase, entry: ChartDataEntry, dataSetIndex: Int, highlight: Highlight) {
+        print("Data set index: \(dataSetIndex)")
     }
     
 }

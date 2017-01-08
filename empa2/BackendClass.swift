@@ -37,7 +37,7 @@ class BackendClass: NSObject {
     
     //Patient functions
     func createPatient(firstName: String, lastName: String) {
-        return api.post(
+        api.post(
             baseURL: baseURL,
             section: "/patients/create/\(firstName)_\(lastName)")
        }
