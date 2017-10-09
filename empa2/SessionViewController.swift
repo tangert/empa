@@ -30,25 +30,30 @@ class SessionViewController: UIViewController {
     var score = 0
     var counter = 0.0
     var roundedCounter = 0.0
+    
     @IBOutlet weak var timerLabel: UILabel!
     @IBOutlet weak var collectionView: UICollectionView!
-    @IBOutlet weak var exportDataButton: UIButton!
+    @IBOutlet weak var exportDataButton: UIButton! {
+        didSet {
+            exportDataButton.layer.cornerRadius = 20
+            exportDataButton.layer.borderWidth = 1
+            exportDataButton.layer.borderColor = UIColor.darkGray.cgColor
+        }
+    }
+    
     @IBOutlet weak var scoreLabel: UILabel!
   
     
     override func viewDidLoad() {
         super.viewDidLoad()
         print("Hi! We're working!")
+        
+        //FIXME: Connect to s3 bucket and load images instead of locally
         for i in 0...12 {
             images.append(UIImage(named: "\(i%6+1)")!)
         }
         
         FrontCameraView.scoreDelegate = self
-        
-        exportDataButton.layer.cornerRadius = 20
-        exportDataButton.layer.borderWidth = 1
-        exportDataButton.layer.borderColor = UIColor.darkGray.cgColor
-        
         detector?.delegate = self
         collectionView.delegate = self
         collectionView.dataSource = self
@@ -68,14 +73,6 @@ class SessionViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         destroyDetector()
-    }
-    
-    func updateCounter() {
-        counter+=0.1
-        roundedCounter = counter.firstDecimal()
-        print("Session time: \(roundedCounter)")
-        timerLabel.text = "Session time: \(roundedCounter)"
-        SessionViewController.dataManagerDelegate?.didUpdateTimer(counter: roundedCounter)
     }
     
     @IBAction func exportData(_ sender: Any) {
@@ -108,6 +105,14 @@ class SessionViewController: UIViewController {
         }
         
     }
+    
+    func updateCounter() {
+        counter+=0.1
+        roundedCounter = Double(String(format: "%0.1f", counter))!
+        print("Session time: \(roundedCounter)")
+        timerLabel.text = "Session time: \(roundedCounter))"
+        SessionViewController.dataManagerDelegate?.didUpdateTimer(counter: roundedCounter)
+    }
 }
 
 extension SessionViewController: AFDXDetectorDelegate {
@@ -139,14 +144,21 @@ extension SessionViewController: AFDXDetectorDelegate {
                 let mappedEmoji = mapEmoji(emoji: currentEmoji.dominantEmoji)
                 print("Your emoji: \(mappedEmoji)")
                 
+                let expressions = output.expressions!.jsonDescription()
+                
                 //Raw emotion data as a dictionary, [String: Double]
                 let emotions = output.emotions!.jsonDescription()
+                
                 if let range = emotions!.range(of: "\"emotions\": ") {
                     let json = emotions!.substring(from: range.upperBound)
                     let jsonArray = json.convertToDictionary()
+                    
                     DataManager.sharedInstance.emotionData.append(jsonArray!)
                 }
                 
+                //Send over the expressions
+                DataManager.sharedInstance.expressionData.append(expressions!.convertToDictionary()!)
+
                 unprocessedImageReady(detector, image: image, atTime: time)
                 SessionViewController.cameraDelegate?.willUpdateEmojiLabel(input: mappedEmoji)
             }
@@ -254,12 +266,22 @@ extension SessionViewController: UICollectionViewDelegate, UICollectionViewDataS
     func collectionView(_ collectionView: UICollectionView,
                                  cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
+        //FIXME: FORMAT THE ORDERING OF THE CELLS BASED ON THE CONFIGURATION OF THE EXPERIMENTAL GROUP
+        //CONTROL: NO PRIMING CELLS
+        //EXP 1: IF INDEXPATH.ROW == 0, PRIME
+        //EXP 2: IF INDEXPATH.ROW == COLLECTIONVIEW.LENGTH-1, PRIME
+        //EXP 3: PLACE AT MIDDLE INTERVAL IN FIRST HALVES, THIRDS, ETC
+        
+        //FIXME: DISABLE SCROLLING BEFORE THE SLIDER IS ANSWERED
+        //Create delegate to notify the collection view fromt he cell whether or not the slider has actually been touched
+        
         //disables scroll at checkpoints since each cell is loaded 1 ahead.
 //        if (indexPath.row%4 == 1 && indexPath.row != 1) {
 //            collectionView.isScrollEnabled = false
 //        }
         // use indexPath.row as a way to show progress along game.
         //every 4th cell except the first one, it shows a camera view as an emotional "checkpoint"
+        
         if (indexPath.row % 4 == 0 && indexPath.row != 0) {
             
             //resets the nib each time it's preloaded.

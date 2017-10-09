@@ -151,7 +151,7 @@ class DataViewController: UIViewController {
     @IBAction func switchPressed(sender: UISwitch) {
         switch(sender.tag) {
             case 1:
-                if sender.isOn == false {
+                if !sender.isOn{
                     sadnessLabel.animateOpacity(alpha: 0.5)
                     updateGraph(action: "remove", dataSet: ds1!)
                 } else {
@@ -159,7 +159,7 @@ class DataViewController: UIViewController {
                     updateGraph(action: "add", dataSet: ds1!)
                 }
             case 2:
-                if sender.isOn == false {
+                if !sender.isOn {
                     joyLabel.animateOpacity(alpha: 0.5)
                     updateGraph(action: "remove", dataSet: ds2!)
                 } else {
@@ -167,7 +167,7 @@ class DataViewController: UIViewController {
                     updateGraph(action: "add", dataSet: ds2!)
                 }
             case 3:
-                if sender.isOn == false {
+                if !sender.isOn {
                     angerLabel.animateOpacity(alpha: 0.5)
                     updateGraph(action: "remove", dataSet: ds3!)
                 } else {
@@ -175,7 +175,7 @@ class DataViewController: UIViewController {
                     updateGraph(action: "add", dataSet: ds3!)
                 }
             case 4:
-                if sender.isOn == false {
+                if !sender.isOn {
                     surpriseLabel.animateOpacity(alpha: 0.5)
                     updateGraph(action: "remove", dataSet: ds4!)
                 } else {

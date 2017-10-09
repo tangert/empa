@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "EB57ADFBE86F4B6F7785E3AA83D09E1E"
+               BlueprintIdentifier = "17B0290311368AEDA6018CE3CB12DB4C"
                BuildableName = "Pods_empa2UITests.framework"
                BlueprintName = "Pods-empa2UITests"
                ReferencedContainer = "container:Pods.xcodeproj">
@@ -26,6 +26,7 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
+      language = ""
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
       </Testables>
@@ -36,6 +37,7 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
+      language = ""
       launchStyle = "0"
       useCustomWorkingDirectory = "NO"
       ignoresPersistentStateOnLaunch = "NO"
@@ -45,7 +47,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "EB57ADFBE86F4B6F7785E3AA83D09E1E"
+            BlueprintIdentifier = "17B0290311368AEDA6018CE3CB12DB4C"
             BuildableName = "Pods_empa2UITests.framework"
             BlueprintName = "Pods-empa2UITests"
             ReferencedContainer = "container:Pods.xcodeproj">

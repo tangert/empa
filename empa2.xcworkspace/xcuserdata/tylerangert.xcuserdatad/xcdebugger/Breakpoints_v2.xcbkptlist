@@ -9,29 +9,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "empa2/RESTAPIClient.swift"
-            timestampString = "504854313.340928"
+            filePath = "empa2/SessionViewController.swift"
+            timestampString = "529276560.075067"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "22"
-            endingLineNumber = "22"
-            landmarkName = "get(baseURL:section:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "empa2/BackendClass.swift"
-            timestampString = "504857676.100682"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "51"
-            endingLineNumber = "51"
-            landmarkName = "editPatient(firstName:lastName:)"
+            startingLineNumber = "202"
+            endingLineNumber = "202"
+            landmarkName = "createDetector()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

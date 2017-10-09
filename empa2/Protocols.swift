@@ -10,6 +10,8 @@ import Foundation
 import UIKit
 
 protocol DataManagerDelegate {
+    func didGetEmotionData(data: [String: AnyObject])
+    func didGetExpressionData(data: [String: AnyObject])
     func didExportData()
     func didUpdateTimer(counter: Double)
 }

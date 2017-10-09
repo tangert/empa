@@ -9,14 +9,19 @@
 import Foundation
 import UIKit
 
+private let _DataManagerSharedInstance = DataManager()
+
 //collect all available data here from SessionViewController, then send to DataViewController.
 class DataManager {
     
-    static var sharedInstance = DataManager()
     var dataManagerDelegate: DataManagerDelegate?
+    
     var timeData = Array<Double>()
     var emotionData = Array<[String: AnyObject]>()
+    var expressionData = Array<[String: AnyObject]>()
+    
     var timeSensitiveEmotionData = Array<[String: AnyObject]>()
+    var timeSensitiveExpressionData = Array<[String: AnyObject]>()
     
     var chartDictionary = [Double: [String: AnyObject]]()
     var chartArray = Array<(Double, [String: AnyObject])>()
@@ -31,6 +36,13 @@ class DataManager {
     var slideAdjustedPlotPoints = Array(repeating: Array<Double>(), count: 4)
     var slideCount = 0
     
+    class var sharedInstance: DataManager {
+        struct Static {
+            static let instance: DataManager = DataManager()
+        }
+        return Static.instance
+    }
+    
     init() {
         SessionViewController.dataManagerDelegate = self
     }
@@ -39,13 +51,18 @@ class DataManager {
 
 extension DataManager: DataManagerDelegate {
     
+    func didGetEmotionData(data: [String: AnyObject]) {
+    }
+    
+    func didGetExpressionData(data: [String: AnyObject]) {
+    }
+    
     func didUpdateTimer(counter: Double) {
         timeData.append(counter)
         timeSensitiveEmotionData.append(emotionData.last!)
     }
     
     func didExportData() {
-        
         //resets all data to avoid duplicate measurements.
         sadnessData.removeAll()
         joyData.removeAll()

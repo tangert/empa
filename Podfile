@@ -23,6 +23,9 @@ use_frameworks!
 pod 'Alamofire', '~> 4.0'
 pod 'AffdexSDK-iOS'
 pod 'AWSKinesis'
+pod 'Firebase/Core'
+pod 'Firebase/Storage'
+pod 'Firebase/Auth'
 
 post_install do |installer|
   installer.pods_project.targets.each do |target|

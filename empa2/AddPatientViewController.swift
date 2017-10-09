@@ -16,7 +16,7 @@ class AddPatientViewController: UIViewController {
     @IBOutlet weak var lastNameText: UITextField!
     @IBOutlet weak var saveButton: UIBarButtonItem!
     
-    var newPatient: Patient?
+    var newSubject: TestSubject?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,14 +26,14 @@ class AddPatientViewController: UIViewController {
             return
         }
         
-         newPatient = Patient.init(firstName: firstNameText.text!, lastName: lastNameText.text!)
+         newSubject = TestSubject.init(firstName: firstNameText.text!, lastName: lastNameText.text!)
         
     
     }
     
     @IBAction func savePatient(_ sender: Any) {
-        newPatient?.firstName = firstNameText.text
-        newPatient?.lastName = lastNameText.text
+        newSubject?.firstName = firstNameText.text
+        newSubject?.lastName = lastNameText.text
     }
     
 }

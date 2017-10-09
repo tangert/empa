@@ -25,12 +25,15 @@ class AllPatientsViewController: UICollectionViewController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        // Here is where you'll grab the total amount of patients from the firebase root reference and populate
         return 5
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell: UICollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: "patientCell", for: indexPath) as! PatientCell
+        
+        //Here is where youll grab each patients data in the array
         return cell
     }
     
