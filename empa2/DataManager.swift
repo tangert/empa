@@ -8,12 +8,13 @@
 
 import Foundation
 import UIKit
-
-private let _DataManagerSharedInstance = DataManager()
+import Firebase
+import FirebaseDatabase
 
 //collect all available data here from SessionViewController, then send to DataViewController.
 class DataManager {
     
+    // MARK: Data management properties
     var dataManagerDelegate: DataManagerDelegate?
     
     var timeData = Array<Double>()
@@ -44,7 +45,22 @@ class DataManager {
     }
     
     init() {
+        print("INITIALIZING DATA MANAGER")
+        // Delegates
         SessionViewController.dataManagerDelegate = self
+    }
+    
+}
+
+// MARK : Firebase methods called from shared instance.
+extension DataManager {
+    
+    func createTestSubject(testSubject: TestSubject) {
+        testSubjectRef.child(testSubject.id).setValue(testSubject.JSON())
+    }
+    
+    func createSession(session: Session) {
+        sessionsRef.childByAutoId().setValue(session.JSON())
     }
     
 }

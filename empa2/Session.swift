@@ -7,9 +7,10 @@
 //
 
 import Foundation
-import UIKit
+import Firebase
+import FirebaseDatabase
 
-struct Session {
+class Session: BaseModel {
 
 	var sessionLength: Double?
     var emotionData: Array<[String: AnyObject]>?

@@ -24,8 +24,10 @@ pod 'Alamofire', '~> 4.0'
 pod 'AffdexSDK-iOS'
 pod 'AWSKinesis'
 pod 'Firebase/Core'
+pod 'Firebase/Database'
 pod 'Firebase/Storage'
 pod 'Firebase/Auth'
+pod 'IQKeyboardManager'
 
 post_install do |installer|
   installer.pods_project.targets.each do |target|

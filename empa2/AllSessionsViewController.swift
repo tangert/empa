@@ -18,4 +18,12 @@ class AllSessionsViewController: UITableViewController {
         
         self.tableView.register(sessionCellNib, forCellReuseIdentifier: "sessionCell")
     }
+    
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 10
+    }
+    
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
 }

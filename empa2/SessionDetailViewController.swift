@@ -7,3 +7,11 @@
 //
 
 import Foundation
+import UIKit
+
+class SessionDetailViewController: UIViewController {
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+    }
+}
