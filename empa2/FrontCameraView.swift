@@ -23,7 +23,8 @@ class FrontCameraView: UIImageView, UIGestureRecognizerDelegate {
         let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleTap(_:)))
         tap.delegate = self
         self.addGestureRecognizer(tap)
-        self.layer.addSublayer(placeHolderLayer)
+        
+//        self.layer.addSublayer(placeHolderLayer)
         
         SessionViewController.nibInstanceDelegate = self
     }
@@ -52,8 +53,8 @@ class FrontCameraView: UIImageView, UIGestureRecognizerDelegate {
 extension FrontCameraView: LoadNibInstanceDelegate {
     func nibInstanceDidLoad() {
         if feedIsActive {
-            self.layer.addSublayer(placeHolderLayer)
-            feedIsActive = false
+//            self.layer.addSublayer(placeHolderLayer)
+//            feedIsActive = false
         }
     }
 }

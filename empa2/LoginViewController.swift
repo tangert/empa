@@ -18,7 +18,11 @@ class LoginViewController: UIViewController {
 
     @IBOutlet weak var emailField: UITextField!
     @IBOutlet weak var passwordField: UITextField!
-    @IBOutlet weak var loginButton: UIButton!
+    @IBOutlet weak var loginButton: UIButton! {
+        didSet {
+            loginButton.layer.cornerRadius = 10
+        }
+    }
     
     @IBAction func pressLogin(_ sender: Any) {
         Auth.auth().signIn(withEmail: emailField.text!,
@@ -35,6 +39,10 @@ class LoginViewController: UIViewController {
                 self.performSegue(withIdentifier: self.login, sender: nil)
             }
         }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        self.passwordField.text = ""
     }
     
     

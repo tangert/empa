@@ -11,29 +11,93 @@ import AVFoundation
 import UIKit
 import Affdex
 
+protocol PrimingCellDelegate {
+    func didFinishPriming()
+}
+
 class CameraViewCell: UICollectionViewCell {
-        
-    @IBOutlet weak var cameraView: FrontCameraView!
-    @IBOutlet weak var emojiLabel: UILabel!
-    @IBOutlet weak var faceShownLabel: UILabel!
     
+    var delegate: PrimingCellDelegate?
+    
+    @IBOutlet weak var cameraView: FrontCameraView! {
+        didSet {
+            cameraView.layer.cornerRadius = 10
+            cameraView.clipsToBounds = true
+        }
+    }
+    
+    @IBOutlet weak var sliderContainer: UIVisualEffectView! {
+        didSet {
+            sliderContainer.layer.cornerRadius = 10
+            sliderContainer.clipsToBounds = true
+        }
+    }
+    
+    @IBOutlet weak var emojiLabel: UILabel!
+    @IBOutlet weak var progressView: UIProgressView!
+    
+    var currentProgressScore: Float = 0
+
     override func awakeFromNib() {
         SessionViewController.cameraDelegate = self
+        progressView.progressTintColor = EMPA_BLUE
+        progressView.trackTintColor = UIColor.white
     }
+    
     
 }
 
 extension CameraViewCell: UpdateCameraFeedDelegate {
     
+    func willUpdateProgress(type: subjectType, data: [String : AnyObject]) {
+    
+        guard !SessionViewController.primingProgressIsFinished else { return }
+        
+        if type == .happy {
+            
+            guard let joyData = (data["joy"] as? NSString)?.doubleValue else {
+                return
+            }
+            
+            currentProgressScore = Float(joyData/100)
+            
+            
+        } else {
+            
+            guard let sadnessData = (data["sadness"] as? NSString)?.doubleValue else {
+                return
+            }
+            
+            guard let valenceData = (data["sadness"] as? NSString)?.doubleValue else {
+                return
+            }
+            
+            let maxSadData = max(sadnessData, abs(valenceData))
+            
+            currentProgressScore = Float(maxSadData/100)
+            
+        }
+        
+        progressView.setProgress(currentProgressScore*1.5, animated: true)
+        
+        if(progressView.progress == 1.0) {
+            print("finished!")
+            
+            SessionViewController.primingProgressIsFinished = true
+            
+            self.delegate?.didFinishPriming()
+            //FIXME: call a method to the datamanager to record when they actually reached the proepr value
+            
+            UIView.animate(withDuration: 0.2, animations: {
+                self.sliderContainer.backgroundColor = UIColor.green.withAlphaComponent(0.3)
+                self.progressView.progressTintColor = UIColor.green.withAlphaComponent(0.6)
+            })
+        }
+        
+    }
+    
     func willUpdateCameraFeed(image: UIImage) {
         cameraView.image = image
     }
     
-    func willUpdateEmojiLabel(input: String) {
-        emojiLabel.text = "Emoji: \(input)"
-    }
-    
-    func willUpdateFaceLabel(input: String) {
-        faceShownLabel.text = input
-    }
 }

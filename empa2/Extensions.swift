@@ -22,6 +22,22 @@ extension String {
         print("Cannot convert JSON to Dictionary.")
         return nil
     }
+}
+
+extension Int {
+    
+    func subjectType() -> subjectType {
+        switch(self){
+        case 0:
+            return .control
+        case 1:
+            return .happy
+        case 2:
+            return .sad
+        default:
+            return .control
+        }
+    }
     
 }
 
@@ -31,6 +47,19 @@ extension UIView {
         UIView.animate(withDuration: 0.25) {
             self.alpha = alpha
         }
+    }
+    
+    func dropShadow(radius: CGFloat) {
+        self.layer.masksToBounds = false
+        self.layer.shadowColor = UIColor.black.cgColor
+        self.layer.shadowOpacity = 0.075
+        self.layer.shadowOffset = CGSize(width: -5, height: -5)
+        self.layer.shadowRadius = radius
+        self.layer.shadowPath = UIBezierPath(rect: self.bounds).cgPath
+        self.layer.shouldRasterize = true
+        
+        self.layer.rasterizationScale = UIScreen.main.scale
+        
     }
 }
 

@@ -9,34 +9,13 @@
 import Foundation
 import UIKit
 import Firebase
+import FirebaseStorage
 import FirebaseDatabase
 
 //collect all available data here from SessionViewController, then send to DataViewController.
 class DataManager {
     
-    // MARK: Data management properties
-    var dataManagerDelegate: DataManagerDelegate?
-    
-    var timeData = Array<Double>()
-    var emotionData = Array<[String: AnyObject]>()
-    var expressionData = Array<[String: AnyObject]>()
-    
-    var timeSensitiveEmotionData = Array<[String: AnyObject]>()
-    var timeSensitiveExpressionData = Array<[String: AnyObject]>()
-    
-    var chartDictionary = [Double: [String: AnyObject]]()
-    var chartArray = Array<(Double, [String: AnyObject])>()
-    var slideValue: Float?
-    
-    var sadnessData = [Double]()
-    var joyData = [Double]()
-    var angerData = [Double]()
-    var surpriseData = [Double]()
-    
-    var plotPoints = Array(repeating: Array<Double>(), count: 4)
-    var slideAdjustedPlotPoints = Array(repeating: Array<Double>(), count: 4)
-    var slideCount = 0
-    
+    // MARK: Singleton
     class var sharedInstance: DataManager {
         struct Static {
             static let instance: DataManager = DataManager()
@@ -44,96 +23,187 @@ class DataManager {
         return Static.instance
     }
     
-    init() {
-        print("INITIALIZING DATA MANAGER")
-        // Delegates
-        SessionViewController.dataManagerDelegate = self
-    }
+    let storage = Storage.storage(url:"gs://empa-d038c.appspot.com")
     
+    
+    
+    //MARK: Final data to be processed and sent to the creation of a new session.
+    
+    /***********************************/
+    /***********************************/
+    /***********************************/
+
+    var currentUserID: String?
+
+    var timeData = [Double]()
+    
+                    //Time stamp
+    var facialData = [ Double:
+            //Emotion : JSON
+            [String: AnyObject]
+            ]()
+    
+    var slideData = [ String:
+            //timeStamp,
+            //visitTimeStamps
+            //slideScore
+            //scoreReversals
+            //imageURL
+            [ String: Any ]
+            ]()
+    
+    var primingData = [ String: Any ]()
+    
+    /***********************************/
+    /***********************************/
+    /***********************************/
+    
+    
+    // MARK: Helper variables for intermediate data processing.
+    
+    // These maintain the values of the sliders according the indexpath.row
+    var slideValues = [Int: Float]()
+
+    //Time stamps to be fed into slide data and priming data in post processing
+    var slideVisitTimestamps = [ Int : [ Double ] ]()
+    var primingVisitTimestamps = [ Int : [ Double ] ]()
+
+    
+    
+    //FIXME: do you even need this lol?
+    
+    var sadnessData = [Double]()
+    var joyData = [Double]()
+    var angerData = [Double]()
+    var surpriseData = [Double]()
+
 }
 
-// MARK : Firebase methods called from shared instance.
+// MARK: Firebase methods called from shared instance.
 extension DataManager {
+    
+    // MARK: TestSubjects
     
     func createTestSubject(testSubject: TestSubject) {
         testSubjectRef.child(testSubject.id).setValue(testSubject.JSON())
     }
     
-    func createSession(session: Session) {
-        sessionsRef.childByAutoId().setValue(session.JSON())
+    func deleteTestSubject(id: String) {
+        testSubjectRef.child(id).removeValue()
     }
     
+    // MARK: Sessions
+    func createSession(session: Session) {
+        print("SESSION: \(session.JSON())")
+        let data = session.facialData!
+        sessionsRef.childByAutoId().setValue(session.userID)
+    }
+    
+    func deleteSession(id: String) {
+        sessionsRef.child(id).removeValue()
+    }
+    
+    // MARK: 
 }
 
-extension DataManager: DataManagerDelegate {
+// MARK: Gameplay methods
+extension DataManager {
     
-    func didGetEmotionData(data: [String: AnyObject]) {
+    func didUpdateTime( time: Double ) {
+        timeData.append(time)
     }
     
-    func didGetExpressionData(data: [String: AnyObject]) {
+    func didUpdateFacialData(data: [String: AnyObject], time: Double) {
+        
+        facialData[time] = data
+//        print("Facial data: \(time): \(facialData[time]!)")
+        
     }
     
-    func didUpdateTimer(counter: Double) {
-        timeData.append(counter)
-        timeSensitiveEmotionData.append(emotionData.last!)
+    //Regular slide time stamps
+    func didRecordSlideTimestamp(tag: Int, time: Double) {
+        
+        var prevValues = slideVisitTimestamps[tag]
+        
+        if prevValues == nil {
+            //When it's empty, just make the entire array the first time
+            prevValues = [time]
+        } else {
+            prevValues?.append(time)
+        }
+        
+        slideVisitTimestamps.updateValue(prevValues!, forKey: tag)
     }
     
-    func didExportData() {
+    //Judgement time stamps
+    func didRecordPrimingTimestamp(tag: Int, time: Double) {
+        
+        var prevValues = primingVisitTimestamps[tag]
+        
+        if prevValues == nil {
+            //When it's empty, just make the entire array the first time
+            prevValues = [time]
+        } else {
+            prevValues?.append(time)
+        }
+        
+        primingVisitTimestamps.updateValue(prevValues!, forKey: tag)
+    }
+    
+    // Stores the slideValues once an image is judged
+    func didJudgeImage(tag: Int, value: Float, counter: Double) {
+        
+        print("index: \(tag), value: \(value)")
+        slideValues[tag] = value
+    }
+    
+    
+    // MARK : Once a session is finished, this is where all of the raw data points get prepared to be sent to firebase.
+    
+    func didFinishSession() {
         //resets all data to avoid duplicate measurements.
+        
+        print("all facial data: \(facialData)")
+        
         sadnessData.removeAll()
         joyData.removeAll()
         angerData.removeAll()
         surpriseData.removeAll()
+
+//
+//        for i in 0..<timeData.count {
+//            facialData["\(timeData[i])"] = timeSensitiveEmotionData[i]
+//        }
+//
+//        let newSession = Session.init(
+//                userID: self.currentUserID!,
+//                sessionLength: self.timeData.last!,
+//                facialData: self.facialData,
+//                slideData: self.slideData,
+//                primingData: self.primingData)
+//
+//        self.createSession(session: newSession)
+//
         
-        plotPoints[0].removeAll()
-        plotPoints[1].removeAll()
-        plotPoints[2].removeAll()
-        plotPoints[3].removeAll()
-        
-        print(emotionData)
-        print(timeData)
-        
-        var keyValCount = 0
-        for (key, val) in zip(timeData, emotionData) {
-            keyValCount+=1
-            chartDictionary[key] = val
-        }
-        
-        chartArray = Array(zip(timeData, timeSensitiveEmotionData))
-        
-        for tuple in chartArray {
-            let dict = tuple.1
-            for KVPair in dict {
-                switch(KVPair.key) {
-                    case "sadness":
-                        sadnessData.append(KVPair.value.doubleValue)
-                    case "joy":
-                        joyData.append(KVPair.value.doubleValue)
-                    case "anger":
-                        angerData.append(KVPair.value.doubleValue)
-                    case "surprise":
-                        surpriseData.append(KVPair.value.doubleValue)
-                    default:
-                        break
-                }
-            }
-        }
-        
-        for score in sadnessData {
-            plotPoints[0].append(score)
-        }
-        
-        for score in joyData {
-            plotPoints[1].append(score)
-        }
-        
-        for score in angerData {
-            plotPoints[2].append(score)
-        }
-        
-        for score in surpriseData {
-            plotPoints[3].append(score)
-        }
+//        for tuple in facialData {
+//            let dict = tuple.1
+//            for KVPair in dict {
+//                switch(KVPair.key) {
+//                case "sadness":
+//                    sadnessData.append(KVPair.value.doubleValue)
+//                case "joy":
+//                    joyData.append(KVPair.value.doubleValue)
+//                case "anger":
+//                    angerData.append(KVPair.value.doubleValue)
+//                case "surprise":
+//                    surpriseData.append(KVPair.value.doubleValue)
+//                default:
+//                    break
+//                }
+//            }
+//        }
+//
         
     }
+
 }

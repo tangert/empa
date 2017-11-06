@@ -35,42 +35,9 @@ class CreateTestSubjectViewController: UITableViewController {
     @IBOutlet weak var neuroDevPicker: UISwitch!
     
     @IBOutlet weak var testGroupLabel: UILabel!
-    @IBOutlet weak var controlBtn: UIButton! {
-        didSet {
-            controlBtn.layer.cornerRadius = 10
-            controlBtn.tag = 0
-            controlBtn.layer.borderColor = EMPA_BLUE.cgColor
-            controlBtn.layer.borderWidth = 1
-            controlBtn.contentEdgeInsets = INSETS
-        }
-    }
-    @IBOutlet weak var exp1Btn: UIButton! {
-        didSet {
-            exp1Btn.layer.cornerRadius = 10
-            exp1Btn.tag = 1
-            exp1Btn.layer.borderColor = EMPA_BLUE.cgColor
-            exp1Btn.layer.borderWidth = 1
-            exp1Btn.contentEdgeInsets = INSETS
-        }
-    }
-    @IBOutlet weak var exp2Btn: UIButton! {
-        didSet {
-           exp2Btn.layer.cornerRadius = 10
-           exp2Btn.tag = 2
-           exp2Btn.layer.borderColor = EMPA_BLUE.cgColor
-           exp2Btn.layer.borderWidth = 1
-           exp2Btn.contentEdgeInsets = INSETS
-        }
-    }
-    @IBOutlet weak var exp3Btn: UIButton! {
-        didSet {
-            exp3Btn.layer.cornerRadius = 10
-            exp3Btn.tag = 3
-            exp3Btn.layer.borderColor = EMPA_BLUE.cgColor
-            exp3Btn.layer.borderWidth = 1
-            exp3Btn.contentEdgeInsets = INSETS
-        }
-    }
+    @IBOutlet weak var controlBtn: UIButton!
+    @IBOutlet weak var exp1Btn: UIButton!
+    @IBOutlet weak var exp2Btn: UIButton!
     
     @IBOutlet weak var createTestSubjectBtn: UIButton! {
         didSet{
@@ -92,9 +59,18 @@ class CreateTestSubjectViewController: UITableViewController {
         super.viewDidLoad()
         print("Loaded CreateTestSubject VC")
         
+        let buttons: [UIButton] = [controlBtn, exp1Btn, exp2Btn]
+        
+        for i in 0..<buttons.count {
+            let curr = buttons[i]
+            curr.layer.cornerRadius = 10
+            curr.tag = i
+            curr.layer.borderColor = EMPA_BLUE.cgColor
+            curr.layer.borderWidth = 1
+            curr.contentEdgeInsets = INSETS
+        }
+        
         // Variable initialization
-        fname = ""
-        lname = ""
         chosenSex = "F"
         chosenDOB = datePicker.date
         chosenTestGroup = 0
@@ -103,8 +79,8 @@ class CreateTestSubjectViewController: UITableViewController {
         currentButton = controlBtn
     }
     
-    // MARK: IBActions
     
+    // MARK: IBActions
     @IBAction func createTestSubjectPressed(_ sender: Any) {
         print("About to create test subject")
         
@@ -112,22 +88,14 @@ class CreateTestSubjectViewController: UITableViewController {
             return
         }
         
-        let testSubject = TestSubject(fname: fname,
-                                      lname: lname,
+        let testSubject = TestSubject(fname: firstNameEntry.text!,
+                                      lname: lastNameEntry.text!,
                                       sex: chosenSex,
                                       DOB: chosenDOB,
                                       testGroup: chosenTestGroup,
                                       ASD: ASD)
         
         DataManager.sharedInstance.createTestSubject(testSubject: testSubject)
-    }
-    
-    @IBAction func firstNameEditEnd(_ sender: UITextField) {
-        fname = sender.text!
-    }
-    
-    @IBAction func lastNameEditEnd(_ sender: UITextField) {
-        lname = sender.text!
     }
     
     @IBAction func sexChanged(_ sender: UISwitch) {

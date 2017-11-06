@@ -17,6 +17,9 @@ class AllSessionsViewController: UITableViewController {
         super.viewDidLoad()
         
         self.tableView.register(sessionCellNib, forCellReuseIdentifier: "sessionCell")
+        
+        //PUT IN FIREBASE LISTENERS HERE.
+        
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

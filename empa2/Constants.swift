@@ -16,3 +16,8 @@ let rootRef = Database.database().reference()
 let testSubjectRef = rootRef.child("testSubjects")
 let sessionsRef = rootRef.child("sessions")
 
+enum subjectType {
+    case control
+    case happy
+    case sad
+}

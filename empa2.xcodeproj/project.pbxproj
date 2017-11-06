@@ -8,14 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		3612F2A11E0F833D0060C23C /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3612F2A01E0F833D0060C23C /* Extensions.swift */; };
-		3612F2A31E0F8E350060C23C /* DataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3612F2A21E0F8E350060C23C /* DataViewController.swift */; };
-		36196B811F8BD879006FC501 /* SessionDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36196B801F8BD879006FC501 /* SessionDetailViewController.swift */; };
 		36354D681E13888100BBD922 /* TestSubject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36354D671E13888100BBD922 /* TestSubject.swift */; };
 		36354D6A1E13888C00BBD922 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36354D691E13888C00BBD922 /* Session.swift */; };
 		363CF4B01E103F6300B43723 /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 363CF4AF1E103F6300B43723 /* Protocols.swift */; };
 		365686491F8C1C60005FB305 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 365686481F8C1C60005FB305 /* LoginViewController.swift */; };
-		365686601F8C1D58005FB305 /* Charts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3656865D1F8C1D47005FB305 /* Charts.framework */; };
-		365686611F8C1D58005FB305 /* Charts.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3656865D1F8C1D47005FB305 /* Charts.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		365686691F8C4203005FB305 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 365686681F8C1FC9005FB305 /* GoogleService-Info.plist */; };
 		3656866D1F8C4AB7005FB305 /* TestSubjectCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3656866C1F8C4AB7005FB305 /* TestSubjectCell.swift */; };
 		365F61C31E0F94B900C0D4B0 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 365F61C21E0F94B900C0D4B0 /* DataManager.swift */; };
@@ -29,44 +25,23 @@
 		36D1CA7D1E0DDE7300ADB5A5 /* empa2Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D1CA7C1E0DDE7300ADB5A5 /* empa2Tests.swift */; };
 		36D1CA881E0DDE7300ADB5A5 /* empa2UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D1CA871E0DDE7300ADB5A5 /* empa2UITests.swift */; };
 		36D1CA971E0DDFB100ADB5A5 /* CameraViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 36D1CA951E0DDFB100ADB5A5 /* CameraViewCell.xib */; };
-		36D1CA981E0DDFB100ADB5A5 /* PlaceholderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 36D1CA961E0DDFB100ADB5A5 /* PlaceholderCell.xib */; };
-		36D1CA9C1E0DDFDA00ADB5A5 /* PlaceholderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D1CA991E0DDFDA00ADB5A5 /* PlaceholderCell.swift */; };
+		36D1CA981E0DDFB100ADB5A5 /* JudgementCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 36D1CA961E0DDFB100ADB5A5 /* JudgementCell.xib */; };
+		36D1CA9C1E0DDFDA00ADB5A5 /* JudgementCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D1CA991E0DDFDA00ADB5A5 /* JudgementCell.swift */; };
 		36D1CA9D1E0DDFDA00ADB5A5 /* CameraViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D1CA9A1E0DDFDA00ADB5A5 /* CameraViewCell.swift */; };
 		36D1CA9E1E0DDFDA00ADB5A5 /* FrontCameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D1CA9B1E0DDFDA00ADB5A5 /* FrontCameraView.swift */; };
 		36D1CAA01E0DDFE500ADB5A5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 36D1CA9F1E0DDFE500ADB5A5 /* Main.storyboard */; };
 		36D1CAA21E0DE07300ADB5A5 /* SessionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D1CAA11E0DE07300ADB5A5 /* SessionViewController.swift */; };
 		36E680CE1E1764960059B0D6 /* TestSubjectsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36E680CD1E1764960059B0D6 /* TestSubjectsViewController.swift */; };
-		36E680D21E1764A00059B0D6 /* AllSessionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36E680D11E1764A00059B0D6 /* AllSessionsViewController.swift */; };
 		36E680D91E1765A60059B0D6 /* SessionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36E680D81E1765A60059B0D6 /* SessionCell.swift */; };
 		36E680DB1E1765B50059B0D6 /* SessionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 36E680DA1E1765B50059B0D6 /* SessionCell.xib */; };
 		36E680E11E176E440059B0D6 /* CreateTestSubjectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36E680E01E176E440059B0D6 /* CreateTestSubjectViewController.swift */; };
+		36F1501D1FAFF1C5000D355C /* TestSubjectCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 36F1501C1FAFF1C5000D355C /* TestSubjectCell.xib */; };
 		41D2654079B02884CF336D69 /* Pods_empa2UITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 38EA1455D91CF48E30F495D7 /* Pods_empa2UITests.framework */; };
 		9E5B6BDCC2EE869BD554327A /* Pods_empa2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54FB8F174DBDD36D29EF6A60 /* Pods_empa2.framework */; };
 		A2D680FD641E9AEBE32B0CCF /* Pods_empa2Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4597F54E349D737B0352376B /* Pods_empa2Tests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		3656865C1F8C1D47005FB305 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 365686571F8C1D47005FB305 /* Charts.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 65AD9E95D9ED4DC0BD73A743;
-			remoteInfo = Charts;
-		};
-		3656865E1F8C1D47005FB305 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 365686571F8C1D47005FB305 /* Charts.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 1CBBC58C6CE1EBEE9852CE41;
-			remoteInfo = ChartsTests;
-		};
-		365686621F8C1D58005FB305 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 365686571F8C1D47005FB305 /* Charts.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = A58A4ED274A941CA248EA921;
-			remoteInfo = Charts;
-		};
 		36D1CA791E0DDE7300ADB5A5 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 36D1CA5C1E0DDE7300ADB5A5 /* Project object */;
@@ -90,7 +65,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				365686611F8C1D58005FB305 /* Charts.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -100,13 +74,10 @@
 /* Begin PBXFileReference section */
 		24515CCB19DC5C4AD468B178 /* Pods-empa2Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-empa2Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-empa2Tests/Pods-empa2Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		3612F2A01E0F833D0060C23C /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
-		3612F2A21E0F8E350060C23C /* DataViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataViewController.swift; sourceTree = "<group>"; };
-		36196B801F8BD879006FC501 /* SessionDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionDetailViewController.swift; sourceTree = "<group>"; };
 		36354D671E13888100BBD922 /* TestSubject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestSubject.swift; sourceTree = "<group>"; };
 		36354D691E13888C00BBD922 /* Session.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
 		363CF4AF1E103F6300B43723 /* Protocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
 		365686481F8C1C60005FB305 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
-		365686571F8C1D47005FB305 /* Charts.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Charts.xcodeproj; path = "../../../../Charts-master/Charts.xcodeproj"; sourceTree = "<group>"; };
 		365686681F8C1FC9005FB305 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		3656866C1F8C4AB7005FB305 /* TestSubjectCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestSubjectCell.swift; sourceTree = "<group>"; };
 		365F61C21E0F94B900C0D4B0 /* DataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
@@ -126,17 +97,17 @@
 		36D1CA871E0DDE7300ADB5A5 /* empa2UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = empa2UITests.swift; sourceTree = "<group>"; };
 		36D1CA891E0DDE7300ADB5A5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		36D1CA951E0DDFB100ADB5A5 /* CameraViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CameraViewCell.xib; sourceTree = "<group>"; };
-		36D1CA961E0DDFB100ADB5A5 /* PlaceholderCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlaceholderCell.xib; sourceTree = "<group>"; };
-		36D1CA991E0DDFDA00ADB5A5 /* PlaceholderCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceholderCell.swift; sourceTree = "<group>"; };
+		36D1CA961E0DDFB100ADB5A5 /* JudgementCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JudgementCell.xib; sourceTree = "<group>"; };
+		36D1CA991E0DDFDA00ADB5A5 /* JudgementCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JudgementCell.swift; sourceTree = "<group>"; };
 		36D1CA9A1E0DDFDA00ADB5A5 /* CameraViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraViewCell.swift; sourceTree = "<group>"; };
 		36D1CA9B1E0DDFDA00ADB5A5 /* FrontCameraView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FrontCameraView.swift; sourceTree = "<group>"; };
 		36D1CA9F1E0DDFE500ADB5A5 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		36D1CAA11E0DE07300ADB5A5 /* SessionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionViewController.swift; sourceTree = "<group>"; };
 		36E680CD1E1764960059B0D6 /* TestSubjectsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestSubjectsViewController.swift; sourceTree = "<group>"; };
-		36E680D11E1764A00059B0D6 /* AllSessionsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllSessionsViewController.swift; sourceTree = "<group>"; };
 		36E680D81E1765A60059B0D6 /* SessionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionCell.swift; sourceTree = "<group>"; };
 		36E680DA1E1765B50059B0D6 /* SessionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SessionCell.xib; sourceTree = "<group>"; };
 		36E680E01E176E440059B0D6 /* CreateTestSubjectViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateTestSubjectViewController.swift; sourceTree = "<group>"; };
+		36F1501C1FAFF1C5000D355C /* TestSubjectCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TestSubjectCell.xib; sourceTree = "<group>"; };
 		38EA1455D91CF48E30F495D7 /* Pods_empa2UITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_empa2UITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4597F54E349D737B0352376B /* Pods_empa2Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_empa2Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		54FB8F174DBDD36D29EF6A60 /* Pods_empa2.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_empa2.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -152,7 +123,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				365686601F8C1D58005FB305 /* Charts.framework in Frameworks */,
 				9E5B6BDCC2EE869BD554327A /* Pods_empa2.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -176,15 +146,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		3634DF7D1E0F2B7E00950845 /* Custom Cells + Xibs */ = {
+		3634DF7D1E0F2B7E00950845 /* Custom Cells */ = {
 			isa = PBXGroup;
 			children = (
-				36843AB01F8DCA3F00330E4E /* Test Subject Cell */,
-				36E680DC1E1765B90059B0D6 /* Session Cell */,
-				36E680D41E1765690059B0D6 /* Placeholder Cell */,
-				36E680D31E1765600059B0D6 /* Camera Cell */,
+				36F11A851F8E802200EBA2E1 /* Session+User Management */,
+				36F11A831F8E801100EBA2E1 /* Experimental */,
 			);
-			name = "Custom Cells + Xibs";
+			name = "Custom Cells";
 			sourceTree = "<group>";
 		};
 		36354D651E1387C100BBD922 /* App */ = {
@@ -196,15 +164,6 @@
 				36E680E61E1772DB0059B0D6 /* Views */,
 			);
 			name = App;
-			sourceTree = "<group>";
-		};
-		365686581F8C1D47005FB305 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				3656865D1F8C1D47005FB305 /* Charts.framework */,
-				3656865F1F8C1D47005FB305 /* ChartsTests.xctest */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		36843AAE1F8DBA2E00330E4E /* TestSubject */ = {
@@ -220,10 +179,7 @@
 		36843AAF1F8DBA3500330E4E /* Session */ = {
 			isa = PBXGroup;
 			children = (
-				36E680D11E1764A00059B0D6 /* AllSessionsViewController.swift */,
 				36D1CAA11E0DE07300ADB5A5 /* SessionViewController.swift */,
-				3612F2A21E0F8E350060C23C /* DataViewController.swift */,
-				36196B801F8BD879006FC501 /* SessionDetailViewController.swift */,
 			);
 			name = Session;
 			sourceTree = "<group>";
@@ -232,6 +188,7 @@
 			isa = PBXGroup;
 			children = (
 				3656866C1F8C4AB7005FB305 /* TestSubjectCell.swift */,
+				36F1501C1FAFF1C5000D355C /* TestSubjectCell.xib */,
 			);
 			name = "Test Subject Cell";
 			sourceTree = "<group>";
@@ -239,7 +196,6 @@
 		36D1CA5B1E0DDE7300ADB5A5 = {
 			isa = PBXGroup;
 			children = (
-				365686571F8C1D47005FB305 /* Charts.xcodeproj */,
 				36D1CA661E0DDE7300ADB5A5 /* empa2 */,
 				36D1CA7B1E0DDE7300ADB5A5 /* empa2Tests */,
 				36D1CA861E0DDE7300ADB5A5 /* empa2UITests */,
@@ -303,13 +259,13 @@
 			name = "Camera Cell";
 			sourceTree = "<group>";
 		};
-		36E680D41E1765690059B0D6 /* Placeholder Cell */ = {
+		36E680D41E1765690059B0D6 /* Judgement Cell */ = {
 			isa = PBXGroup;
 			children = (
-				36D1CA991E0DDFDA00ADB5A5 /* PlaceholderCell.swift */,
-				36D1CA961E0DDFB100ADB5A5 /* PlaceholderCell.xib */,
+				36D1CA991E0DDFDA00ADB5A5 /* JudgementCell.swift */,
+				36D1CA961E0DDFB100ADB5A5 /* JudgementCell.xib */,
 			);
-			name = "Placeholder Cell";
+			name = "Judgement Cell";
 			sourceTree = "<group>";
 		};
 		36E680DC1E1765B90059B0D6 /* Session Cell */ = {
@@ -346,9 +302,27 @@
 			isa = PBXGroup;
 			children = (
 				36D1CA9F1E0DDFE500ADB5A5 /* Main.storyboard */,
-				3634DF7D1E0F2B7E00950845 /* Custom Cells + Xibs */,
+				3634DF7D1E0F2B7E00950845 /* Custom Cells */,
 			);
 			name = Views;
+			sourceTree = "<group>";
+		};
+		36F11A831F8E801100EBA2E1 /* Experimental */ = {
+			isa = PBXGroup;
+			children = (
+				36E680D41E1765690059B0D6 /* Judgement Cell */,
+				36E680D31E1765600059B0D6 /* Camera Cell */,
+			);
+			name = Experimental;
+			sourceTree = "<group>";
+		};
+		36F11A851F8E802200EBA2E1 /* Session+User Management */ = {
+			isa = PBXGroup;
+			children = (
+				36843AB01F8DCA3F00330E4E /* Test Subject Cell */,
+				36E680DC1E1765B90059B0D6 /* Session Cell */,
+			);
+			name = "Session+User Management";
 			sourceTree = "<group>";
 		};
 		C0C0CAE73DDE7C1D678423D6 /* Pods */ = {
@@ -392,7 +366,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				365686631F8C1D58005FB305 /* PBXTargetDependency */,
 			);
 			name = empa2;
 			productName = empa2;
@@ -481,12 +454,6 @@
 			mainGroup = 36D1CA5B1E0DDE7300ADB5A5;
 			productRefGroup = 36D1CA651E0DDE7300ADB5A5 /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = 365686581F8C1D47005FB305 /* Products */;
-					ProjectRef = 365686571F8C1D47005FB305 /* Charts.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				36D1CA631E0DDE7300ADB5A5 /* empa2 */,
@@ -495,23 +462,6 @@
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		3656865D1F8C1D47005FB305 /* Charts.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = Charts.framework;
-			remoteRef = 3656865C1F8C1D47005FB305 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		3656865F1F8C1D47005FB305 /* ChartsTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = ChartsTests.xctest;
-			remoteRef = 3656865E1F8C1D47005FB305 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		36D1CA621E0DDE7300ADB5A5 /* Resources */ = {
@@ -522,9 +472,10 @@
 				365686691F8C4203005FB305 /* GoogleService-Info.plist in Resources */,
 				36D1CA6F1E0DDE7300ADB5A5 /* Assets.xcassets in Resources */,
 				36D1CAA01E0DDFE500ADB5A5 /* Main.storyboard in Resources */,
+				36F1501D1FAFF1C5000D355C /* TestSubjectCell.xib in Resources */,
 				36D1CA971E0DDFB100ADB5A5 /* CameraViewCell.xib in Resources */,
 				36E680DB1E1765B50059B0D6 /* SessionCell.xib in Resources */,
-				36D1CA981E0DDFB100ADB5A5 /* PlaceholderCell.xib in Resources */,
+				36D1CA981E0DDFB100ADB5A5 /* JudgementCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -692,20 +643,17 @@
 				3656866D1F8C4AB7005FB305 /* TestSubjectCell.swift in Sources */,
 				36E680CE1E1764960059B0D6 /* TestSubjectsViewController.swift in Sources */,
 				365686491F8C1C60005FB305 /* LoginViewController.swift in Sources */,
-				36196B811F8BD879006FC501 /* SessionDetailViewController.swift in Sources */,
 				36E680D91E1765A60059B0D6 /* SessionCell.swift in Sources */,
 				36D1CA681E0DDE7300ADB5A5 /* AppDelegate.swift in Sources */,
 				369B98D11F8CFBEB0043DBE0 /* Admin.swift in Sources */,
 				36D02E9D1F8D9C8B00E09417 /* BaseModel.swift in Sources */,
 				36E680E11E176E440059B0D6 /* CreateTestSubjectViewController.swift in Sources */,
-				36D1CA9C1E0DDFDA00ADB5A5 /* PlaceholderCell.swift in Sources */,
+				36D1CA9C1E0DDFDA00ADB5A5 /* JudgementCell.swift in Sources */,
 				36843AAC1F8DB93600330E4E /* TestSubjectDetailViewController.swift in Sources */,
 				363CF4B01E103F6300B43723 /* Protocols.swift in Sources */,
-				3612F2A31E0F8E350060C23C /* DataViewController.swift in Sources */,
 				36D1CA9D1E0DDFDA00ADB5A5 /* CameraViewCell.swift in Sources */,
 				36D1CA9E1E0DDFDA00ADB5A5 /* FrontCameraView.swift in Sources */,
 				36D02E9A1F8D7BEB00E09417 /* Constants.swift in Sources */,
-				36E680D21E1764A00059B0D6 /* AllSessionsViewController.swift in Sources */,
 				36354D6A1E13888C00BBD922 /* Session.swift in Sources */,
 				3612F2A11E0F833D0060C23C /* Extensions.swift in Sources */,
 				36354D681E13888100BBD922 /* TestSubject.swift in Sources */,
@@ -731,11 +679,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		365686631F8C1D58005FB305 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = Charts;
-			targetProxy = 365686621F8C1D58005FB305 /* PBXContainerItemProxy */;
-		};
 		36D1CA7A1E0DDE7300ADB5A5 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 36D1CA631E0DDE7300ADB5A5 /* empa2 */;
