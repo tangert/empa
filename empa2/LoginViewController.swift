@@ -25,6 +25,7 @@ class LoginViewController: UIViewController {
     }
     
     @IBAction func pressLogin(_ sender: Any) {
+        
         Auth.auth().signIn(withEmail: emailField.text!,
                                password: passwordField.text!)
 
@@ -35,9 +36,15 @@ class LoginViewController: UIViewController {
         print("Loaded login")
         
         Auth.auth().addStateDidChangeListener { (auth, user) in
+
             if user != nil {
+                
+                print("user not nil")
                 self.performSegue(withIdentifier: self.login, sender: nil)
+            
             }
+            
+            
         }
     }
     

@@ -28,6 +28,7 @@ class SessionViewController: UIViewController {
     // MARK : Global Timer Variables.
     //total session timer
     var sessionTimer: Timer!
+    static var timerIsRunning = false
     //other timers?
     
     //priming progress
@@ -45,22 +46,31 @@ class SessionViewController: UIViewController {
     var score = 0
     var counter = 0.0
     var roundedCounter = 0.0
+    var currentIndex = 0
     
-    @IBOutlet weak var timerLabel: UILabel!
+    @IBOutlet weak var faceShownLabel: UILabel! {
+        didSet {
+            faceShownLabel.layer.cornerRadius = 10
+            faceShownLabel.clipsToBounds = true
+        }
+    }
     @IBOutlet weak var collectionView: UICollectionView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         print("SESSION TEST SUBJECT: \(self.testSubject!)")
         
+        
         //FIXME: Connect to Firebase bucket and load images instead of locally
         let storageRef = DataManager.sharedInstance.storage.reference()
         
+        //Clear all before starting a new session
+        DataManager.sharedInstance.clearAllData()
         
-        for i in 1...10 {
+        for i in 1...7 {
             let currentImage = storageRef.child("judgement-images/\(i).jpg")
             imageReferences.append(currentImage)
-            images.append(UIImage(named: "\((i%6)+1)")!)
+            images.append(UIImage(named: "\(i)")!)
         }
         
         guard let testSubject = testSubject else {
@@ -69,6 +79,7 @@ class SessionViewController: UIViewController {
         
         DataManager.sharedInstance.currentUserID = testSubject.id
         subjectType = self.testSubject?.testGroup.subjectType()
+        DataManager.sharedInstance.didRecordPrimingTestSubject(testGroup: testSubject.testGroup)
         
         SessionViewController.primingProgressIsFinished = false
         
@@ -76,6 +87,10 @@ class SessionViewController: UIViewController {
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.isPagingEnabled = true
+        
+        if subjectType != .control {
+            collectionView.isScrollEnabled = false
+        }
         
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
@@ -85,41 +100,51 @@ class SessionViewController: UIViewController {
         collectionView.register(judgementCellNib, forCellWithReuseIdentifier: "judgementCell")
         collectionView.register(cameraViewNib, forCellWithReuseIdentifier: "cameraViewCell")
         
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        createDetector()
+        
+        var message: String!
+        
+        if subjectType == .control {
+            message = "Rate the pictures you see from happy to sad using the slider. Swipe down to get to the next slide!"
+        } else {
+            message = "1. Try to match the emoji you see on the screen with your own face. \n\n 2. Rate the pictures you see from happy to sad using the slider. Swipe down to get to the next slide!"
+        }
+        
+        
+        //initial alert view
+        let alert = UIAlertController(title: "Instructions", message: message, preferredStyle: .alert)
+        
+        let ok = UIAlertAction(title: "Let's go!", style: .default) { (alert) in
+            //Start detector on ok
+            self.createDetector()
+            DataManager.sharedInstance.startDateTime = Date()
+        }
+        
+        alert.addAction(ok)
+        self.present(alert, animated: true, completion: nil)
+        
+        faceShownLabel.textColor = UIColor.white
+
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        destroyDetector()
-    }
-    
-    @IBAction func endSession(_ sender: Any) {
-        guard DataManager.sharedInstance.timeData.count != 0 else {
-            let alert = UIAlertController(title: "No data yet.", message: "Please give us something.", preferredStyle: .alert)
-            let cancelAction = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
-            alert.addAction(cancelAction)
-            self.present(alert, animated: true, completion: nil)
-            return
+        
+        if let detector = detector {
+            if detector.isRunning {
+                destroyDetector()
+            }
         }
         
-        sessionTimer.invalidate()
-        DataManager.sharedInstance.didFinishSession()
+        
+        if SessionViewController.timerIsRunning {
+            sessionTimer.invalidate()
+        }
     }
     
-    
-    @IBAction func unwindToPrev(segue:UIStoryboardSegue) {
-        performSegue(withIdentifier: "unwindToPrev", sender: self)
-    }
     
     func updateCounter() {
         counter+=0.1
         roundedCounter = Double(String(format: "%0.1f", counter))!
-        timerLabel.text = "Session time: \(roundedCounter)"
-        
         DataManager.sharedInstance.didUpdateTime(time: roundedCounter)
     }
 }
@@ -129,17 +154,43 @@ extension SessionViewController: AFDXDetectorDelegate {
     func detector(_ detector: AFDXDetector!, didStartDetecting face: AFDXFace!) {
         self.sessionTimer = Timer.scheduledTimer(timeInterval: 0.1, target:self, selector: #selector(SessionViewController.updateCounter), userInfo: nil, repeats: true)
         
-        print("Face shown!")
+        if(!SessionViewController.timerIsRunning) {
+            SessionViewController.timerIsRunning = true
+        }
         
         //keeps the timer running even during scrolling.
         RunLoop.main.add(sessionTimer, forMode: RunLoopMode.commonModes)
         
+        if (!collectionView.isScrollEnabled) {
+            collectionView.isScrollEnabled = true
+        }
+        
+        
+        
+        UIView.animate(withDuration: 0.5, animations: {
+            self.faceShownLabel.backgroundColor = SUCCESS_GREEN
+            self.faceShownLabel.text = "Face shown!"
+        }) { (bool) in
+            
+            UIView.animate(withDuration: 1, animations: {
+                self.faceShownLabel.layer.opacity = 0
+            })
+            
+        }
     }
     
     func detector(_ detector: AFDXDetector!, didStopDetecting face: AFDXFace!) {
         
+        SessionViewController.timerIsRunning = false
+        
+        UIView.animate(withDuration: 0.5) {
+            self.faceShownLabel.layer.opacity = 1
+            self.faceShownLabel.backgroundColor = FAILURE_RED
+            self.faceShownLabel.text = "Face not shown"
+        }
+        
         sessionTimer.invalidate()
-        print("Show your face, idiot.")
+        collectionView.isScrollEnabled = false
         
     }
     
@@ -304,44 +355,18 @@ extension SessionViewController: UICollectionViewDelegate, UICollectionViewDataS
         guard let testSubject = self.testSubject else {
             return
         }
+        
+        currentIndex = indexPath.row
 
         if subjectType == .control {
-            
-            //Gathering time data
             DataManager.sharedInstance.didRecordSlideTimestamp(tag: indexPath.row, time: self.roundedCounter)
-
-//            //Resetting
-//            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "judgementCell", for: indexPath) as! JudgementCell
-//
-//            if let currentSlideVal = DataManager.sharedInstance.slideValues[indexPath.row] {
-//                cell.slider.setValue(currentSlideVal, animated: true)
-//            } else {
-//                cell.slider.setValue(50, animated: true)
-//            }
-
         }
 
         else {
             if (indexPath.row == 0) {
-                //Gathering time data
-                
                 DataManager.sharedInstance.didRecordPrimingTimestamp(tag: indexPath.row, time: self.roundedCounter)
-
-                
             } else {
-                
-                //Gathering time data
                 DataManager.sharedInstance.didRecordSlideTimestamp(tag: indexPath.row, time: self.roundedCounter)
-                
-//                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "judgementCell", for: indexPath) as! JudgementCell
-//
-//
-//                if let currentSlideVal = DataManager.sharedInstance.slideValues[indexPath.row] {
-//                    cell.slider.setValue(currentSlideVal, animated: true)
-//                } else {
-//                    cell.slider.setValue(50, animated: true)
-//                }
-
             }
         }
 
@@ -358,6 +383,7 @@ extension SessionViewController: UICollectionViewDelegate, UICollectionViewDataS
 
             cell.tag = indexPath.row
             cell.placeholderImage.image = images[indexPath.row]
+            cell.slider.setValue(50, animated: false)
             cell.delegate = self
             
             return cell
@@ -399,9 +425,15 @@ extension SessionViewController: UICollectionViewDelegate, UICollectionViewDataS
                 
                 cell.tag = indexPath.row
                 cell.placeholderImage.image = images[indexPath.row]
+                cell.slider.setValue(50, animated: false)
                 cell.delegate = self
                 
-                guard DataManager.sharedInstance.slideVisitTimestamps[cell.tag] == nil else {
+                if (indexPath.row == self.images.count-1) {
+                    print("LAST CELL")
+                    cell.isLast = true
+                }
+
+                guard DataManager.sharedInstance.slideVisitTimestamps["\(cell.tag)"] == nil else {
                     return cell
                 }
                 
@@ -415,6 +447,23 @@ extension SessionViewController: UICollectionViewDelegate, UICollectionViewDataS
 
 extension SessionViewController: JudgementTaskDelegate {
     
+    func didPressNext() {
+        
+        //for some reason visibility is one index path advanced
+        guard self.currentIndex != self.images.count-1 else {
+            return
+        }
+        
+        guard SessionViewController.timerIsRunning else {
+            return
+        }
+        
+        //Go to the next item in the collection view
+        let next: IndexPath = IndexPath.init(item: self.currentIndex+1, section: 0)
+        self.collectionView.scrollToItem(at: next, at: UICollectionViewScrollPosition.bottom, animated: true)
+    
+    }
+    
     func didJudgeImage(tag: Int, value: Float) {
         
         DataManager.sharedInstance.didJudgeImage(tag: tag, value: value, counter: self.roundedCounter)
@@ -427,10 +476,33 @@ extension SessionViewController: PrimingCellDelegate {
     
     func didFinishPriming() {
         
-        DataManager.sharedInstance.primingData["primingLength"] = self.roundedCounter
+        DataManager.sharedInstance.didFinishPriming(time: self.roundedCounter)
+        collectionView.isScrollEnabled = true
         
-        print("priming: \(DataManager.sharedInstance.primingData)")
         
+        //Showing the user success
+        UIView.animate(withDuration: 0.5, animations: {
+            self.faceShownLabel.layer.opacity = 1
+            self.faceShownLabel.text = "Great job!"
+            self.faceShownLabel.backgroundColor = SUCCESS_GREEN
+        }) { (bool) in
+            
+            //Automatically scrolling to the judgement
+            setTimeout(1, block: {
+                
+                UIView.animate(withDuration: 0.5, animations: {
+                    self.faceShownLabel.layer.opacity = 0
+                    
+                }, completion: { (bool) in
+                    
+                    //for some reason visibility is one index path advanced
+                    let second: IndexPath = IndexPath.init(item: 1, section: 0)
+                    self.collectionView.scrollToItem(at: second, at: UICollectionViewScrollPosition.bottom, animated: true)
+                    
+                })
+            })
+            
+        }
     }
 }
 extension SessionViewController: UICollectionViewDelegateFlowLayout {

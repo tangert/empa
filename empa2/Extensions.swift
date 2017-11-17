@@ -89,6 +89,11 @@ extension UIColor {
         return UIColor(red: red, green: green, blue: blue, alpha: alpha)
     }
     
+    var redValue: CGFloat{ return CIColor(color: self).red }
+    var greenValue: CGFloat{ return CIColor(color: self).green }
+    var blueValue: CGFloat{ return CIColor(color: self).blue }
+    var alphaValue: CGFloat{ return CIColor(color: self).alpha }
+    
 }
 
 extension Double {
@@ -168,3 +173,54 @@ extension Date {
         return currentYear - fromYear
     }
 }
+
+
+
+// TimeOut and Interval methods a la JavaScript
+
+/**
+ setTimeout()
+ 
+ Shorthand method for create a delayed block to be execute on started Thread.
+ 
+ This method returns ``Timer`` instance, so that user may execute the block
+ within immediately or keep the reference for further cancelation by calling
+ ``Timer.invalidate()``
+ 
+ Example:
+ let timer = setTimeout(0.3) {
+ // do something
+ }
+ timer.invalidate()      // cancel it.
+ */
+func setTimeout(_ delay:TimeInterval, block:@escaping ()->Void) -> Timer {
+    return Timer.scheduledTimer(timeInterval: delay, target: BlockOperation(block: block), selector: #selector(Operation.main), userInfo: nil, repeats: false)
+}
+
+/**
+ setInternval()
+ 
+ Similar to setTimeout() this method will return ``Timer`` instance however, this
+ method will execute repeatedly.
+ 
+ Warning using this method with caution, it is recommended that the block to utilise
+ this method should call [unowned self] or [weak self] to announce OS that it should not
+ hold strong reference to this block.
+ 
+ In addition, ``Timer`` returned should kept as member variable, and call invalidated()
+ when the block no longer required. such as deinit, or viewDidDisappear()
+ */
+func setInterval(_ interval:TimeInterval, block:@escaping ()->Void) -> Timer {
+    return Timer.scheduledTimer(timeInterval: interval, target: BlockOperation(block: block), selector: #selector(Operation.main), userInfo: nil, repeats: true)
+}
+
+func colorInBetween(color1: UIColor, color2: UIColor, percent: CGFloat) -> UIColor {
+    
+    let resultRed = color1.redValue + percent * (color2.redValue - color1.redValue)
+    let resultGreen = color1.greenValue + percent * (color2.greenValue - color1.greenValue)
+    let resultBlue = color1.blueValue + percent * (color2.blueValue - color1.blueValue)
+    
+    return UIColor.init(red: resultRed, green: resultGreen, blue: resultBlue, alpha: 1)
+    
+}
+

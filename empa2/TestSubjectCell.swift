@@ -18,14 +18,25 @@ class TestSubjectCell: UICollectionViewCell {
     @IBOutlet weak var testGroupLabel: UILabel!
     @IBOutlet weak var ASDLabel: UILabel!
     @IBOutlet weak var deleteButton: UIButton! {
+        
         didSet {
             deleteButton.layer.cornerRadius = deleteButton.frame.width/2
             deleteButton.backgroundColor = UIColor.red.withAlphaComponent(0.75)
             deleteButton.dropShadow(radius: 10)
+            
+            deleteButton.layer.opacity = 0
+            deleteButton.isUserInteractionEnabled = false
+            
         }
+        
     }
     
     override func awakeFromNib() {
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.showDeleteButton), name: NSNotification.Name(rawValue: "editingTestSubjects"), object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.hideDeleteButton), name: NSNotification.Name(rawValue: "savingTestSubjects"), object: nil)
+
         
         self.layer.opacity = 0
 
@@ -36,6 +47,20 @@ class TestSubjectCell: UICollectionViewCell {
         self.layer.cornerRadius = 10
         self.layer.backgroundColor = UIColor.white.cgColor
         self.dropShadow(radius: 7.5)
+    }
+    
+    func showDeleteButton() {
+        UIView.animate(withDuration: 0.2) {
+            self.deleteButton.layer.opacity = 1
+            self.deleteButton.isUserInteractionEnabled = true
+        }
+    }
+    
+    func hideDeleteButton() {
+        UIView.animate(withDuration: 0.2) {
+            self.deleteButton.layer.opacity = 0
+            self.deleteButton.isUserInteractionEnabled = false
+        }
     }
     
     func handleTap(sender: UITapGestureRecognizer? = nil) {

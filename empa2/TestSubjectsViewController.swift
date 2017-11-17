@@ -16,9 +16,14 @@ class TestSubjectsViewController: UICollectionViewController {
     
     var testSubjects: [TestSubject]! = []
     var selectedTestSubject: TestSubject!
+    var editingSubjects = false
+    
+    @IBOutlet weak var editSaveButton: UIBarButtonItem!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        print("LOADING TEST SUBJECTS")
         
         testSubjectRef.observe(.value, with: { (snapshot) in
             
@@ -129,18 +134,32 @@ class TestSubjectsViewController: UICollectionViewController {
     }
     
     // MARK: IBActions
-    @IBAction func logoutPress(_ sender: Any) {
-        do {
-            try Auth.auth().signOut()
-            self.presentingViewController?.dismiss(animated: true, completion: nil)
-        } catch {
-            print("Couldn't sign out")
+    
+    @IBAction func editTestSubjects(_ sender: Any) {
+        
+        if (!editingSubjects) {
+            
+            NotificationCenter.default.post(name: Notification.Name(rawValue: "editingTestSubjects"), object: self)
+            
+            editSaveButton.title = "Save"
+            editingSubjects = true
+            
+            
+        } else {
+            
+            NotificationCenter.default.post(name: Notification.Name(rawValue: "savingTestSubjects"), object: self)
+            
+            editSaveButton.title = "Edit"
+            editingSubjects = false
+
         }
     }
+    
     
 }
 
 extension TestSubjectsViewController: TestSubjectCellDelegate {
+    
     func showAlert(title: String, message: String, testSubject: TestSubject) {
         
         let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)

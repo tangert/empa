@@ -17,6 +17,7 @@
 		365F61C31E0F94B900C0D4B0 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 365F61C21E0F94B900C0D4B0 /* DataManager.swift */; };
 		36843AAC1F8DB93600330E4E /* TestSubjectDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36843AAB1F8DB93600330E4E /* TestSubjectDetailViewController.swift */; };
 		369B98D11F8CFBEB0043DBE0 /* Admin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 369B98D01F8CFBEB0043DBE0 /* Admin.swift */; };
+		36B6046B1FB24A07000EBC5C /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36B6046A1FB24A07000EBC5C /* SettingsViewController.swift */; };
 		36D02E9A1F8D7BEB00E09417 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D02E991F8D7BEB00E09417 /* Constants.swift */; };
 		36D02E9D1F8D9C8B00E09417 /* BaseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D02E9C1F8D9C8B00E09417 /* BaseModel.swift */; };
 		36D1CA681E0DDE7300ADB5A5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D1CA671E0DDE7300ADB5A5 /* AppDelegate.swift */; };
@@ -83,6 +84,7 @@
 		365F61C21E0F94B900C0D4B0 /* DataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		36843AAB1F8DB93600330E4E /* TestSubjectDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestSubjectDetailViewController.swift; sourceTree = "<group>"; };
 		369B98D01F8CFBEB0043DBE0 /* Admin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Admin.swift; sourceTree = "<group>"; };
+		36B6046A1FB24A07000EBC5C /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		36D02E991F8D7BEB00E09417 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		36D02E9C1F8D9C8B00E09417 /* BaseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseModel.swift; sourceTree = "<group>"; };
 		36D1CA641E0DDE7300ADB5A5 /* empa2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = empa2.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -174,6 +176,7 @@
 				36843AAB1F8DB93600330E4E /* TestSubjectDetailViewController.swift */,
 			);
 			name = TestSubject;
+			path = ..;
 			sourceTree = "<group>";
 		};
 		36843AAF1F8DBA3500330E4E /* Session */ = {
@@ -182,6 +185,7 @@
 				36D1CAA11E0DE07300ADB5A5 /* SessionViewController.swift */,
 			);
 			name = Session;
+			path = ..;
 			sourceTree = "<group>";
 		};
 		36843AB01F8DCA3F00330E4E /* Test Subject Cell */ = {
@@ -191,6 +195,23 @@
 				36F1501C1FAFF1C5000D355C /* TestSubjectCell.xib */,
 			);
 			name = "Test Subject Cell";
+			sourceTree = "<group>";
+		};
+		36B604671FB249D7000EBC5C /* Data Acquisition */ = {
+			isa = PBXGroup;
+			children = (
+				36843AAF1F8DBA3500330E4E /* Session */,
+				36843AAE1F8DBA2E00330E4E /* TestSubject */,
+			);
+			path = "Data Acquisition";
+			sourceTree = "<group>";
+		};
+		36B604691FB249F4000EBC5C /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				36B6046A1FB24A07000EBC5C /* SettingsViewController.swift */,
+			);
+			path = Settings;
 			sourceTree = "<group>";
 		};
 		36D1CA5B1E0DDE7300ADB5A5 = {
@@ -291,8 +312,8 @@
 		36E680E51E1772C10059B0D6 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				36843AAF1F8DBA3500330E4E /* Session */,
-				36843AAE1F8DBA2E00330E4E /* TestSubject */,
+				36B604691FB249F4000EBC5C /* Settings */,
+				36B604671FB249D7000EBC5C /* Data Acquisition */,
 				365686481F8C1C60005FB305 /* LoginViewController.swift */,
 			);
 			name = Controllers;
@@ -641,6 +662,7 @@
 				36D1CAA21E0DE07300ADB5A5 /* SessionViewController.swift in Sources */,
 				365F61C31E0F94B900C0D4B0 /* DataManager.swift in Sources */,
 				3656866D1F8C4AB7005FB305 /* TestSubjectCell.swift in Sources */,
+				36B6046B1FB24A07000EBC5C /* SettingsViewController.swift in Sources */,
 				36E680CE1E1764960059B0D6 /* TestSubjectsViewController.swift in Sources */,
 				365686491F8C1C60005FB305 /* LoginViewController.swift in Sources */,
 				36E680D91E1765A60059B0D6 /* SessionCell.swift in Sources */,

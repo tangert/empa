@@ -16,6 +16,7 @@ import FirebaseDatabase
 class DataManager {
     
     // MARK: Singleton
+    
     class var sharedInstance: DataManager {
         struct Static {
             static let instance: DataManager = DataManager()
@@ -36,21 +37,24 @@ class DataManager {
     var currentUserID: String?
 
     var timeData = [Double]()
+    var startDateTime: Date!
     
                     //Time stamp
-    var facialData = [ Double:
+    var facialData = [ String :
             //Emotion : JSON
             [String: AnyObject]
             ]()
     
-    var slideData = [ String:
+    var slideData = [ String :
             //timeStamp,
             //visitTimeStamps
             //slideScore
-            //scoreReversals
             //imageURL
             [ String: Any ]
-            ]()
+        
+        ]()
+    
+    var averageScore: Double!
     
     var primingData = [ String: Any ]()
     
@@ -65,17 +69,9 @@ class DataManager {
     var slideValues = [Int: Float]()
 
     //Time stamps to be fed into slide data and priming data in post processing
-    var slideVisitTimestamps = [ Int : [ Double ] ]()
-    var primingVisitTimestamps = [ Int : [ Double ] ]()
-
-    
-    
-    //FIXME: do you even need this lol?
-    
-    var sadnessData = [Double]()
-    var joyData = [Double]()
-    var angerData = [Double]()
-    var surpriseData = [Double]()
+    //Do you need these?
+    var slideVisitTimestamps = [ String : [ Double ] ]()
+    var primingVisitTimestamps = [ String : [ Double ] ]()
 
 }
 
@@ -85,125 +81,192 @@ extension DataManager {
     // MARK: TestSubjects
     
     func createTestSubject(testSubject: TestSubject) {
+        
         testSubjectRef.child(testSubject.id).setValue(testSubject.JSON())
     }
     
     func deleteTestSubject(id: String) {
         testSubjectRef.child(id).removeValue()
+        
+        
     }
     
     // MARK: Sessions
+    // FIXME: don't use an intermediary session data strucutre anymore
+    //just directly access the intermediate data strcutres present in the manager
+    
     func createSession(session: Session) {
-        print("SESSION: \(session.JSON())")
-        let data = session.facialData!
-        sessionsRef.childByAutoId().setValue(session.userID)
+        
+        let currentSession = sessionsRef.child(session.sessionID)
+        
+        currentSession.child("userID").setValue(session.userID)
+        currentSession.child("sessionID").setValue(session.sessionID)
+        currentSession.child("sessionLength").setValue(session.sessionLength)
+        currentSession.child("startDateTimeString").setValue(session.startDateTimeString)
+        currentSession.child("averageScore").setValue(session.averageScore)
+        
+        //Facial data
+        let facialData = currentSession.child("facialData")
+        
+        for timestamp in session.facialData.keys {
+            
+            let adjustedStamp = timestamp.replacingOccurrences(of: ".", with: "_")
+            let currentTime = facialData.child(adjustedStamp)
+            
+            for (emotion, value) in session.facialData[timestamp]! {
+                currentTime.child(emotion).setValue(value)
+            }
+        }
+        
+        // Slide data
+        
+        let slideData = currentSession.child("slideData")
+        
+        for slideNumber in session.slideData.keys {
+
+            let currentSlide = slideData.child("\(slideNumber)")
+            currentSlide.child("timestamps").setValue(slideVisitTimestamps[slideNumber])
+            
+            let score = session.slideData[slideNumber]!["score"]
+            currentSlide.child("score").setValue(score)
+        }
+        
+        
+        // Priming data
+        let primingData = currentSession.child("primingData")
+        primingData.child("primingLength").setValue(self.primingData["primingLength"])
+        primingData.child("testGroup").setValue(self.primingData["testGroup"])
+        
+        //Setting the user
+//        let currentSubject = testSubjectRef.child(currentUserID!).child
+        
     }
     
     func deleteSession(id: String) {
         sessionsRef.child(id).removeValue()
     }
     
-    // MARK: 
+    func clearAllData() {
+        timeData.removeAll()
+        facialData.removeAll()
+        slideData.removeAll()
+        primingData.removeAll()
+        slideValues.removeAll()
+        slideVisitTimestamps.removeAll()
+        primingVisitTimestamps.removeAll()
+        averageScore = 0
+    }
+    
 }
 
 // MARK: Gameplay methods
 extension DataManager {
     
+    // MARK: Once a session is finished, this is where all of the raw data points get prepared to be sent to firebase.
+    
+    func getAverageScore() -> Double {
+        
+        var totalScore: Float = 0
+        var numScores = Double(slideData.keys.count)
+
+        for slide in slideData.keys {
+            
+            let data = slideData[slide]!["score"]! as! [String: Any]
+            let value = data["value"]!
+            
+            totalScore += value as! Float
+        }
+        
+        return Double(totalScore)/numScores
+    }
+    
+    func didFinishSession() {
+        
+        //calcualte average score once done
+        self.averageScore = getAverageScore()
+        
+        let newSession = Session.init(
+            userID:self.currentUserID!,
+            startDateTimeString: self.startDateTime.description,
+            sessionLength: self.timeData.last!,
+            facialData: self.facialData,
+            slideData: self.slideData,
+            primingData: self.primingData,
+            averageScore: self.averageScore)
+        
+        self.createSession(session: newSession)
+    
+    }
+    
+    // MARK: Time data
+    
     func didUpdateTime( time: Double ) {
         timeData.append(time)
     }
     
-    func didUpdateFacialData(data: [String: AnyObject], time: Double) {
-        
-        facialData[time] = data
-//        print("Facial data: \(time): \(facialData[time]!)")
-        
-    }
+    // MARK: Facial data
     
-    //Regular slide time stamps
-    func didRecordSlideTimestamp(tag: Int, time: Double) {
-        
-        var prevValues = slideVisitTimestamps[tag]
-        
-        if prevValues == nil {
-            //When it's empty, just make the entire array the first time
-            prevValues = [time]
-        } else {
-            prevValues?.append(time)
+        func didUpdateFacialData(data: [String: AnyObject], time: Double) {
+            facialData["\(time)"] = data
         }
-        
-        slideVisitTimestamps.updateValue(prevValues!, forKey: tag)
-    }
     
-    //Judgement time stamps
-    func didRecordPrimingTimestamp(tag: Int, time: Double) {
-        
-        var prevValues = primingVisitTimestamps[tag]
-        
-        if prevValues == nil {
-            //When it's empty, just make the entire array the first time
-            prevValues = [time]
-        } else {
-            prevValues?.append(time)
+    
+    // MARK: Slide data
+    
+        func didRecordSlideTimestamp(tag: Int, time: Double) {
+            
+            var prevValues = slideVisitTimestamps["\(tag)"]
+            
+            if prevValues == nil {
+                //When it's empty, just make the entire array the first time
+                prevValues = [time]
+            } else {
+                prevValues?.append(time)
+            }
+            
+            print("recording slide timestamps: \(prevValues!)")
+            slideVisitTimestamps.updateValue(prevValues!, forKey: "\(tag)")
+            
         }
-        
-        primingVisitTimestamps.updateValue(prevValues!, forKey: tag)
-    }
-    
-    // Stores the slideValues once an image is judged
-    func didJudgeImage(tag: Int, value: Float, counter: Double) {
-        
-        print("index: \(tag), value: \(value)")
-        slideValues[tag] = value
-    }
     
     
-    // MARK : Once a session is finished, this is where all of the raw data points get prepared to be sent to firebase.
+        func didJudgeImage(tag: Int, value: Float, counter: Double) {
+            
+            //FIXME: create a nondestructive way of updating both values under the key
+            slideData.updateValue( [ "score" : [ "timestamp" : counter ,  "value" : value  ] ], forKey: "\(tag)")
+        
+        }
     
-    func didFinishSession() {
-        //resets all data to avoid duplicate measurements.
-        
-        print("all facial data: \(facialData)")
-        
-        sadnessData.removeAll()
-        joyData.removeAll()
-        angerData.removeAll()
-        surpriseData.removeAll()
+    
+    /*
+     
+     "tag":
+         "timestamps"
+ */
 
-//
-//        for i in 0..<timeData.count {
-//            facialData["\(timeData[i])"] = timeSensitiveEmotionData[i]
-//        }
-//
-//        let newSession = Session.init(
-//                userID: self.currentUserID!,
-//                sessionLength: self.timeData.last!,
-//                facialData: self.facialData,
-//                slideData: self.slideData,
-//                primingData: self.primingData)
-//
-//        self.createSession(session: newSession)
-//
-        
-//        for tuple in facialData {
-//            let dict = tuple.1
-//            for KVPair in dict {
-//                switch(KVPair.key) {
-//                case "sadness":
-//                    sadnessData.append(KVPair.value.doubleValue)
-//                case "joy":
-//                    joyData.append(KVPair.value.doubleValue)
-//                case "anger":
-//                    angerData.append(KVPair.value.doubleValue)
-//                case "surprise":
-//                    surpriseData.append(KVPair.value.doubleValue)
-//                default:
-//                    break
-//                }
-//            }
-//        }
-//
-        
-    }
-
+    // MARK: Priming data
+    
+        func didRecordPrimingTimestamp(tag: Int, time: Double) {
+            
+            var prevValues = primingVisitTimestamps["\(tag)"]
+            
+            if prevValues == nil {
+                //When it's empty, just make the entire array the first time
+                prevValues = [time]
+            } else {
+                prevValues?.append(time)
+            }
+            
+            primingData["timestamps"] = primingVisitTimestamps
+            
+        }
+    
+        func didRecordPrimingTestSubject(testGroup: Int) {
+            primingData["testGroup"] = testGroup
+        }
+    
+        func didFinishPriming(time: Double) {
+            primingData["primingLength"] = time
+        }
+    
 }

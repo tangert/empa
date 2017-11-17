@@ -34,7 +34,11 @@ class CameraViewCell: UICollectionViewCell {
     }
     
     @IBOutlet weak var emojiLabel: UILabel!
-    @IBOutlet weak var progressView: UIProgressView!
+    @IBOutlet weak var progressView: UIProgressView! {
+        didSet {
+            progressView.dropShadow(radius: 10)
+        }
+    }
     
     var currentProgressScore: Float = 0
 
@@ -59,8 +63,13 @@ extension CameraViewCell: UpdateCameraFeedDelegate {
                 return
             }
             
-            currentProgressScore = Float(joyData/100)
+            guard let valenceData = (data["valence"] as? NSString)?.doubleValue else {
+                return
+            }
             
+            let maxJoyData = max(joyData, valenceData)
+            
+            currentProgressScore = Float(joyData/100)
             
         } else {
             
@@ -68,13 +77,11 @@ extension CameraViewCell: UpdateCameraFeedDelegate {
                 return
             }
             
-            guard let valenceData = (data["sadness"] as? NSString)?.doubleValue else {
+            guard let valenceData = (data["valence"] as? NSString)?.doubleValue else {
                 return
             }
             
-            let maxSadData = max(sadnessData, abs(valenceData))
-            
-            currentProgressScore = Float(maxSadData/100)
+            currentProgressScore = Float((sadnessData + (0.25*valenceData))/100)
             
         }
         
@@ -86,7 +93,6 @@ extension CameraViewCell: UpdateCameraFeedDelegate {
             SessionViewController.primingProgressIsFinished = true
             
             self.delegate?.didFinishPriming()
-            //FIXME: call a method to the datamanager to record when they actually reached the proepr value
             
             UIView.animate(withDuration: 0.2, animations: {
                 self.sliderContainer.backgroundColor = UIColor.green.withAlphaComponent(0.3)

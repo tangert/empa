@@ -8,14 +8,21 @@
 
 import Foundation
 
+
+//recursively iterate through all mirrored children and format the JSON
+
 class BaseModel {
+    
     func JSON() -> Any {
+        
         let mirroredObject = Mirror(reflecting: self)
         var JSON: [AnyHashable: Any] = [:]
     
         for (index, attr) in mirroredObject.children.enumerated() {
-            if let property_name = attr.label as String! {
-            JSON[property_name] = attr.value
+            if var property_name = attr.label as String! {
+                
+                JSON[property_name] = attr.value
+                
             }
         }
     

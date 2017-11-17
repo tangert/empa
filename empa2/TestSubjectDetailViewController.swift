@@ -15,6 +15,7 @@ class TestSubjectDetailViewController: UIViewController {
     
     // MARK: Unique identifiers
     var testSubject: TestSubject!
+    
     var sessions: [Session]! = []
     var sessionNib: UINib? = UINib(nibName: "SessionCell", bundle: nil)
 
@@ -48,18 +49,29 @@ class TestSubjectDetailViewController: UIViewController {
             ASDLabel.clipsToBounds = true
         }
     }
-    @IBOutlet weak var testGroupLabel: UILabel!
+    @IBOutlet weak var testGroupLabel: UILabel! {
+        didSet {
+            testGroupLabel.layer.cornerRadius = 5
+            testGroupLabel.clipsToBounds = true
+        }
+    }
+    
     @IBOutlet weak var tableView: UITableView!
+    
     @IBOutlet weak var startNewSessionBtn: UIButton! {
         didSet {
             startNewSessionBtn.layer.cornerRadius = 10
         }
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    override func viewWillDisappear(_ animated: Bool) {
+        //remove observers
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
         
-        sessionsRef.observe(.value, with: { (snapshot) in
+        sessionsRef.observeSingleEvent(of: .value, with: { (snapshot) in
             
             guard snapshot.exists() else {
                 //For edge case when removed all nodes
@@ -68,19 +80,65 @@ class TestSubjectDetailViewController: UIViewController {
                 return
             }
             
+            var newSessions: [Session] = []
             
             for child in snapshot.children.allObjects {
                 
                 let session = child as! DataSnapshot
                 let newSession = Session.init(snapshot: session)
-                self.sessions.append(newSession)
+                
+                print("new session: \(newSession.toString())")
+                
+                if newSession.userID == self.testSubject.id {
+                    newSessions.append(newSession)
+                }
+                
             }
             
-            
-//           self.sessions = newSessions
+            self.sessions = newSessions
             self.tableView.reloadData()
+            
         })
         
+//        sessionsRef.observeSingleEvent(of: .childRemoved, with: { (snapshot) in
+//
+//            print("child removing")
+//
+//            guard snapshot.exists() else {
+//                return
+//            }
+//
+////            print("REMOVAL SNAPSHOT: \(snapshot)")
+//
+//            var removedIDs: [String] = []
+//
+//            for child in snapshot.children.allObjects {
+//
+//                let session = child as! DataSnapshot
+//                let sessionToRemove = Session.init(snapshot: session)
+//
+//
+//                print("session to remove: \(sessionToRemove.toString())")
+//
+//                removedIDs.append(sessionToRemove.sessionID)
+//
+//            }
+//
+//            let filteredSessions = self.sessions.filter({ (session:Session) -> Bool in
+//                return !removedIDs.contains(session.sessionID)
+//            })
+//
+//            print("filtered: \(filteredSessions)")
+//
+//            self.sessions = filteredSessions
+//            self.tableView.reloadData()
+//
+//        })
+        
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
         
         if let testSubject = testSubject {
             nameLabel.text = "\(testSubject.fname!) \(testSubject.lname!)"
@@ -130,7 +188,9 @@ class TestSubjectDetailViewController: UIViewController {
     // MARK: Unwind
     
     @IBAction func unwindToPrevWithSegue(_ segue: UIStoryboardSegue) {
-        print("Back in the FirstViewController")
+        
+        DataManager.sharedInstance.didFinishSession()
+
     }
     
 }
@@ -138,7 +198,19 @@ class TestSubjectDetailViewController: UIViewController {
 extension TestSubjectDetailViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        // FIXME: Session count
+        return self.sessions.count
+    }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        
+        if (editingStyle == UITableViewCellEditingStyle.delete) {
+            DataManager.sharedInstance.deleteSession(id: sessions[indexPath.row].sessionID!)
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -147,6 +219,16 @@ extension TestSubjectDetailViewController: UITableViewDelegate, UITableViewDataS
         //How to initialize the session?
         cell.selectionStyle = .none
         cell.sessionNumberLabel.text = "Session: \(indexPath.row + 1)"
+        cell.sessionLengthLabel.text = "Length: \(sessions[indexPath.row].sessionLength!.rounded())s"
+        
+        cell.averageRatingLabel.text = "No scores"
+        
+        if let avgScore = sessions[indexPath.row].averageScore {
+            cell.averageRatingLabel.text = "Average: \(avgScore.rounded())"
+            cell.averageRatingLabel.textColor = colorInBetween(color1: FAILURE_RED, color2: EMPA_BLUE, percent: CGFloat(avgScore/100))
+        }
+        
+        cell.timestampLabel.text = "\(sessions[indexPath.row].startDateTimeString!)"
         
         return cell
     }

@@ -22,8 +22,8 @@ class FrontCameraView: UIImageView, UIGestureRecognizerDelegate {
         self.isUserInteractionEnabled = true
         let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleTap(_:)))
         tap.delegate = self
-        self.addGestureRecognizer(tap)
         
+//        self.addGestureRecognizer(tap)
 //        self.layer.addSublayer(placeHolderLayer)
         
         SessionViewController.nibInstanceDelegate = self
