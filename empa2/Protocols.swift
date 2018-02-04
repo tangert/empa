@@ -10,13 +10,29 @@ import Foundation
 import UIKit
 
 protocol DataManagerDelegate {
-    //notifies the datamanager when to consolidate all data
+    func didGetEmotionData(data: [String: AnyObject])
+    func didGetExpressionData(data: [String: AnyObject])
     func didExportData()
     func didUpdateTimer(counter: Double)
 }
 
 protocol UpdateCameraFeedDelegate {
     func willUpdateCameraFeed(image: UIImage)
-    func willUpdateEmojiLabel(input: String)
-    func willUpdateFaceLabel(input: String)
+    func willUpdateProgress(type: subjectType, data: [String: AnyObject])
+}
+
+protocol UpdateScoreDelegate {
+    func scoreDidChange(direction: String)
+}
+protocol TestSubjectCellDelegate {
+    func showAlert(title: String, message: String, testSubject: TestSubject)
+}
+
+//this is to signify when a specific instance has loaded.
+protocol LoadNibInstanceDelegate {
+    func nibInstanceDidLoad()
+}
+
+protocol UISliderDelegate {
+    func sliderDidChange(value: Float)
 }

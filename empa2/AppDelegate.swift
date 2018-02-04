@@ -7,15 +7,25 @@
 //
 
 import UIKit
+import Firebase
+import IQKeyboardManager
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        print("Successfully launched app")
+        
+        UITabBar.appearance().tintColor = EMPA_BLUE
+        IQKeyboardManager.shared().isEnabled = true
+        FirebaseApp.configure()
+        
+        //Data Manager initialization
+        let _ = DataManager()
+        
         return true
     }
 

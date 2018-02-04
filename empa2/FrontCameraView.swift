@@ -16,12 +16,17 @@ class FrontCameraView: UIImageView, UIGestureRecognizerDelegate {
     var placeHolderLayer = CALayer()
     var feedIsActive = false
     var videoDeviceInput: AVCaptureDeviceInput!
+    static var scoreDelegate: UpdateScoreDelegate?
     
     override func awakeFromNib() {
         self.isUserInteractionEnabled = true
         let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleTap(_:)))
         tap.delegate = self
-        self.addGestureRecognizer(tap)
+        
+//        self.addGestureRecognizer(tap)
+//        self.layer.addSublayer(placeHolderLayer)
+        
+        SessionViewController.nibInstanceDelegate = self
     }
     
     override func layoutSubviews() {
@@ -32,11 +37,24 @@ class FrontCameraView: UIImageView, UIGestureRecognizerDelegate {
     
     func handleTap(_ sender: UITapGestureRecognizer) {
         if feedIsActive == false {
-            self.layer.addSublayer(placeHolderLayer)
-            feedIsActive = true
-        } else {
+            FrontCameraView.scoreDelegate?.scoreDidChange(direction: "up")
             self.placeHolderLayer.removeFromSuperlayer()
+            feedIsActive = true
+            
+        } else {
+            FrontCameraView.scoreDelegate?.scoreDidChange(direction: "down")
+            
+            self.layer.addSublayer(placeHolderLayer)
             feedIsActive = false
+        }
+    }
+}
+
+extension FrontCameraView: LoadNibInstanceDelegate {
+    func nibInstanceDidLoad() {
+        if feedIsActive {
+//            self.layer.addSublayer(placeHolderLayer)
+//            feedIsActive = false
         }
     }
 }

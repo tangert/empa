@@ -7,7 +7,7 @@
 //
 
 #undef SDK_VERSION
-#define SDK_VERSION "3.1.1"
+#define SDK_VERSION "3.2.0"
 
 #import <TargetConditionals.h>
 #if TARGET_OS_IPHONE
@@ -23,30 +23,29 @@
 
 /**
  \mainpage
- Welcome to the Affdex SDK for iOS and OS X! With this SDK, your iOS and OS X apps will be able to detect faces and their facial expressions using the built-in camera, or via a file on your iOS device or Mac.
+ Welcome to the Affdex SDK for iOS and macOS! With this SDK, your iOS and macOS apps will be able to detect faces and their facial expressions using the built-in camera, or via a file on your iOS device or Mac.
  
  <b>Hardware Requirements</b>
  <br>
  <ul>
  <li>iOS: Any iPad, iPhone, or iPod Touch running iOS 8 or newer.</li>
- <li>OS X: A Mac running Mac OS X 10.10 Yosemite or newer.</li>
+ <li>macOS: A Mac running macOS 10.11 El Capitan or newer.</li>
  </ul>
  
  <b>Development Requirements</b>
  <br>
  <ul>
- <li> Xcode 7.3.1 or higher</li>
+ <li> Xcode 8.2.1 or higher</li>
  </ul>
  
  <b>Getting Started</b>
  <br>
- To get started, visit https://github.com/Affectiva and pull down the source for one of our demo apps. Ensure that the Code Signing settings for the various projects are setup correctly. For iOS, the identity is setup for "iPhone Developer" which should match your identity automatically.
+ To get started, visit https://github.com/Affectiva and pull down the source for one of our demo apps. Ensure that the Code Signing settings for the various projects are configured correctly. For iOS, the identity is configured for "iPhone Developer" which should match your identity automatically.
  ￼
  If you have any questions, comments or suggestions, please email them to sdk@affectiva.com.
  
  Enjoy the SDK!
  */
-
 
 
 /*****************************************/
@@ -97,14 +96,42 @@
 
 @end
 
+/*****************************************/
+/**********    FACE QUALITY     **********/
+/*****************************************/
+
 /**
  \brief
- FaceMode defines the face finding mode for the detector.
+ This class encapsulates all of the face quality metrics for the face.
  */
-typedef enum {
-    LARGE_FACES = 0,
-    SMALL_FACES = 1
-} FaceDetectorMode;
+@interface AFDXFaceQuality : NSObject <NSCoding>
+
+/**
+ \brief
+ Indicates how well the face is lit for purposes of analysis. Value range is [0, 100].
+ There are no hard boundaries, but the following ranges can be considered as general guidelines:
+ 0-10: too dark
+ 10-25: suboptimal
+ 25-75: well lit
+ 75-90: suboptimal
+ 90-100: too bright
+ */
+
+@property (assign) CGFloat brightness;
+
+/**
+ \brief
+ Returns an XML representation of the object
+ */
+- (NSString *)xmlDescription;
+
+/**
+ \brief
+ Returns a JSON representation of the object
+ */
+- (NSString *)jsonDescription;
+
+@end
 
 /*****************************************/
 /********** APPEARANCE  METRICS **********/
@@ -554,7 +581,6 @@ typedef enum {
 
 @end
 
-
 /*****************************************/
 /**********     FACE OBJECT     **********/
 /*****************************************/
@@ -576,6 +602,12 @@ typedef enum {
  orientation contains the orientation values for the face.
  */
 @property (strong) AFDXOrientation *orientation;
+
+/**
+ \brief
+ faceQuality contains the face quality metrics.
+ */
+@property (strong) AFDXFaceQuality *faceQuality;
 
 /**
  \brief
@@ -807,6 +839,14 @@ typedef enum {
 
 @end
 
+/**
+ \brief
+ FaceMode defines the face finding mode for the detector.
+ */
+typedef enum {
+    LARGE_FACES = 0,
+    SMALL_FACES = 1
+} FaceDetectorMode;
 
 /**
  \brief
@@ -1137,7 +1177,6 @@ typedef enum
  */
 - (void)setDetectEmojis:(BOOL)value;
 
-
 /**
  \brief
  Turns on or off all appearance classifiers at once.
@@ -1162,14 +1201,13 @@ typedef enum
  */
 - (void)setDetectAllExpressions:(BOOL)value;
 
-
 /**
  \brief
- Initializes the ADFXDetector for processing video from a capture device.
+ Initializes the ADFXDetector for processing video from a capture device using LARGE_FACES mode.
  
  This method initializes the Affdex facial expression engine and prepares it to receive video frames from any attached capture device. The caller specifices the AVCaptureDevice that will be used to capture the frames.
  
- Note that the object "owns" the camera device and will not reqlinuish it until the object is deallocated.
+ Note that the object "owns" the camera device and will not relinquish it until the object is deallocated.
  
  \param
  delegate     The object which will receive emotion messages.
@@ -1181,7 +1219,64 @@ typedef enum
  @result
  The newly created object.
  */
-- (id)initWithDelegate:(id <AFDXDetectorDelegate>)delegate usingCaptureDevice:(AVCaptureDevice *)device maximumFaces:(NSUInteger)maximumFaces;
+- (id)initWithDelegate:(id <AFDXDetectorDelegate>)delegate
+    usingCaptureDevice:(AVCaptureDevice *)device
+          maximumFaces:(NSUInteger)maximumFaces __attribute__((deprecated));
+
+/**
+ \brief
+ Initializes the ADFXDetector for processing video from a capture device.
+
+ This method initializes the Affdex facial expression engine and prepares it to receive video frames from any attached capture device. The caller specifices the AVCaptureDevice that will be used to capture the frames.
+
+ Note that the object "owns" the camera device and will not relinquish it until the object is deallocated.
+
+ \param
+ delegate     The object which will receive emotion messages.
+ \param
+ device       The AVCaptureDevice object that will be used.
+ \param
+ maximumFaces The maximum number of faces that will be detected by the detector.
+ \param
+ faceMode     The face detection mode (LARGE_FACES or SMALL_FACES)
+
+ @result
+ The newly created object.
+ */
+- (id)initWithDelegate:(id <AFDXDetectorDelegate>)delegate
+    usingCaptureDevice:(AVCaptureDevice *)device
+          maximumFaces:(NSUInteger)maximumFaces
+              faceMode:(FaceDetectorMode)faceMode;
+
+#if TARGET_OS_OSX
+/**
+ \brief
+ Initializes the ADFXDetector for processing video from a capture device.
+
+ This method initializes the Affdex facial expression engine and prepares it to receive video frames from any attached capture device. The caller specifices the AVCaptureDevice that will be used to capture the frames.
+
+ Note that the object "owns" the camera device and will not relinquish it until the object is deallocated.
+
+ \param
+ delegate     The object which will receive emotion messages.
+ \param
+ device       The AVCaptureDevice object that will be used.
+ \param
+ horizontalFlip Horizontally flip images before processing if enabled.
+ \param
+ maximumFaces The maximum number of faces that will be detected by the detector.
+ \param
+ faceMode     The face detection mode (LARGE_FACES or SMALL_FACES)
+
+ @result
+ The newly created object.
+ */
+- (id)initWithDelegate:(id <AFDXDetectorDelegate>)delegate
+    usingCaptureDevice:(AVCaptureDevice *)device
+    withHorizontalFlip:(BOOL)horizontalFlip
+          maximumFaces:(NSUInteger)maximumFaces
+              faceMode:(FaceDetectorMode)faceMode;
+#endif
 
 /**
  \brief
@@ -1190,7 +1285,7 @@ typedef enum
  This method initializes the Affdex facial expression engine and prepares it to receive video frames from the camera
  on the device. The caller specifices which camera (front or back) will be used to capture the frames.
  
- Note that the object "owns" the camera device and will not reqlinuish it until the object is deallocated.
+ Note that the object "owns" the camera device and will not relinquish it until the object is deallocated.
  
  \param
  delegate     The object which will receive emotion messages.
@@ -1202,7 +1297,9 @@ typedef enum
  @result
  The newly created object.
  */
-- (id)initWithDelegate:(id <AFDXDetectorDelegate>)delegate usingCamera:(AFDXCameraType)camera maximumFaces:(NSUInteger)maximumFaces __attribute__((deprecated));
+- (id)initWithDelegate:(id <AFDXDetectorDelegate>)delegate
+           usingCamera:(AFDXCameraType)camera
+          maximumFaces:(NSUInteger)maximumFaces __attribute__((deprecated));
 
 /**
  \brief
@@ -1211,7 +1308,7 @@ typedef enum
  This method initializes the Affdex facial expression engine and prepares it to receive video frames from the camera
  on the device. The caller specifices which camera (front or back) will be used to capture the frames.
  
- Note that the object "owns" the camera device and will not reqlinuish it until the object is deallocated.
+ Note that the object "owns" the camera device and will not relinquish it until the object is deallocated.
  
  \param
  delegate     The object which will receive emotion messages.
@@ -1225,7 +1322,10 @@ typedef enum
  @result
  The newly created object.
  */
-- (id)initWithDelegate:(id <AFDXDetectorDelegate>)delegate usingCamera:(AFDXCameraType)camera maximumFaces:(NSUInteger)maximumFaces faceMode:(FaceDetectorMode)faceMode __attribute__((deprecated));
+- (id)initWithDelegate:(id <AFDXDetectorDelegate>)delegate
+           usingCamera:(AFDXCameraType)camera
+          maximumFaces:(NSUInteger)maximumFaces
+              faceMode:(FaceDetectorMode)faceMode __attribute__((deprecated));
 
 /**
  \brief
@@ -1244,7 +1344,9 @@ typedef enum
  \result
  The newly created object.
  */
-- (id)initWithDelegate:(id <AFDXDetectorDelegate>)delegate usingFile:(NSString *)path maximumFaces:(NSUInteger)maximumFaces;
+- (id)initWithDelegate:(id <AFDXDetectorDelegate>)delegate
+             usingFile:(NSString *)path
+          maximumFaces:(NSUInteger)maximumFaces;
 
 /**
  \brief
@@ -1265,7 +1367,10 @@ typedef enum
  \result
  The newly created object.
  */
-- (id)initWithDelegate:(id <AFDXDetectorDelegate>)delegate usingFile:(NSString *)path maximumFaces:(NSUInteger)maximumFaces faceMode:(FaceDetectorMode)faceMode;
+- (id)initWithDelegate:(id <AFDXDetectorDelegate>)delegate
+             usingFile:(NSString *)path
+          maximumFaces:(NSUInteger)maximumFaces
+              faceMode:(FaceDetectorMode)faceMode;
 
 /**
  \brief
@@ -1283,7 +1388,9 @@ typedef enum
  \result
  The newly created object.
  */
-- (id)initWithDelegate:(id <AFDXDetectorDelegate>)delegate discreteImages:(BOOL)discrete maximumFaces:(NSUInteger)maximumFaces;
+- (id)initWithDelegate:(id <AFDXDetectorDelegate>)delegate
+        discreteImages:(BOOL)discrete
+          maximumFaces:(NSUInteger)maximumFaces;
 
 /**
  \brief
@@ -1303,7 +1410,10 @@ typedef enum
  \result
  The newly created object.
  */
-- (id)initWithDelegate:(id <AFDXDetectorDelegate>)delegate discreteImages:(BOOL)discrete maximumFaces:(NSUInteger)maximumFaces faceMode:(FaceDetectorMode)faceMode;
+- (id)initWithDelegate:(id <AFDXDetectorDelegate>)delegate
+        discreteImages:(BOOL)discrete
+          maximumFaces:(NSUInteger)maximumFaces
+              faceMode:(FaceDetectorMode)faceMode;
 
 /**
  \brief
@@ -1565,3 +1675,7 @@ typedef enum
 #endif
 
 @end
+
+// Jenkins Build Number
+#undef SDK_BUILD_NUMBER
+#define SDK_BUILD_NUMBER 621

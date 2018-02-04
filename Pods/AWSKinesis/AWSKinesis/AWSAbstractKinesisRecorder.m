@@ -1,5 +1,5 @@
 //
-// Copyright 2010-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// Copyright 2010-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License").
 // You may not use this file except in compliance with the License.
@@ -16,7 +16,7 @@
 #import "AWSAbstractKinesisRecorder.h"
 #import "AWSKinesis.h"
 #import "AWSBolts.h"
-#import "AWSLogging.h"
+#import "AWSCocoaLumberjack.h"
 #import "AWSCategory.h"
 #import "AWSFMDB.h"
 #import "AWSSynchronizedMutableDictionary.h"
@@ -85,16 +85,16 @@ NSString *const AWSKinesisAbstractClientRecorderDatabasePathPrefix = @"com/amazo
                                                                       attributes:nil
                                                                            error:&error];
             if (!success) {
-                AWSLogError(@"Failed to create a directory for database. [%@]", error);
+                AWSDDLogError(@"Failed to create a directory for database. [%@]", error);
             }
         }
 
         // Creates a database for the identifier if it doesn't exist.
-        AWSLogDebug(@"Database path: [%@]", _databasePath);
+        AWSDDLogDebug(@"Database path: [%@]", _databasePath);
         _databaseQueue = [AWSFMDatabaseQueue databaseQueueWithPath:_databasePath];
         [_databaseQueue inDatabase:^(AWSFMDatabase *db) {
             if (![db executeStatements:@"PRAGMA auto_vacuum = FULL"]) {
-                AWSLogError(@"Failed to enable 'aut_vacuum' to 'FULL'. %@", db.lastError);
+                AWSDDLogError(@"Failed to enable 'aut_vacuum' to 'FULL'. %@", db.lastError);
             }
 
             if (![db executeUpdate:
@@ -104,11 +104,11 @@ NSString *const AWSKinesisAbstractClientRecorderDatabasePathPrefix = @"com/amazo
                   @"data BLOB NOT NULL,"
                   @"timestamp REAL NOT NULL,"
                   @"retry_count INTEGER NOT NULL)"]) {
-                AWSLogError(@"SQLite error. [%@]", db.lastError);
+                AWSDDLogError(@"SQLite error. [%@]", db.lastError);
             }
 
             if (![db executeUpdate:@"VACUUM"]) {
-                AWSLogError(@"SQLite error. [%@]", db.lastError);
+                AWSDDLogError(@"SQLite error. [%@]", db.lastError);
             }
         }];
     }
@@ -128,6 +128,12 @@ NSString *const AWSKinesisAbstractClientRecorderDatabasePathPrefix = @"com/amazo
 
 - (AWSTask *)saveRecord:(NSData *)data
              streamName:(NSString *)streamName {
+    return [self saveRecord:data streamName:streamName partitionKey:[[NSUUID UUID] UUIDString]];
+}
+
+- (AWSTask *)saveRecord:(NSData *)data
+             streamName:(NSString *)streamName
+           partitionKey:(NSString *)partitionKey {
     // Returns error if the total size of data and partition key exceeds 256KB.
     if ([data length] > 256 * 1024) {
         return [AWSTask taskWithError:[self.recorderHelper dataTooLargeError]];
@@ -151,7 +157,7 @@ NSString *const AWSKinesisAbstractClientRecorderDatabasePathPrefix = @"com/amazo
                            @":partition_key, :stream_name, :data, :timestamp, :retry_count"
                            @")"
                     withParameterDictionary:@{
-                                              @"partition_key" : [[NSUUID UUID] UUIDString],
+                                              @"partition_key" : partitionKey,
                                               @"stream_name" : streamName,
                                               @"data" : data,
                                               @"timestamp" : @([[NSDate date] timeIntervalSince1970]),
@@ -161,7 +167,7 @@ NSString *const AWSKinesisAbstractClientRecorderDatabasePathPrefix = @"com/amazo
 
 
             if (!result) {
-                AWSLogError(@"SQLite error. [%@]", db.lastError);
+                AWSDDLogError(@"SQLite error. [%@]", db.lastError);
                 error = db.lastError;
             }
         }];
@@ -177,7 +183,7 @@ NSString *const AWSKinesisAbstractClientRecorderDatabasePathPrefix = @"com/amazo
                                                   }
                                ];
                 if (!result) {
-                    AWSLogError(@"SQLite error. [%@]", db.lastError);
+                    AWSDDLogError(@"SQLite error. [%@]", db.lastError);
                     error = db.lastError;
                 }
             }];
@@ -207,7 +213,7 @@ NSString *const AWSKinesisAbstractClientRecorderDatabasePathPrefix = @"com/amazo
                                    @")"
                                    ];
                     if (!result) {
-                        AWSLogError(@"SQLite error. [%@]", db.lastError);
+                        AWSDDLogError(@"SQLite error. [%@]", db.lastError);
                         error = db.lastError;
                         return;
                     }
@@ -241,7 +247,7 @@ NSString *const AWSKinesisAbstractClientRecorderDatabasePathPrefix = @"com/amazo
                                       @"ORDER BY timestamp ASC "
                                       @"LIMIT 128"];
                 if (!rs) {
-                    AWSLogError(@"SQLite error. Rolling back... [%@]", db.lastError);
+                    AWSDDLogError(@"SQLite error. Rolling back... [%@]", db.lastError);
                     error = db.lastError;
                     *rollback = YES;
                     return;
@@ -286,7 +292,7 @@ NSString *const AWSKinesisAbstractClientRecorderDatabasePathPrefix = @"com/amazo
                                                           @"partition_key" : partitionKey
                                                           }];
                         if (!result) {
-                            AWSLogError(@"SQLite error. [%@]", db.lastError);
+                            AWSDDLogError(@"SQLite error. [%@]", db.lastError);
                             error = db.lastError;
                         }
                     }
@@ -297,7 +303,7 @@ NSString *const AWSKinesisAbstractClientRecorderDatabasePathPrefix = @"com/amazo
                                                           @"partition_key" : partitionKey
                                                           }];
                         if (!result) {
-                            AWSLogError(@"SQLite error. [%@]", db.lastError);
+                            AWSDDLogError(@"SQLite error. [%@]", db.lastError);
                             error = db.lastError;
                         }
                     }
@@ -306,7 +312,7 @@ NSString *const AWSKinesisAbstractClientRecorderDatabasePathPrefix = @"com/amazo
                 // If a record failed three times, give up and delete the record.
                 BOOL result = [db executeUpdate:@"DELETE FROM record WHERE retry_count > 3"];
                 if (!result) {
-                    AWSLogError(@"SQLite error. [%@]", db.lastError);
+                    AWSDDLogError(@"SQLite error. [%@]", db.lastError);
                     error = db.lastError;
                 }
             }];
@@ -327,7 +333,7 @@ NSString *const AWSKinesisAbstractClientRecorderDatabasePathPrefix = @"com/amazo
         __block NSError *error = nil;
         [databaseQueue inDatabase:^(AWSFMDatabase *db) {
             if (![db executeUpdate:@"DELETE FROM record"]) {
-                AWSLogError(@"SQLite error. [%@]", db.lastError);
+                AWSDDLogError(@"SQLite error. [%@]", db.lastError);
                 error = db.lastError;
             }
         }];
@@ -347,7 +353,7 @@ NSString *const AWSKinesisAbstractClientRecorderDatabasePathPrefix = @"com/amazo
     if (attributes) {
         return (NSUInteger)[attributes fileSize];
     } else {
-        AWSLogError(@"Error [%@]", error);
+        AWSDDLogError(@"Error [%@]", error);
         return 0;
     }
 }

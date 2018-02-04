@@ -1,8 +1,8 @@
 ![Affectiva Logo](http://developer.affectiva.com/images/logo.png)
 
-##Affdex SDK for iOS v3.1.1
+##Affdex SDK for iOS v3.2.0
 
-####Copyright (c) 2016 Affectiva Inc.<br>See our [SDK License Agreement](http://developer.affectiva.com/sdklicense) for copying permission.
+####Copyright (c) 2017 Affectiva Inc.<br/>See our [SDK License Agreement](http://developer.affectiva.com/sdklicense) for copying permission.
 
 Welcome to the Affdex SDK for iOS.
 
@@ -20,7 +20,7 @@ http://developer.affectiva.com/sdklicense
 
 __The Affdex SDK for iOS is distributed as a [CocoaPod](https://cocoapods.org/pods/AffdexSDK-iOS). If you do not have CocoaPods installed on your Mac, please install it using the instructions in the [CocoaPods Getting Started Guide](https://guides.cocoapods.org/using/getting-started.html).__
 
-#### 1. Create a Podfile.
+#### 1. Create a Podfile
 
 After you have installed CocoaPods on your Mac, create a file named "Podfile" in your project directory.  This is the directory which contains the .xcodeproj and/or .xcworkspace files for your project.  The Podfile is a plain-text file which describes the framework and library dependencies that your project contains.  Installing the pod file will load and configure the Affdex SDK framework for use with your project.
 
@@ -47,14 +47,15 @@ end
 
 *Note: The post_install step is required in order to configure the AWS subdependencies of the Affdex SDK (the 'AWSCore' and 'AWSKinesis' targets) if your app supports bitcode.  If you do not require bitcode support in your app, this section can be omitted from the Podfile.*
 
-#### 2. Run the `pod install` command.
+#### 2. Install the Affdex SDK CocoaPod
 
-With the Podfile created, run the following command from the Terminal application:
+With the Podfile created, run the following commands from the Terminal application:
 
 ```
+pod repo update
 pod install
 ```
 
-This command will install the SDK and support pods into the Pods folder, and will create or update the Xcode workspace file to support building from the pods.  Make sure to open the .xcworkspace file in Xcode instead of the .xcodeproj file from this point onwards.  You can now build and run the project to a device or simulator from Xcode.
+This will install the SDK and support pods into the Pods folder, and will create or update the Xcode workspace file to support building from the pods.  Make sure to open the .xcworkspace file in Xcode instead of the .xcodeproj file from this point onwards.  You can now build and run the project to a device or simulator from Xcode.
 
 After you run `pod install` your app will be linked to the most recent release of the Affdex SDK, although you can also configure your Podfile to install a specific version of the SDK if you choose.  Your project will continue to use this version even if newer versions of the SDK are released.  Use the `pod update` command to update to newer SDK releases as they become available.
