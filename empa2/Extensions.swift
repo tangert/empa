@@ -22,6 +22,21 @@ extension String {
         print("Cannot convert JSON to Dictionary.")
         return nil
     }
+    
+    subscript (i: Int) -> Character {
+        return self[index(startIndex, offsetBy: i)]
+    }
+    
+    subscript (i: Int) -> String {
+        return String(self[i] as Character)
+    }
+    
+    subscript (r: Range<Int>) -> String {
+        let start = index(startIndex, offsetBy: r.lowerBound)
+        let end = index(startIndex, offsetBy: r.upperBound)
+        return self[Range(start ..< end)]
+    }
+    
 }
 
 extension Int {
@@ -50,18 +65,34 @@ extension UIView {
     }
     
     func dropShadow(radius: CGFloat) {
-        self.layer.masksToBounds = false
         self.layer.shadowColor = UIColor.black.cgColor
-        self.layer.shadowOpacity = 0.075
-        self.layer.shadowOffset = CGSize(width: -5, height: -5)
+        self.layer.shadowOpacity = DROP_SHADOW_OPACITY
+        self.layer.shadowOffset = CGSize(width: 0, height: 0)
         self.layer.shadowRadius = radius
-        self.layer.shadowPath = UIBezierPath(rect: self.bounds).cgPath
-        self.layer.shouldRasterize = true
-        
-        self.layer.rasterizationScale = UIScreen.main.scale
-        
     }
 }
+
+extension CALayer {
+    
+    func dropShadow(radius: CGFloat) {
+        self.shadowColor = UIColor.black.cgColor
+        self.shadowOpacity = DROP_SHADOW_OPACITY
+        self.shadowOffset = CGSize(width: 0, height: 0)
+        self.shadowRadius = radius
+    }
+    
+}
+
+extension UILabel {
+    func addCharacterSpacing(spacing: CGFloat) {
+        if let labelText = text, labelText.count > 0 {
+            let attributedString = NSMutableAttributedString(string: labelText)
+            attributedString.addAttribute(NSKernAttributeName, value: spacing, range: NSRange(location: 0, length: attributedString.length - 1))
+            attributedText = attributedString
+        }
+    }
+}
+
 
 extension UIColor {
     

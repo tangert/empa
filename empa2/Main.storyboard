@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="9iq-V9-qSY">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="9iq-V9-qSY">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -110,7 +110,7 @@
         <scene sceneID="Fuq-Ot-1BO">
             <objects>
                 <navigationController id="g2q-Aa-TeR" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Data Acquisition" id="Zmc-2s-XTM"/>
+                    <tabBarItem key="tabBarItem" title="Data Acquisition" image="bar-chart" selectedImage="bar-chart" id="Zmc-2s-XTM"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="5W9-xV-1Q1">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -561,7 +561,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Settings" id="kvk-VR-24q"/>
+                    <tabBarItem key="tabBarItem" title="Settings" image="settings" selectedImage="settings" id="kvk-VR-24q"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="F69-uw-Uws" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -609,6 +609,9 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="5kp-wC-5P6" kind="show" id="P82-4w-XyK"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
@@ -626,7 +629,7 @@
                                     <constraint firstAttribute="height" constant="57" id="Low-ez-MZx"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="25"/>
-                                <state key="normal" title="Start New Session">
+                                <state key="normal" title="Start">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -717,6 +720,24 @@
             </objects>
             <point key="canvasLocation" x="-962.39999999999998" y="-153.37331334332833"/>
         </scene>
+        <!--View Controller-->
+        <scene sceneID="YhW-2z-KLa">
+            <objects>
+                <viewController id="5kp-wC-5P6" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="gnr-zg-bVt"/>
+                        <viewControllerLayoutGuide type="bottom" id="a57-wr-QZZ"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="bbc-QQ-d3k">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="llG-Cr-3Ry" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-170" y="-413"/>
+        </scene>
         <!--SessionViewController-->
         <scene sceneID="Nev-Ph-37H">
             <objects>
@@ -789,8 +810,12 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ugZ-Pv-EIS" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="WF5-dH-6Dq" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="-178.40000000000001" y="-154.27286356821591"/>
+            <point key="canvasLocation" x="-170" y="278"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="bar-chart" width="25" height="25"/>
+        <image name="settings" width="25" height="25"/>
+    </resources>
     <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
 </document>

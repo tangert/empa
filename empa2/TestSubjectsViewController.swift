@@ -36,6 +36,10 @@ class TestSubjectsViewController: UICollectionViewController {
             
             var newSubjects: [TestSubject] = []
             
+            //If a testsubject is removed, remove all of the sessions appropriately
+            print("SNAPSHOT: \(snapshot.value)")
+            
+            // Reload the updated test subjects
             for child in snapshot.children.allObjects {
                 
                 let testSubject = child as! DataSnapshot
@@ -45,8 +49,9 @@ class TestSubjectsViewController: UICollectionViewController {
             
             self.testSubjects = newSubjects
             self.collectionView?.reloadData()
-            print("Test Subjects: \(self.testSubjects)")
+        
         })
+        
         
         
         let width = collectionView!.frame.width

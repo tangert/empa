@@ -57,48 +57,48 @@ extension CameraViewCell: UpdateCameraFeedDelegate {
     
         guard !SessionViewController.primingProgressIsFinished else { return }
         
-        if type == .happy {
-            
-            guard let joyData = (data["joy"] as? NSString)?.doubleValue else {
-                return
+            if type == .happy {
+                
+                guard let joyData = (data["joy"] as? NSString)?.doubleValue else {
+                    return
+                }
+                
+                guard let valenceData = (data["valence"] as? NSString)?.doubleValue else {
+                    return
+                }
+                
+                let maxJoyData = max(joyData, valenceData)
+                
+                currentProgressScore = Float(joyData/100)
+                
+            } else {
+                
+                guard let sadnessData = (data["sadness"] as? NSString)?.doubleValue else {
+                    return
+                }
+                
+                guard let valenceData = (data["valence"] as? NSString)?.doubleValue else {
+                    return
+                }
+                
+                currentProgressScore = Float((sadnessData + (0.25*valenceData))/100)
+                
             }
             
-            guard let valenceData = (data["valence"] as? NSString)?.doubleValue else {
-                return
+            progressView.setProgress(currentProgressScore*1.5, animated: true)
+            
+            if(progressView.progress == 1.0) {
+                print("finished!")
+                
+                SessionViewController.primingProgressIsFinished = true
+                
+                self.delegate?.didFinishPriming()
+                
+                UIView.animate(withDuration: 0.2, animations: {
+                    self.sliderContainer.backgroundColor = UIColor.green.withAlphaComponent(0.3)
+                    self.progressView.progressTintColor = UIColor.green.withAlphaComponent(0.6)
+                })
             }
-            
-            let maxJoyData = max(joyData, valenceData)
-            
-            currentProgressScore = Float(joyData/100)
-            
-        } else {
-            
-            guard let sadnessData = (data["sadness"] as? NSString)?.doubleValue else {
-                return
-            }
-            
-            guard let valenceData = (data["valence"] as? NSString)?.doubleValue else {
-                return
-            }
-            
-            currentProgressScore = Float((sadnessData + (0.25*valenceData))/100)
-            
-        }
-        
-        progressView.setProgress(currentProgressScore*1.5, animated: true)
-        
-        if(progressView.progress == 1.0) {
-            print("finished!")
-            
-            SessionViewController.primingProgressIsFinished = true
-            
-            self.delegate?.didFinishPriming()
-            
-            UIView.animate(withDuration: 0.2, animations: {
-                self.sliderContainer.backgroundColor = UIColor.green.withAlphaComponent(0.3)
-                self.progressView.progressTintColor = UIColor.green.withAlphaComponent(0.6)
-            })
-        }
         
     }
     

@@ -28,7 +28,7 @@ class TestSubject: BaseModel {
          testGroup: Int,
          ASD: Bool) {
         
-        self.id = UUID().uuidString
+        self.id = "\(String(describing: fname.first!))_\(lname)_\(Date().description.hashValue)"
         self.fname = fname
         self.lname = lname
         self.sex = sex

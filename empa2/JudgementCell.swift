@@ -21,13 +21,6 @@ class JudgementCell : UICollectionViewCell {
     let origImage = UIImage(named: "next")
     var tintedImage: UIImage!
     
-    @IBOutlet weak var sliderContainer: UIView! {
-        didSet {
-            sliderContainer.layer.cornerRadius = 10
-            sliderContainer.clipsToBounds = true
-            sliderContainer.dropShadow(radius: 10)
-        }
-    }
     override func awakeFromNib() {
         tintedImage = origImage?.withRenderingMode(.alwaysTemplate)
         
@@ -38,7 +31,20 @@ class JudgementCell : UICollectionViewCell {
         }
     }
     
-    @IBOutlet weak var slider: UISlider!
+    @IBOutlet weak var sliderContainer: UIView! {
+        didSet {
+            sliderContainer.layer.cornerRadius = 10
+            sliderContainer.clipsToBounds = true
+            sliderContainer.dropShadow(radius: 10)
+        }
+    }
+    
+    @IBOutlet weak var slider: UISlider! {
+        didSet {
+            slider.isContinuous = false
+        }
+    }
+    
     @IBOutlet weak var placeholderImage: UIImageView! {
         didSet {
             placeholderImage.layer.cornerRadius = 10
@@ -65,13 +71,12 @@ class JudgementCell : UICollectionViewCell {
     //FIXME:
     var delegate: JudgementTaskDelegate?
     
-    
     @IBAction func pressNext(_ sender: Any) {
         delegate?.didPressNext()
     }
     
     @IBAction func sliderChanged(_ sender: UISlider) {
-        
+        print("VALUE: \(sender.value)")
         delegate?.didJudgeImage(tag: self.tag, value: sender.value)
     }
 }

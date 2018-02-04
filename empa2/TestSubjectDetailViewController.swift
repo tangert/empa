@@ -41,6 +41,8 @@ class TestSubjectDetailViewController: UIViewController {
         didSet {
             ageLabel.layer.cornerRadius = 5
             ageLabel.clipsToBounds = true
+            ageLabel.addCharacterSpacing(spacing: 2)
+            ageLabel.text! = ageLabel.text!.uppercased()
         }
     }
     @IBOutlet weak var ASDLabel: UILabel! {
@@ -53,6 +55,8 @@ class TestSubjectDetailViewController: UIViewController {
         didSet {
             testGroupLabel.layer.cornerRadius = 5
             testGroupLabel.clipsToBounds = true
+            testGroupLabel.addCharacterSpacing(spacing: 2)
+            testGroupLabel.text! = testGroupLabel.text!.uppercased()
         }
     }
     

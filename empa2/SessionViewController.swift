@@ -26,12 +26,13 @@ class SessionViewController: UIViewController {
     var cameraViewNib: UINib? = UINib(nibName: "CameraViewCell", bundle: nil)
     
     // MARK : Global Timer Variables.
-    //total session timer
+    //Total session timer
     var sessionTimer: Timer!
     static var timerIsRunning = false
-    //other timers?
+    static var instructionsPassed = false
+
     
-    //priming progress
+    //Priming progress
     static var primingProgressIsFinished: Bool!
 
     var detector: AFDXDetector? = nil
@@ -115,14 +116,21 @@ class SessionViewController: UIViewController {
         
         let ok = UIAlertAction(title: "Let's go!", style: .default) { (alert) in
             //Start detector on ok
-            self.createDetector()
             DataManager.sharedInstance.startDateTime = Date()
+            SessionViewController.instructionsPassed = true
         }
         
         alert.addAction(ok)
         self.present(alert, animated: true, completion: nil)
         
         faceShownLabel.textColor = UIColor.white
+
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.createDetector()
 
     }
     
@@ -154,7 +162,7 @@ extension SessionViewController: AFDXDetectorDelegate {
     func detector(_ detector: AFDXDetector!, didStartDetecting face: AFDXFace!) {
         self.sessionTimer = Timer.scheduledTimer(timeInterval: 0.1, target:self, selector: #selector(SessionViewController.updateCounter), userInfo: nil, repeats: true)
         
-        if(!SessionViewController.timerIsRunning) {
+        if(!SessionViewController.timerIsRunning && SessionViewController.instructionsPassed) {
             SessionViewController.timerIsRunning = true
         }
         
@@ -217,7 +225,10 @@ extension SessionViewController: AFDXDetectorDelegate {
                     
                     // if progress is already met
                     if(!SessionViewController.primingProgressIsFinished) {
-                        SessionViewController.cameraDelegate?.willUpdateProgress(type: self.subjectType, data: jsonArray!)
+                        
+                        if (SessionViewController.instructionsPassed) {
+                            SessionViewController.cameraDelegate?.willUpdateProgress(type: self.subjectType, data: jsonArray!)
+                        }
                     }
                     
                 }
@@ -429,8 +440,7 @@ extension SessionViewController: UICollectionViewDelegate, UICollectionViewDataS
                 cell.delegate = self
                 
                 if (indexPath.row == self.images.count-1) {
-                    print("LAST CELL")
-                    cell.isLast = true
+                    cell.nextButton.isHidden = true
                 }
 
                 guard DataManager.sharedInstance.slideVisitTimestamps["\(cell.tag)"] == nil else {
@@ -479,7 +489,6 @@ extension SessionViewController: PrimingCellDelegate {
         DataManager.sharedInstance.didFinishPriming(time: self.roundedCounter)
         collectionView.isScrollEnabled = true
         
-        
         //Showing the user success
         UIView.animate(withDuration: 0.5, animations: {
             self.faceShownLabel.layer.opacity = 1
@@ -501,7 +510,6 @@ extension SessionViewController: PrimingCellDelegate {
                     
                 })
             })
-            
         }
     }
 }

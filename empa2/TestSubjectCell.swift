@@ -46,7 +46,10 @@ class TestSubjectCell: UICollectionViewCell {
         
         self.layer.cornerRadius = 10
         self.layer.backgroundColor = UIColor.white.cgColor
-        self.dropShadow(radius: 7.5)
+        self.layer.borderColor = UIColor.black.withAlphaComponent(0.05).cgColor
+        self.layer.borderWidth = 2
+        self.layer.dropShadow(radius: 10)
+
     }
     
     func showDeleteButton() {

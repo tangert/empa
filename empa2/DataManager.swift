@@ -86,17 +86,23 @@ extension DataManager {
     }
     
     func deleteTestSubject(id: String) {
+        
+        //Delete the test subject
         testSubjectRef.child(id).removeValue()
         
-        
+        //All the sessions will be deleted inside of the observer in the VC
     }
     
     // MARK: Sessions
     // FIXME: don't use an intermediary session data strucutre anymore
-    //just directly access the intermediate data strcutres present in the manager
+    //just directly access the intermediate data structures present in the manager
     
     func createSession(session: Session) {
         
+        //First add to the list of sessions inside the user
+        testSubjectRef.child(currentUserID!).child("sessionIDs").child(session.sessionID).setValue(true)
+        
+        //Append to the session
         let currentSession = sessionsRef.child(session.sessionID)
         
         currentSession.child("userID").setValue(session.userID)
@@ -127,8 +133,8 @@ extension DataManager {
             let currentSlide = slideData.child("\(slideNumber)")
             currentSlide.child("timestamps").setValue(slideVisitTimestamps[slideNumber])
             
-            let score = session.slideData[slideNumber]!["score"]
-            currentSlide.child("score").setValue(score)
+            let score = session.slideData[slideNumber]!["scores"]
+            currentSlide.child("scores").setValue(score)
         }
         
         
@@ -137,13 +143,16 @@ extension DataManager {
         primingData.child("primingLength").setValue(self.primingData["primingLength"])
         primingData.child("testGroup").setValue(self.primingData["testGroup"])
         
-        //Setting the user
-//        let currentSubject = testSubjectRef.child(currentUserID!).child
-        
     }
     
     func deleteSession(id: String) {
+        
+        //Delete the session directly
         sessionsRef.child(id).removeValue()
+        
+        //Delete the session from the user list
+        testSubjectRef.child(currentUserID!).child("sessionIDs").child(id).removeValue()
+        
     }
     
     func clearAllData() {
@@ -171,10 +180,17 @@ extension DataManager {
 
         for slide in slideData.keys {
             
-            let data = slideData[slide]!["score"]! as! [String: Any]
-            let value = data["value"]!
+            var slideTotal: Float = 0
             
-            totalScore += value as! Float
+            let scores = slideData[slide]!["scores"]! as! [String: Any]
+            
+            for score in scores.values {
+                slideTotal += score as! Float
+            }
+            
+            var slideAvg = slideTotal/Float(scores.values.count)
+            
+            totalScore += slideAvg
         }
         
         return Double(totalScore)/numScores
@@ -231,18 +247,26 @@ extension DataManager {
     
     
         func didJudgeImage(tag: Int, value: Float, counter: Double) {
+
+            var prevSlideData = slideData["\(tag)"]
+            let adjustedCounter = counter.description.replacingOccurrences(of: ".", with: "_")
+
+            if prevSlideData == nil {
+                
+                slideData.updateValue(["scores":[adjustedCounter:value]], forKey: "\(tag)")
+                
+            } else {
             
-            //FIXME: create a nondestructive way of updating both values under the key
-            slideData.updateValue( [ "score" : [ "timestamp" : counter ,  "value" : value  ] ], forKey: "\(tag)")
-        
+                var prevVals: [String:Float] = prevSlideData!["scores"]! as! [String : Float]
+                prevVals[adjustedCounter] = value
+                
+                slideData.updateValue(["scores":prevVals], forKey: "\(tag)")
+                print("SLIDE DATA: \(slideData)")
+                
+            }
+            
         }
     
-    
-    /*
-     
-     "tag":
-         "timestamps"
- */
 
     // MARK: Priming data
     

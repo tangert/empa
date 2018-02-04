@@ -19,7 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         print("Successfully launched app")
         
-       
+        UITabBar.appearance().tintColor = EMPA_BLUE
         IQKeyboardManager.shared().isEnabled = true
         FirebaseApp.configure()
         

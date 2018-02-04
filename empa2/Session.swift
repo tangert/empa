@@ -68,7 +68,7 @@ class Session: BaseModel {
          primingData: [String: Any],
          averageScore: Double) {
         
-        self.sessionID = UUID().uuidString
+        self.sessionID = "\(userID)_\(startDateTimeString)"
         self.userID = userID
         self.startDateTimeString = startDateTimeString
         self.sessionLength = sessionLength
